@@ -1,0 +1,24 @@
+{
+  "name": "nacl",
+  "version": "0.1.0",
+  "description": "Express Access control list",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine-node tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andela-thomas/express-access-control-list.git"
+  },
+  "keywords": [
+    "nacl",
+    "express-acl",
+    "acl"
+  ],
+  "author": "thomas.nyambati@andela.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andela-thomas/express-access-control-list/issues"
+  },
+  "homepage": "https://github.com/andela-thomas/express-access-control-list#readme"
+}
