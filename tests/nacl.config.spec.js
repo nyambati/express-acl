@@ -29,7 +29,8 @@ describe('Express Access Control List Module', function() {
       });
 
       assert(typeof rules, 'string');
-      assert.deepEqual(rules, '\u001b[33mPolicy not set, All traffic will be denied\u001b[39m');
+      assert.deepEqual(rules, '\u001b[33mPolicy not set, ' +
+        'All traffic will be denied\u001b[39m');
 
     });
 

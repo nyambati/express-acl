@@ -17,7 +17,7 @@ describe('Acl middleware for express', function() {
     "action": "deny"
    }
    */
-  describe('Policy traffic restriction testing based on "*" and action: deny', function() {
+  describe('Policy based on "*" and action: deny', function() {
     beforeEach(function(done) {
       acl.config({
         path: './tests/all-glob-deny.json'
@@ -163,7 +163,7 @@ describe('Acl middleware for express', function() {
       "action": "deny"
      }
      */
-  describe('Policy traffic restriction testing based on "*" and action: allow', function() {
+  describe('Policy  based on "*" and action: allow', function() {
     beforeEach(function(done) {
       acl.config({
         path: './tests/all-glob-allow.json'

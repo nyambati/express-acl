@@ -95,7 +95,7 @@ describe('Acl middleware for express', function() {
       done();
     });
 
-    it('should allow traffic for the user when role is defined on /api/user/42', function(done) {
+    it('should allow when role is defined on /api/user/42', function(done) {
 
       req.decoded.role = 'user';
       /**
@@ -135,7 +135,7 @@ describe('Acl middleware for express', function() {
     "action": "allow"
    }
    */
-  describe('Policy traffic restriction testing based on action "allow"', function() {
+  describe('Policy test based on action "allow"', function() {
     beforeEach(function(done) {
       acl.config();
       done();
@@ -384,7 +384,8 @@ describe('Acl middleware for express', function() {
 
       /**
        * Traffic should be allowed
-       * {The policy denies traffic on the below methods, but allow traffic to other methods not specified}
+       * {The policy denies traffic on the below methods,
+       * but allow traffic to other methods not specified}
        * methods: ["POST","GET","PUT"]
        * action: "allow"
        */

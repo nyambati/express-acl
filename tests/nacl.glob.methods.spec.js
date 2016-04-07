@@ -17,7 +17,7 @@ describe('Acl middleware for express', function() {
     "action": "deny"
    }
    */
-  describe('Policy testing based on action: "deny and methods glob "*"', function() {
+  describe('Policy based on action: "deny and methods glob "*"', function() {
     beforeEach(function(done) {
       acl.config({
         path: './tests/methods-glob-deny.json'
