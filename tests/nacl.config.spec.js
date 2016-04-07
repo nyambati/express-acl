@@ -1,5 +1,4 @@
 var assert = require('assert');
-var expect = require('chai').expect;
 var acl = require('../');
 
 describe('Express Access Control List Module', function() {
@@ -15,13 +14,13 @@ describe('Express Access Control List Module', function() {
         encoding: 'UTF-8'
       });
       assert(Array.isArray(rules), true);
-      expect(rules.length).to.be.above(1);
+      assert(rules.length, 1);
     });
 
     it('Should load the config.json from the root folder', function() {
       var rules = acl.config();
       assert(Array.isArray(rules), true);
-      expect(rules.length).to.equal(1);
+      assert(rules.length, 1);
     });
 
     it('Log error when no policy is defined', function() {
@@ -30,7 +29,7 @@ describe('Express Access Control List Module', function() {
       });
 
       assert(typeof rules, 'string');
-      expect(rules).to.equal('\u001b[33mPolicy not set, All traffic will be denied\u001b[39m');
+      assert.deepEqual(rules, '\u001b[33mPolicy not set, All traffic will be denied\u001b[39m');
 
     });
 
