@@ -1,24 +1,32 @@
 {
-  "name": "nacl",
+  "name": "express-acl",
   "version": "0.1.0",
-  "description": "Express Access control list",
+  "description": "Access control list manager for Expressjs",
   "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
   "scripts": {
-    "test": "jasmine-node tests"
+    "test": "mocha tests"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/andela-thomas/express-access-control-list.git"
+    "url": "https://github.com/andela-thomas/express-access-control-list/"
   },
   "keywords": [
-    "nacl",
+    "acl",
     "express-acl",
-    "acl"
+    "node-acl"
   ],
-  "author": "thomas.nyambati@andela.com",
+  "author": "Nyambati Thomas <thomasnyambati@gmail.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/andela-thomas/express-access-control-list/issues"
+  "dependencies": {
+    "colors": "^1.1.2",
+    "npmlog": "^2.0.3"
   },
-  "homepage": "https://github.com/andela-thomas/express-access-control-list#readme"
+  "devDependencies": {
+    "debug": "^2.2.0",
+    "mocha": "^2.4.5",
+    "chai": "^3.5.0"
+  }
 }
