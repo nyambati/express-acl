@@ -1,0 +1,8 @@
+# should not be published by NPM
+.gitignore
+tests
+config.json
+examples
+.houd.yml
+.eslintrc
+.codeclimate.yml
