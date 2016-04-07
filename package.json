@@ -1,0 +1,34 @@
+{
+  "name": "express-acl",
+  "version": "0.1.0",
+  "description": "Access control list manager for Expressjs",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "mocha tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andela-thomas/express-access-control-list/"
+  },
+  "keywords": [
+    "acl",
+    "express-acl",
+    "node-acl"
+  ],
+  "author": "Nyambati Thomas <thomasnyambati@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "npmlog": "^2.0.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "debug": "^2.2.0",
+    "mocha": "^2.4.5",
+    "mock-express": "0.0.4",
+    "node-mocks-http": "^1.5.2"
+  }
+}

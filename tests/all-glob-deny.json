@@ -1,0 +1,8 @@
+[{
+  "group": "user",
+  "permissions": [{
+    "resource": "*",
+    "methods": "*"
+  }],
+  "action": "deny"
+}]
