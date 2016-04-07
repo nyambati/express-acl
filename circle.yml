@@ -1,0 +1,10 @@
+dependencies:
+
+  post:
+    - npm install module-deps
+    - npm install gulp -g
+    - npm install mocha -g
+
+test:
+  override:
+    - npm test
