@@ -5,10 +5,11 @@ describe('Express Access Control List Module', function() {
   /**
    * [Load config file]
    * @param  {[json]} )
-   * This tests check whether the modules loads the config file, and gives all the neccesary warnings when neccesary
+   * This tests check whether the modules loads
+   * the config file, and gives all the neccesary warnings when neccesary
    */
   describe('Loading the config file (config.json', function() {
-    it('should load the config.json when acl.config is called  with path', function() {
+    it('should load config jsonfile when path is specifyed', function() {
       var rules = acl.config({
         path: './tests/config.json',
         encoding: 'UTF-8'
@@ -34,7 +35,7 @@ describe('Express Access Control List Module', function() {
 
     });
 
-    it('should add the rules to the "opt" object', function() {
+    it('should add the rules to the "opt" object ', function() {
       acl.config();
       var data = acl.getRules();
       assert(Array.isArray(data), true);

@@ -134,7 +134,8 @@ describe('Acl middleware for express', function() {
 
       /**
        * Traffic should be allowed
-       * {The policy denies traffic on the below methods, but allow traffic to other methods not specified}
+       * {The policy denies traffic on the below
+       *  methods, but allow traffic to other methods not specified}
        * methods: ["POST","GET","PUT"]
        * action: "deny"
        */
@@ -167,7 +168,7 @@ describe('Acl middleware for express', function() {
     "action": "allow"
    }
    */
-  describe('Policy testing based on action: "deny and resource glob "*"', function() {
+  describe('Policy based on action: "deny and resource glob "*"', function() {
     beforeEach(function(done) {
       acl.config({
         path: './tests/methods-glob-allow.json'
@@ -281,7 +282,8 @@ describe('Acl middleware for express', function() {
 
       /**
        * Traffic should be allowed
-       * {The policy denies traffic on the below methods, but allow traffic to other methods not specified}
+       * {The policy denies traffic on the below methods,
+       *  but allow traffic to other methods not specified}
        * methods: ["POST","GET","PUT"]
        * action: "allow"
        */

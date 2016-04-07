@@ -106,7 +106,8 @@ describe('Acl middleware for express', function() {
 
       acl.authorize(req, res, next);
       /**
-       * when traffic is allowed it next method will be called and changed allowed to true
+       * when traffic is allowed it next method
+       *  will be called and changed allowed to true
        *
        */
       var data = res._getData();
