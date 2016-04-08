@@ -7,7 +7,8 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "mocha tests"
+    "test": "mocha tests",
+    "test-travis": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec ./tests/*"
   },
   "repository": {
     "type": "git",
@@ -26,8 +27,10 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "coveralls": "^2.11.9",
     "debug": "^2.2.0",
     "express": "^4.13.4",
+    "istanbul": "^0.4.3",
     "mocha": "^2.4.5",
     "node-mocks-http": "^1.5.2"
   }

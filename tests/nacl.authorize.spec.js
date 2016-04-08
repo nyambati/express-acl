@@ -118,6 +118,30 @@ describe('Acl middleware for express', function() {
 
       done();
     });
+
+    it('should deny access if no policy for such role', function(done) {
+
+      req.decoded.role = 'guest';
+      /**
+       * Ensure that the allowed is false;
+       */
+
+      assert(typeof next, 'function');
+
+      acl.authorize(req, res, next);
+      /**
+       * when traffic is allowed it next method
+       *  will be called and changed allowed to true
+       *
+       */
+      var data = res._getData();
+      assert(data, true);
+      assert.deepEqual(data.status, 403);
+      assert.deepEqual(data.success, false);
+      assert.deepEqual(data.error, 'ACCESS DENIED');
+
+      done();
+    });
   });
 
   /**

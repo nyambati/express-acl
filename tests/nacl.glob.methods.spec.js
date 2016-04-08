@@ -90,7 +90,7 @@ describe('Acl middleware for express', function() {
       req.session = {};
       res.allowed = false;
 
-      req.decoded.role = 'user';
+      req.session.role = 'user';
 
       acl.authorize(req, res, next);
 
@@ -294,6 +294,55 @@ describe('Acl middleware for express', function() {
       assert.deepEqual(data.status, 200);
       assert.deepEqual(data.success, true);
       assert.deepEqual(data.message, 'ACCESS GRANTED');
+
+      done();
+    });
+  });
+
+  describe('When no methods are defined', function() {
+    beforeEach(function(done) {
+      acl.config({
+        path: './tests/no-method.json'
+      });
+
+      done();
+    });
+
+    it('should deny traffic to any route', function(done) {
+      req = httpMocks.createRequest({
+        method: 'DElETE',
+        url: '/api/mangoes/42',
+        params: {
+          id: 42
+        }
+      });
+
+      res = httpMocks.createResponse({
+        eventEmitter: require('events').EventEmitter
+      });
+
+      req.decoded = {};
+      req.session = {};
+      res.allowed = false;
+
+      req.decoded.role = 'user';
+
+      acl.authorize(req, res, next);
+
+      /**
+       * Traffic should be allowed
+       * {The policy denies traffic on the below methods,
+       *  but allow traffic to other methods not specified}
+       * methods: ["POST","GET","PUT"]
+       * action: "allow"
+       */
+
+      var data = res._getData();
+
+      assert(data, true);
+      assert.deepEqual(data.status, 403);
+      assert.deepEqual(data.success, false);
+      assert.deepEqual(data.error, 'ACCESS DENIED');
 
       done();
     });
