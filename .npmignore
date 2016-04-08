@@ -6,3 +6,6 @@ examples
 .houd.yml
 .eslintrc
 .codeclimate.yml
+.travis.yml
+.coveralls.yml
+coverage
