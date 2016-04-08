@@ -95,6 +95,58 @@ Express acl is use the configuration approach to control routes traffic in your 
     **group** | `string` | This property defines the access group to which a user can belong to  e.g `user`, `guest`, `admin`, `trainer`. This may vary depending with the architecture of you application.
     **permissions** | `Array` | This property contains an array of objects that define the resources exposed to a group and the methods allowed/denied
     **resource** | `string` | This is the resource that we are either giving access to. e.g `blogs` for route `/api/blogs`, `users` for route `/api/users`. You can also specify a glob `*` for all resource/routes in your application(recommended for admin users only)
-    **methods** | `string or Array` | This are http methods that a user is allowed or denied from exexuting. `["POST", "GET", "PUT"]`. use glob `*` if you want to include all http methods.
+    **methods** | `string or Array` | This are http methods that a user is allowed or denied from executing. `["POST", "GET", "PUT"]`. use glob `*` if you want to include all http methods.
     **action** | `string` | This property tell express-acl what action to perform on the permission given. Using the above example, the user policy specifies a deny action, meaning all traffic on route `/api/users` for methods `GET, PUT, POST` are denied, but the rest allowed. And for the admin, all traffic for all resource is allowed.
 
+    #### How to write ACL rules
+    Assuming you have an blog application, and you want to make blogs read only, deny user ability to delete their own account. You want the admin to have all the access on resources.
+
+    #### solution:
+    ```yml
+      admin:
+        resource: all
+        methods: all
+        action: allow
+
+      user:
+        resource: users
+        methods:
+          - DELETE
+        action: deny
+
+        resource: blogs
+        methods:
+          - GET
+        action: allow
+    ```
+    #### Explanation
+    The admin group has access to all resource and can perform all operation on any resource. therefore we need to allow all resources and methods. However the user group are only allowed to read the blogs, create, update, and read there profile info but not delete. You may ask, why did we deny delete instead of allowing other operation, in express acl when you allow one method, you automatically deny the others and when you deny one you allow the remaining methods. Thus denying one method is faster than allowing three or four methods. When it comes to blogs we only need them to read therefore we allow GET methods which means the other methods are denied.
+
+    For you to formulate good ACL rules, you need to understand the princple of negation. ` To allow is to deny and to deny is to allow`, confusing right? how can you deny and allow at the same time?. Lets look at this example,  if I have 4 methods  `POST, GET, PUT, DELETE` and  I deny `POST`. This is same as saying allow `GET,PUT,DELETE` but deny `POST` and if I allow `POST` is same as saying deny `GET,PUT,DELETE` but allow `POST`.
+
+    Now that we have established that lets write our config file. Our `config.json` will look like this:
+
+    ```json
+    {
+      "group": "admin",
+      "permissions": [{
+        "resource": "*",
+        "methods": "*"
+      }],
+      "action": "allow"
+    }, {
+      "group": "user",
+      "permissions": [{
+        "resource": "users",
+        "methods": [
+          "DELETE",
+        ]
+      },{
+        "resource": "users",
+        "methods": [
+          "GET",
+        ]
+      }],
+      "action": "allow"
+    }]
+```
