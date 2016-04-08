@@ -1,31 +1,9 @@
-/*[{
+[{
   "group": "user",
   "permissions": [{
     "resource": "*",
     "methods": "*"
   }],
   "action": "deny"
-}]*/
-
-[{
-  "group": "admin",
-  "permissions": [{
-    "resource": "*",
-    "methods": "*"
-  }],
-  "action": "allow"
-}, {
-  "group": "user",
-  "permissions": [{
-    "resource": "users",
-    "methods": [
-      "DELETE",
-    ]
-  },{
-    "resource": "users",
-    "methods": [
-      "GET",
-    ]
-  }],
-  "action": "allow"
 }]
+
