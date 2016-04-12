@@ -34,6 +34,7 @@
     "sinon",
     "spyOn"
   ],
+  "strict": "false",
   "quotmark": true,
   "trailing": true,
   "undef": true,

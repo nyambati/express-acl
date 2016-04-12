@@ -43,6 +43,7 @@ describe('Acl middleware for express', function() {
       acl.authorize(req, res, next);
       var data = res._getData();
 
+
       assert(data, true);
       assert.deepEqual(data.status, 200);
       assert.deepEqual(data.success, true);

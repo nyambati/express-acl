@@ -1,11 +1,4 @@
 [{
-  "group": "admin",
-  "permissions": [{
-    "resource": "*",
-    "methods": "*"
-  }],
-  "action": "allow"
-}, {
   "group": "user",
   "permissions": [{
     "resource": "users",
@@ -15,5 +8,5 @@
       "PUT"
     ]
   }],
-  "action": "allow"
+  "action": "deny"
 }]
