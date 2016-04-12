@@ -204,3 +204,6 @@ Add the acl middleware
 ```
 
 For more details check the examples folder.[examples](https://github.com/andela-thomas/express-acl/tree/master/examples)
+
+# Contributions
+Pull requests are welcome. If you are adding a new feature or fixing an as-yet-untested use case, please consider writing unit tests to cover your change(s). For more information visit the contributions [page](https://github.com/andela-thomas/express-acl/wiki/contributions)
