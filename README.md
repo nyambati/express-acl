@@ -3,10 +3,10 @@
 [![Coverage Status](https://coveralls.io/repos/github/andela-thomas/express-acl/badge.svg?branch=develop)](https://coveralls.io/github/andela-thomas/express-acl?branch=develop)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/6cba987b85b84f11bb5ab0340388a556)](https://www.codacy.com/app/thomas-nyambati/express-acl)
 
-Express Access Control Lists (express-acl) enable you to manage access to your express routes and data.This is achieved through the ACL rules. ACL defines which user groups are granted access and the type of access they have against a specified resource. When a request is received against a resource, `express-acl` checks the corresponding ACL policy to verify the requester has the necessary access permissions.
+Express Access Control Lists (express-acl) enable you to manage the requests made to your express server. It makes use of ACL rules to protect your sever from unauthorized access. ACLs defines which user groups are granted access and the type of access they have against a specified resource. When a request is received against a resource, `express-acl` checks the corresponding ACL policy to verify if the requester has the necessary access permissions.
 
 ##### What is ACL rules
-ACL is a set of rules that tell `express-acl` how to handle traffic directed to your routes and resources. Think of them like road signs or traffic lights that control how your traffic flows in your app. ACL rules are defined in JSON format.
+ACL is a set of rules that tell `express-acl` how to handle the requests made to your server against a specific resource. Think of them like road signs or traffic lights that control how your traffic flows in your app. ACL rules are defined in JSON format.
 
 **Example**
 ``` json
@@ -29,7 +29,7 @@ The contents of this file will be discussed in the usage section
 
 ## Installation
 
-You can get download `express-acl` from NPM
+You can download `express-acl` from NPM
 ```
   $ npm install express-acl
 
@@ -59,7 +59,7 @@ copy the lib folder to your project and then require `nacl.js`
 
 # Usage
 
-Express acl uses the configuration approach to control routes traffic in your application.
+Express acl uses the configuration approach to define access levels.
 
 
 1. #### Configuration ` config.json`
@@ -88,7 +88,7 @@ Express acl uses the configuration approach to control routes traffic in your ap
   }]
 ```
 
-  In the example above we have defined an ACL with two policies which define roles of `user` and `admin`. A valid ACL should be an Array of objects(policies). The properties of the policies are explained below.
+  In the example above we have defined an ACL with two policies with two roles,  `user` and `admin`. A valid ACL should be an Array of objects(policies). The properties of the policies are explained below.
 
     Property | Type | Description
     --- | --- | ---
@@ -102,7 +102,7 @@ Express acl uses the configuration approach to control routes traffic in your ap
   ACLs define the way requests will be handled by express acl, therefore its important to ensure that they are well designed to maximise efficiency. For more details follow this [link](https://github.com/andela-thomas/express-acl/wiki/How-to-write-effective-ACL-rules)
 
 2. #### Authentication
-For express-acl to work effectively it depends on the role of each Authenticated user. therefore, You should always place the acl middleware after the Authenticate middleware. Example using jsonwebtoken middleware
+express-acl depends on the role of each authenticated user to pick the corresponding ACL policy for each deifined user groups. Therefore, You should always place the acl middleware after the authenticate middleware. Example using jsonwebtoken middleware
 
   ``` js
   // jsonwebtoken powered middleware
@@ -130,7 +130,7 @@ For express-acl to work effectively it depends on the role of each Authenticated
 # API
 There are two API methods for express-acl.
 
-  1. **config[type: function, params: path, encoding]**
+  **config[type: function, params: path, encoding]**
     This methods loads the configuration json file. When this method it looks for `config.json` the root folder if path is not specified.
     ``` js
     var acl = require('express-acl');
@@ -147,9 +147,9 @@ There are two API methods for express-acl.
     // The above file can be acl.json or config.json or any_file_name.json
     ```
 
-  2. **getRules[tyepe:  function, params: none]** _optional_
+  **getRules[type:  function, params: none]** _optional, use it in development environment only_
 
-    This enables you to know the rule being applied on a specific user. use this for development purposes.
+    This enables you to know the rule being applied on a specific user.
 
     ```js
     // req.decoded.role  = 'user'
@@ -157,7 +157,7 @@ There are two API methods for express-acl.
 
     //current rule will have the rules for user role
     ```
-  3. **authorize [type: middleware]**
+  **authorize [type: middleware]**
 
     This is the middleware that manages your application requests based on the role and acl rules.
 
@@ -168,12 +168,12 @@ There are two API methods for express-acl.
     ```
 
 # Example
-1. Install express-acl
+Install express-acl
 ```
 npm install express-acl
 ```
 
-2. create config.json in your root folder
+Create config.json in your root folder
 ``` json
 [{
   "group": "user",
@@ -189,19 +189,22 @@ npm install express-acl
 }]
 ```
 
-3.  Require express-acl in your project router file.
+Require express-acl in your project router file.
 ```js
   var acl = require('express-acl');
 ```
 
-4. call the config method
+Call the config method
 ```js
   acl.config();
 ```
 
-5. Add the acl middleware
+Add the acl middleware
 ```js
   app.get(acl.authorize);
 ```
 
 For more details check the examples folder.[examples](https://github.com/andela-thomas/express-acl/tree/master/examples)
+
+# Contributions
+Pull requests are welcome. If you are adding a new feature or fixing an as-yet-untested use case, please consider writing unit tests to cover your change(s). For more information visit the contributions [page](https://github.com/andela-thomas/express-acl/wiki/contributions)
