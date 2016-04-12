@@ -1,7 +1,7 @@
 # express-acl
 [![Build Status](https://travis-ci.org/andela-thomas/express-acl.svg?branch=master)](https://travis-ci.org/andela-thomas/express-acl)
 [![Coverage Status](https://coveralls.io/repos/github/andela-thomas/express-acl/badge.svg?branch=develop)](https://coveralls.io/github/andela-thomas/express-acl?branch=develop)
-[ ![Codeship Status for andela-thomas/express-acl](https://codeship.com/projects/ad5c8050-df39-0133-54e5-460ef9277ccd/status?branch=master)](https://codeship.com/projects/144965)
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/6cba987b85b84f11bb5ab0340388a556)](https://www.codacy.com/app/thomas-nyambati/express-acl)
 
 Express Access Control Lists (express-acl) enable you to manage access to your express routes and data.This is achieved through the ACL rules. ACL defines which user groups are granted access and the type of access they have against a specified resource. When a request is received against a resource, `express-acl` checks the corresponding ACL policy to verify the requester has the necessary access permissions.
 
@@ -28,7 +28,6 @@ The contents of this file will be discussed in the usage section
 
 
 ## Installation
-*Not implemented*
 
 You can get download `express-acl` from NPM
 ```
@@ -60,7 +59,7 @@ copy the lib folder to your project and then require `nacl.js`
 
 # Usage
 
-Express acl is use the configuration approach to control routes traffic in your application.
+Express acl uses the configuration approach to control routes traffic in your application.
 
 1. #### Configuration ` config.json`
   First step is to create a file called `config.json` and place this in the root folder. This is the file where we will define the roles that can access our application, and the policies that restrict or give access to certain resources. Take a look at the example below.
@@ -100,3 +99,108 @@ Express acl is use the configuration approach to control routes traffic in your 
 
   #### How to write ACL rules
   ACLs define the way requests will be handled by express acl, therefore its important to ensure that they are well designed to maximise efficiency. For more details follow this [link](https://github.com/andela-thomas/express-acl/wiki/How-to-write-effective-ACL-rules)
+
+2. #### Authentication
+For express-acl to work effectively it depends on the role of each Authenticated user. therefore, You should always place the acl middleware after the Authenticate middleware. Example using jsonwebtoken middleware
+
+  ``` js
+  // jsonwebtoken powered middleware
+  ROUTER.use(function(req, res, next) {
+    var token = req.headers['x-access-token'];
+    if (token) {
+      jwt.verify(token, key, function(err, decoded) {
+        if (err) {
+          return res.send(err);
+        } else {
+          req.decoded = decoded;
+          next();
+        }
+
+      });
+    }
+  });
+
+  // express-acl middleware depends on the the role
+  // the role can either be in req.decoded (jsonwebtoken)or req.session
+  // (express-session)
+
+  ROUTER.use(acl.authorize);
+  ```
+# API
+There are two API methods for express-acl.
+
+  1. **config[type: function, params: path, encoding]**
+    This methods loads the configuration json file. When this method it looks for `config.json` the root folder if path is not specified.
+    ``` js
+    var acl = require('express-acl');
+
+    // path not specified
+    // looks for config.json in the root folder
+    acl.config();
+
+    // path specified
+    // looks for ac.json in the config folder
+    acl.config({path:'./config/acl.json'});
+
+    // When specifying path you can also rename the json file e.g
+    // The above file can be acl.json or config.json or any_file_name.json
+    ```
+
+  2. **getRules[tyepe:  function, params: none]** _optional_
+
+    This enables you to know the rule being applied on a specific user. use this for development purposes.
+
+    ```js
+    // req.decoded.role  = 'user'
+    var currentRule = acl.getRules()
+
+    //current rule will have the rules for user role
+    ```
+  3. **authorize [type: middleware]**
+
+    This is the middleware that manages your application requests based on the role and acl rules.
+
+    ```js
+
+      app.get(acl.authorize);
+
+    ```
+
+# Example
+1. Install express-acl
+```
+npm install express-acl
+```
+
+2. create config.json in your root folder
+``` json
+[{
+  "group": "user",
+  "permissions": [{
+    "resource": "users",
+    "methods": [
+      "POST",
+      "GET",
+      "PUT"
+    ]
+  }],
+  "action": "allow"
+}]
+```
+
+3.  Require express-acl in your project router file.
+```js
+  var acl = require('express-acl');
+```
+
+4. call the config method
+```js
+  acl.config();
+```
+
+5. Add the acl middleware
+```js
+  app.get(acl.authorize);
+```
+
+For more details check the examples folder.[examples](https://github.com/andela-thomas/express-acl/tree/master/examples)
