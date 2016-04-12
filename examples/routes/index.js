@@ -75,7 +75,7 @@ module.exports = function(app, express) {
    * Other routes we are protecting
    */
 
-  ROUTER.route('/user/:id')
+  ROUTER.route('/users/:id')
     .get(function(req, res) {
       res.send({
         message: 'Access granted'
