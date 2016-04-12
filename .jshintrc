@@ -34,10 +34,7 @@
     "sinon",
     "spyOn"
   ],
-<<<<<<< HEAD
   "strict": "false",
-=======
->>>>>>> master
   "quotmark": true,
   "trailing": true,
   "undef": true,
