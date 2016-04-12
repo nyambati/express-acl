@@ -61,6 +61,7 @@ copy the lib folder to your project and then require `nacl.js`
 
 Express acl uses the configuration approach to control routes traffic in your application.
 
+
 1. #### Configuration ` config.json`
   First step is to create a file called `config.json` and place this in the root folder. This is the file where we will define the roles that can access our application, and the policies that restrict or give access to certain resources. Take a look at the example below.
 
