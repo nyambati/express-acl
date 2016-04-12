@@ -9,6 +9,6 @@ before_script: 'npm run test-travis'
 script: 'cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js'
 # Send coverage data to Coveralls
 
-after_script: 'cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage'
+after_script: 'cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage.js'
 
 
