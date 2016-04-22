@@ -130,14 +130,21 @@ express-acl depends on the role of each authenticated user to pick the correspon
 # API
 There are two API methods for express-acl.
 
-  **config[type: function, params: path, encoding]**
+  **config[type: function, params: path, encoding, baseUrl]**
     This methods loads the configuration json file. When this method it looks for `config.json` the root folder if path is not specified.
     ``` js
     var acl = require('express-acl');
 
     // path not specified
     // looks for config.json in the root folder
-    acl.config();
+    // if your backend routes have base url prefix e.g  /api/<resource>,  v1/<resource> , developer/v1/<resource>
+    // specify it in the config property baserUrl {baseurl: 'api'} , {baseurl: 'v1'}, {baseurl: 'developer/v1'} respectively 
+    // else you can specify {baseurl: '/'} or ignore it entirely 
+    
+    
+    acl.config({
+       baseUrl:'api'
+    });
 
     // path specified
     // looks for ac.json in the config folder
@@ -196,7 +203,10 @@ Require express-acl in your project router file.
 
 Call the config method
 ```js
-  acl.config();
+  acl.config({
+    //specify your own baseUrl
+    baseUrl:'/'
+  });
 ```
 
 Add the acl middleware
