@@ -24,6 +24,7 @@ describe('Acl middleware for express', function() {
   describe('Policy based on action: "deny and resource glob "*"', function() {
     beforeEach(function(done) {
       acl.config({
+        baseUrl: 'api',
         path: './tests/resource-glob-deny.json'
       });
       done();
@@ -176,6 +177,7 @@ describe('Acl middleware for express', function() {
     function() {
       beforeEach(function(done) {
         acl.config({
+          baseUrl: 'api',
           path: './tests/resource-glob-allow.json'
         });
         done();
