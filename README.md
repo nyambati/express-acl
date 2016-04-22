@@ -137,8 +137,10 @@ There are two API methods for express-acl.
 
     // path not specified
     // looks for config.json in the root folder
-    // if your backend routes have base url prefix e.g  /api/<resource>,  v1/<resource> , developer/v1/<resource>
-    // specify it in the config property baserUrl {baseurl: 'api'} , {baseurl: 'v1'}, {baseurl: 'developer/v1'} respectively 
+    // if your backend routes have base url prefix e.g  /api/<resource>,  v1/<resource> ,
+    // developer/v1/<resource>
+    // specify it in the config property baserUrl {baseurl: 'api'} , 
+    // {baseurl: 'v1'}, {baseurl: 'developer/v1'} respectively 
     // else you can specify {baseurl: '/'} or ignore it entirely 
     
     
