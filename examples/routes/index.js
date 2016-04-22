@@ -1,7 +1,24 @@
 var jwt = require('jsonwebtoken');
 var faker = require('faker');
 var acl = require('../../');
-acl.config();
+
+/**
+ * Configure acl
+ * Add the baseUrl so that express-acl depends on this
+ * to locate our resources.
+ * @type {String}
+ */
+// if you have none or ignore the baseUrl entirely
+// acl.config({
+//   baseUrl: '/'
+// });
+//
+//
+
+acl.config({
+  baseUrl: 'v1'
+});
+
 module.exports = function(app, express) {
   var ROUTER = express.Router();
 
@@ -45,6 +62,7 @@ module.exports = function(app, express) {
     next();
   });
 
+  console.log('something');
 
   /**
    * lets create our jwt middleware
@@ -75,7 +93,12 @@ module.exports = function(app, express) {
    * Other routes we are protecting
    */
 
-  ROUTER.route('/users/:id')
+  ROUTER.route('/users')
+    .post(function(req, res) {
+      res.send({
+        message: 'Access granted'
+      });
+    })
     .get(function(req, res) {
       res.send({
         message: 'Access granted'
@@ -93,8 +116,9 @@ module.exports = function(app, express) {
     });
   /**
    * Now lets include our router to the main app
-   * Make sure that your app has the base url, e.g. /api/ or /v1
-   * nacl will detect your resource based on this url.
    */
+
+  console.log(ROUTER);
+
   app.use('/v1', ROUTER);
 };

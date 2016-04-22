@@ -8,5 +8,5 @@
       "PUT"
     ]
   }],
-  "action": "deny"
+  "action": "allow"
 }]

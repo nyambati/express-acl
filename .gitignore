@@ -1,3 +1,4 @@
 # files should not be pushed to git
 node_modules
+examples/node_modules
 coverage
