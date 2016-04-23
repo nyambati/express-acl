@@ -130,14 +130,23 @@ express-acl depends on the role of each authenticated user to pick the correspon
 # API
 There are two API methods for express-acl.
 
-  **config[type: function, params: path, encoding]**
+  **config[type: function, params: path, encoding, baseUrl]**
     This methods loads the configuration json file. When this method it looks for `config.json` the root folder if path is not specified.
     ``` js
     var acl = require('express-acl');
 
     // path not specified
     // looks for config.json in the root folder
-    acl.config();
+    // if your backend routes have base url prefix e.g  /api/<resource>,  v1/<resource> ,
+    // developer/v1/<resource>
+    // specify it in the config property baserUrl {baseurl: 'api'} , 
+    // {baseurl: 'v1'}, {baseurl: 'developer/v1'} respectively 
+    // else you can specify {baseurl: '/'} or ignore it entirely 
+    
+    
+    acl.config({
+       baseUrl:'api'
+    });
 
     // path specified
     // looks for ac.json in the config folder
@@ -166,7 +175,18 @@ There are two API methods for express-acl.
       app.get(acl.authorize);
 
     ```
-
+  **unless[type:function, params: function or object]**
+  
+  By default any route that has no defined policy against it is blocked, this means you can not access this route untill you specify a policy. This method enables you to exclude unprotected routes. This method uses express-unless package to achive this functionality. For more details on its usage follow this link [express-unless](https://github.com/jfromaniello/express-unless/blob/master/README.md)
+  ```js 
+  //assuming we want to hide /auth/google from express acl
+  
+  app.use(acl.authorize.unless({path:['/auth/google']});
+  
+  ```
+  Anytime that this route is visited, unless method will exlude it from being passed though our middleware.
+  **N/B** You don't have to install `express-unless` it has already been included into the project.
+  
 # Example
 Install express-acl
 ```
@@ -196,7 +216,10 @@ Require express-acl in your project router file.
 
 Call the config method
 ```js
-  acl.config();
+  acl.config({
+    //specify your own baseUrl
+    baseUrl:'/'
+  });
 ```
 
 Add the acl middleware
