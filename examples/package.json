@@ -12,6 +12,7 @@
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
     "faker": "^3.1.0",
-    "jsonwebtoken": "^5.7.0"
+    "jsonwebtoken": "^5.7.0",
+    "morgan": "^1.7.0"
   }
 }
