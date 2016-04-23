@@ -20,6 +20,7 @@ describe('Acl middleware for express', function() {
   describe('Policy based on "*" and action: deny', function() {
     beforeEach(function(done) {
       acl.config({
+        baseUrl: 'api',
         path: './tests/all-glob-deny.json'
       });
       done();
@@ -166,6 +167,7 @@ describe('Acl middleware for express', function() {
   describe('Policy  based on "*" and action: allow', function() {
     beforeEach(function(done) {
       acl.config({
+        baseUrl: 'api',
         path: './tests/all-glob-allow.json'
       });
       done();

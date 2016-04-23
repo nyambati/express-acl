@@ -1,5 +1,6 @@
 var assert = require('assert');
 var acl = require('../');
+var helper = require('../lib/helpers');
 
 describe('Express Access Control List Module', function() {
   /**
@@ -42,6 +43,40 @@ describe('Express Access Control List Module', function() {
       assert(data.length, 1);
     });
 
+  });
+
+
+  describe('No BaseUrl', function() {
+    it('Should be able to locate the location of the resource', function() {
+
+      var url = '/users/45gg4hht6';
+
+      var next = function() {
+        return true;
+      };
+
+      var resource = helper.resource(next, url);
+      assert.deepEqual(resource, 'users');
+
+    });
+  });
+
+  describe('With  BaseUrl', function() {
+    it('Should be able to locate the location of the resource', function() {
+
+      var url = 'developer/v1/users/45gg4hht6';
+
+      var next = function() {
+        return true;
+      };
+      var config = {
+        baseUrl: 'developer/v1/'
+      };
+
+      var resource = helper.resource(next, url, config.baseUrl);
+      assert.deepEqual(resource, 'users');
+
+    });
   });
 
 });
