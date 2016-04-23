@@ -69,13 +69,33 @@ module.exports = function(app, express) {
    * our acl middleware will go here
    */
 
-  ROUTER.use(acl.authorize);
+  ROUTER.use(acl.authorize.unless({
+    path: ['/v1/blogs']
+  }));
 
   /**
    * Other routes we are protecting
    */
 
-  ROUTER.route('/users/:id')
+  ROUTER.route('/users')
+    .get(function(req, res) {
+      res.send({
+        message: 'Access granted'
+      });
+    })
+    .put(function(req, res) {
+      res.send({
+        message: 'Access granted'
+      });
+    })
+    .delete(function(req, res) {
+      res.send({
+        message: 'Access granted'
+      });
+    });
+
+
+  ROUTER.route('/blogs')
     .get(function(req, res) {
       res.send({
         message: 'Access granted'
