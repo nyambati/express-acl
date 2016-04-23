@@ -132,49 +132,51 @@ There are two API methods for express-acl.
 
   **config[type: function, params: path, encoding, baseUrl]**
     This methods loads the configuration json file. When this method it looks for `config.json` the root folder if path is not specified.
-    ``` js
-    var acl = require('express-acl');
+  ``` js
+  var acl = require('express-acl');
 
-    // path not specified
-    // looks for config.json in the root folder
-    // if your backend routes have base url prefix e.g  /api/<resource>,  v1/<resource> ,
-    // developer/v1/<resource>
-    // specify it in the config property baserUrl {baseurl: 'api'} , 
-    // {baseurl: 'v1'}, {baseurl: 'developer/v1'} respectively 
-    // else you can specify {baseurl: '/'} or ignore it entirely 
+  // path not specified
+  // looks for config.json in the root folder
+  // if your backend routes have base url prefix e.g  /api/<resource>,  v1/<resource> ,
+  // developer/v1/<resource>
+  // specify it in the config property baserUrl {baseurl: 'api'} , 
+  // {baseurl: 'v1'}, {baseurl: 'developer/v1'} respectively 
+  // else you can specify {baseurl: '/'} or ignore it entirely 
     
     
-    acl.config({
-       baseUrl:'api'
-    });
+  acl.config({
+    baseUrl:'api'
+  });
 
-    // path specified
-    // looks for ac.json in the config folder
-    acl.config({path:'./config/acl.json'});
+  // path specified
+  // looks for ac.json in the config folder
+  
+  acl.config({path:'./config/acl.json'});
 
-    // When specifying path you can also rename the json file e.g
-    // The above file can be acl.json or config.json or any_file_name.json
-    ```
+  // When specifying path you can also rename the json file e.g
+  // The above file can be acl.json or config.json or any_file_name.json
+  
+  ```
 
   **getRules[type:  function, params: none]** _optional, use it in development environment only_
 
     This enables you to know the rule being applied on a specific user.
 
-    ```js
-    // req.decoded.role  = 'user'
-    var currentRule = acl.getRules()
+  ```js
+  // req.decoded.role  = 'user'
+  var currentRule = acl.getRules()
 
-    //current rule will have the rules for user role
-    ```
+  //current rule will have the rules for user role
+  
+  ```
   **authorize [type: middleware]**
 
-    This is the middleware that manages your application requests based on the role and acl rules.
+  This is the middleware that manages your application requests based on the role and acl rules.
 
-    ```js
+  ```js
+  app.get(acl.authorize);
 
-      app.get(acl.authorize);
-
-    ```
+  ```
   **unless[type:function, params: function or object]**
   
   By default any route that has no defined policy against it is blocked, this means you can not access this route untill you specify a policy. This method enables you to exclude unprotected routes. This method uses express-unless package to achive this functionality. For more details on its usage follow this link [express-unless](https://github.com/jfromaniello/express-unless/blob/master/README.md)
