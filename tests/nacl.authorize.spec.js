@@ -306,7 +306,7 @@ describe('Acl middleware for express', function() {
     beforeEach(function(done) {
       acl.config({
         baseUrl: 'api',
-        path: './config/tests/deny-user-config.json'
+        path: './tests/config/deny-user-config.json'
       });
       done();
     });
