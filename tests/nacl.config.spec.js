@@ -12,7 +12,8 @@ describe('Express Access Control List Module', function() {
   describe('Loading the config file (config.json', function() {
     it('should load config jsonfile when path is specifyed', function() {
       var rules = acl.config({
-        path: './tests/config/config.json',
+        filename: 'config/config.json',
+        path: './tests',
         encoding: 'UTF-8'
       });
       assert(Array.isArray(rules), true);
@@ -27,7 +28,8 @@ describe('Express Access Control List Module', function() {
 
     it('Log error when no policy is defined', function() {
       var rules = acl.config({
-        path: './tests/config/empty-policy.json'
+        path: './tests/config',
+        filename: 'empty-policy.json'
       });
 
       assert(typeof rules, 'string');

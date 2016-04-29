@@ -163,7 +163,7 @@ describe('Acl middleware for express', function() {
    */
   describe('Policy test based on action "allow"', function() {
     beforeEach(function(done) {
-      acl.config({ baseUrl: 'api', });
+      acl.config({ baseUrl: 'api' });
       done();
     });
 
@@ -306,7 +306,8 @@ describe('Acl middleware for express', function() {
     beforeEach(function(done) {
       acl.config({
         baseUrl: 'api',
-        path: './tests/config/deny-user-config.json'
+        filename: 'deny-user-config.json',
+        path: './tests/config'
       });
       done();
     });

@@ -58,8 +58,6 @@ module.exports = function(app, express) {
     next();
   });
 
-  console.log('something');
-
   /**
    * lets create our jwt middleware
    */
