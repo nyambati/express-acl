@@ -25,7 +25,8 @@ describe('Acl middleware for express', function() {
     beforeEach(function(done) {
       acl.config({
         baseUrl: 'api',
-        path: './tests/resource-glob-deny.json'
+        filename: 'resource-glob-deny.json',
+        path: './tests/config'
       });
       done();
     });
@@ -178,7 +179,8 @@ describe('Acl middleware for express', function() {
       beforeEach(function(done) {
         acl.config({
           baseUrl: 'api',
-          path: './tests/resource-glob-allow.json'
+          filename: 'resource-glob-allow.json',
+          path: './tests/config'
         });
         done();
       });
