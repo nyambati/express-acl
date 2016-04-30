@@ -14,7 +14,7 @@ describe('Express Access Control List Module', function() {
       var rules = acl.config({
         filename: 'config/config.json',
         path: './tests',
-        encoding: 'UTF-8'
+        encoding: 'base64'
       });
       assert(Array.isArray(rules), true);
       assert(rules.length, 1);

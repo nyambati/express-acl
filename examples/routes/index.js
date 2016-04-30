@@ -15,6 +15,11 @@ var acl = require('../../');
 //
 //
 
+acl.config({
+  filename: 'nacl.json',
+  baseUrl: 'v1'
+});
+
 module.exports = function(app, express) {
   var ROUTER = express.Router();
 
