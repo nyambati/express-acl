@@ -190,7 +190,6 @@
         done();
       });
 
-
       it('should allow PUT operation on /api/user/42', function(done) {
         req = httpMocks.createRequest({
           method: 'PUT',
@@ -382,6 +381,48 @@
         assert.deepEqual(data.message, 'ACCESS GRANTED');
 
         done();
+      });
+
+    });
+
+    describe('No policy defined', function() {
+
+      beforeEach(function(done) {
+        acl.config({
+          baseUrl: 'api'
+        });
+        done();
+      });
+
+      it('should deny if not policy match resource', function(done) {
+        req = httpMocks.createRequest({
+          method: 'POST',
+          url: '/api/cargo/42'
+        });
+        res = httpMocks.createResponse();
+
+        req.decoded = {};
+        req.session = {};
+
+        req.decoded.role = 'user';
+
+
+        acl.authorize(req, res, next);
+
+        /**
+         * Traffic should be allowed
+         * methods: []
+         * action: "allow"
+         */
+
+        var data = res._getData();
+        assert(data, true);
+        assert.deepEqual(data.status, 403);
+        assert.deepEqual(data.success, false);
+        assert.deepEqual(data.error, 'ACCESS DENIED');
+
+        done();
+
       });
     });
   });
