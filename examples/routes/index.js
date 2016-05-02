@@ -16,6 +16,7 @@ var acl = require('../../');
 //
 
 acl.config({
+  filename: 'nacl.json',
   baseUrl: 'v1'
 });
 
@@ -61,8 +62,6 @@ module.exports = function(app, express) {
     req.headers['x-access-token'] = token;
     next();
   });
-
-  console.log('something');
 
   /**
    * lets create our jwt middleware
