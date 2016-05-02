@@ -1,7 +1,7 @@
 [{
   "group": "user",
   "permissions": [{
-    "resource": "mangoes"
-  }],
-  "action": "allow"
+    "resource": "mangoes",
+    "action": "allow"
+  }]
 }]

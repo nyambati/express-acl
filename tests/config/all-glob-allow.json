@@ -2,7 +2,7 @@
   "group": "user",
   "permissions": [{
     "resource": "*",
-    "methods": "*"
-  }],
-  "action": "allow"
+    "methods": "*",
+    "action": "allow"
+  }]
 }]
