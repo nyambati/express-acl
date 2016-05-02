@@ -141,8 +141,6 @@
       });
     });
 
-
-
     /**
        * user policy.
        *
@@ -150,11 +148,12 @@
         "group": "user",
         "permissions": [{
           "resource": "*",
-          "methods":"*"
-        }],
-        "action": "deny"
+          "methods":"*",
+          "action": "deny"
+        }]
        }
        */
+
     describe('Policy  based on "*" and action: allow', function() {
       beforeEach(function(done) {
         acl.config({
