@@ -137,11 +137,10 @@
         assert.deepEqual(data.success, false);
         assert.deepEqual(data.error, 'ACCESS DENIED');
 
+
         done();
       });
     });
-
-
 
     /**
        * user policy.
@@ -150,11 +149,12 @@
         "group": "user",
         "permissions": [{
           "resource": "*",
-          "methods":"*"
-        }],
-        "action": "deny"
+          "methods":"*",
+          "action": "deny"
+        }]
        }
        */
+
     describe('Policy  based on "*" and action: allow', function() {
       beforeEach(function(done) {
         acl.config({
