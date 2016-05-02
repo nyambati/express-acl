@@ -33,10 +33,7 @@
       it('should deny POST operation on /api/mangoes/42', function(done) {
         req = httpMocks.createRequest({
           method: 'POST',
-          url: '/api/mangoes/42',
-          params: {
-            id: 42
-          }
+          url: '/api/mangoes/42'
         });
 
         res = httpMocks.createResponse({
@@ -45,7 +42,6 @@
 
         req.decoded = {};
         req.session = {};
-        res.allowed = false;
 
         req.decoded.role = 'user';
 
@@ -81,10 +77,7 @@
       it('should deny PUT operation on /api/mangoes/42', function(done) {
         req = httpMocks.createRequest({
           method: 'PUT',
-          url: '/api/mangoes/42',
-          params: {
-            id: 42
-          }
+          url: '/api/mangoes/42'
         });
 
         res = httpMocks.createResponse({
@@ -93,7 +86,6 @@
 
         req.decoded = {};
         req.session = {};
-        res.allowed = false;
 
         req.session.role = 'user';
 
@@ -119,10 +111,7 @@
       it('should deny DElETE operation on /api/mangoes/42', function(done) {
         req = httpMocks.createRequest({
           method: 'DElETE',
-          url: '/api/mangoes/42',
-          params: {
-            id: 42
-          }
+          url: '/api/mangoes/42'
         });
 
         res = httpMocks.createResponse({
@@ -131,7 +120,6 @@
 
         req.decoded = {};
         req.session = {};
-        res.allowed = false;
 
         req.decoded.role = 'user';
 
@@ -186,10 +174,7 @@
       it('should deny POST operation on /api/mangoes/42', function(done) {
         req = httpMocks.createRequest({
           method: 'POST',
-          url: '/api/mangoes/42',
-          params: {
-            id: 42
-          }
+          url: '/api/mangoes/42'
         });
 
         res = httpMocks.createResponse({
@@ -198,7 +183,6 @@
 
         req.decoded = {};
         req.session = {};
-        res.allowed = false;
 
         req.decoded.role = 'user';
 
@@ -232,10 +216,7 @@
       it('should deny PUT operation on /api/mangoes/42', function(done) {
         req = httpMocks.createRequest({
           method: 'PUT',
-          url: '/api/mangoes/42',
-          params: {
-            id: 42
-          }
+          url: '/api/mangoes/42'
         });
 
         res = httpMocks.createResponse({
@@ -244,7 +225,6 @@
 
         req.decoded = {};
         req.session = {};
-        res.allowed = false;
 
         req.decoded.role = 'user';
 
@@ -269,19 +249,13 @@
       it('should denie DElETE operation on /api/user/42', function(done) {
         req = httpMocks.createRequest({
           method: 'DElETE',
-          url: '/api/mangoes/42',
-          params: {
-            id: 42
-          }
+          url: '/api/mangoes/42'
         });
 
-        res = httpMocks.createResponse({
-          eventEmitter: require('events').EventEmitter
-        });
+        res = httpMocks.createResponse();
 
         req.decoded = {};
         req.session = {};
-        res.allowed = false;
 
         req.decoded.role = 'user';
 
@@ -320,10 +294,7 @@
       it('should deny traffic to any route', function(done) {
         req = httpMocks.createRequest({
           method: 'DElETE',
-          url: '/api/mangoes/42',
-          params: {
-            id: 42
-          }
+          url: '/api/mangoes/42'
         });
 
         res = httpMocks.createResponse({
@@ -332,7 +303,6 @@
 
         req.decoded = {};
         req.session = {};
-        res.allowed = false;
 
         req.decoded.role = 'user';
 

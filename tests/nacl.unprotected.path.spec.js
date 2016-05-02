@@ -22,9 +22,7 @@
           url: '/api/oranges'
         });
 
-        res = httpMocks.createResponse({
-          eventEmitter: require('events').EventEmitter
-        });
+        res = httpMocks.createResponse();
 
         req.decoded = {};
         req.session = {};

@@ -17,15 +17,10 @@
 
         req = httpMocks.createRequest({
           method: 'GET',
-          url: '/',
-          params: {
-            id: 42
-          }
+          url: '/'
         });
 
-        res = httpMocks.createResponse({
-          eventEmitter: require('events').EventEmitter
-        });
+        res = httpMocks.createResponse();
 
         req.decoded = {};
         req.session = {};
@@ -66,15 +61,10 @@
 
         req = httpMocks.createRequest({
           method: 'GET',
-          url: '/api/users/42',
-          params: {
-            id: 42
-          }
+          url: '/api/users/42'
         });
 
-        res = httpMocks.createResponse({
-          eventEmitter: require('events').EventEmitter
-        });
+        res = httpMocks.createResponse();
 
         req.decoded = {};
         req.session = {};
@@ -172,19 +162,13 @@
       it('should allow POST operation on /api/user/42', function(done) {
         req = httpMocks.createRequest({
           method: 'POST',
-          url: '/api/users/42',
-          params: {
-            id: 42
-          }
+          url: '/api/users/42'
         });
 
-        res = httpMocks.createResponse({
-          eventEmitter: require('events').EventEmitter
-        });
+        res = httpMocks.createResponse();
 
         req.decoded = {};
         req.session = {};
-        res.allowed = false;
 
         req.decoded.role = 'user';
 
@@ -210,19 +194,13 @@
       it('should allow PUT operation on /api/user/42', function(done) {
         req = httpMocks.createRequest({
           method: 'PUT',
-          url: '/api/users/42',
-          params: {
-            id: 42
-          }
+          url: '/api/users/42'
         });
 
-        res = httpMocks.createResponse({
-          eventEmitter: require('events').EventEmitter
-        });
+        res = httpMocks.createResponse();
 
         req.decoded = {};
         req.session = {};
-        res.allowed = false;
 
         req.decoded.role = 'user';
 
@@ -247,19 +225,13 @@
       it('should denie DElETE operation on /api/user/42', function(done) {
         req = httpMocks.createRequest({
           method: 'DElETE',
-          url: '/api/users/42',
-          params: {
-            id: 42
-          }
+          url: '/api/users/42'
         });
 
-        res = httpMocks.createResponse({
-          eventEmitter: require('events').EventEmitter
-        });
+        res = httpMocks.createResponse();
 
         req.decoded = {};
         req.session = {};
-        res.allowed = false;
 
         req.decoded.role = 'user';
 
@@ -317,19 +289,13 @@
       it('should allow POST operation on /api/user/42', function(done) {
         req = httpMocks.createRequest({
           method: 'POST',
-          url: '/api/users/42',
-          params: {
-            id: 42
-          }
+          url: '/api/users/42'
         });
 
-        res = httpMocks.createResponse({
-          eventEmitter: require('events').EventEmitter
-        });
+        res = httpMocks.createResponse();
 
         req.decoded = {};
         req.session = {};
-        res.allowed = false;
 
         req.decoded.role = 'user';
 
@@ -356,19 +322,13 @@
       it('should allow PUT operation on /api/user/42', function(done) {
         req = httpMocks.createRequest({
           method: 'PUT',
-          url: '/api/users/42',
-          params: {
-            id: 42
-          }
+          url: '/api/users/42'
         });
 
-        res = httpMocks.createResponse({
-          eventEmitter: require('events').EventEmitter
-        });
+        res = httpMocks.createResponse();
 
         req.decoded = {};
         req.session = {};
-        res.allowed = false;
 
         req.decoded.role = 'user';
 
@@ -394,19 +354,13 @@
       it('should denie DElETE operation on /api/user/42', function(done) {
         req = httpMocks.createRequest({
           method: 'DElETE',
-          url: '/api/users/42',
-          params: {
-            id: 42
-          }
+          url: '/api/users/42'
         });
 
-        res = httpMocks.createResponse({
-          eventEmitter: require('events').EventEmitter
-        });
+        res = httpMocks.createResponse();
 
         req.decoded = {};
         req.session = {};
-        res.allowed = false;
 
         req.decoded.role = 'user';
 

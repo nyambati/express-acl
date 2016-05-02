@@ -20,7 +20,9 @@
       "action": "deny"
      }
      */
+
     describe('Policy based on "*" and action: deny', function() {
+
       beforeEach(function(done) {
         acl.config({
           baseUrl: 'api',
@@ -39,9 +41,7 @@
           }
         });
 
-        res = httpMocks.createResponse({
-          eventEmitter: require('events').EventEmitter
-        });
+        res = httpMocks.createResponse();
 
         next = function() {
           res.send({
@@ -53,7 +53,6 @@
 
         req.decoded = {};
         req.session = {};
-        res.allowed = false;
 
         req.decoded.role = 'user';
 
@@ -80,19 +79,13 @@
       it('should deny PUT operation on /api/user/42', function(done) {
         req = httpMocks.createRequest({
           method: 'PUT',
-          url: '/api/users/42',
-          params: {
-            id: 42
-          }
+          url: '/api/users/42'
         });
 
-        res = httpMocks.createResponse({
-          eventEmitter: require('events').EventEmitter
-        });
+        res = httpMocks.createResponse();
 
         req.decoded = {};
         req.session = {};
-        res.allowed = false;
 
         req.decoded.role = 'user';
 
@@ -113,25 +106,19 @@
         assert.deepEqual(data.error, 'ACCESS DENIED');
 
         done();
+
       });
 
       it('should deny DElETE operation on /api/user/42', function(done) {
         req = httpMocks.createRequest({
           method: 'DElETE',
-          url: '/api/users/42',
-          params: {
-            id: 42
-          }
+          url: '/api/users/42'
         });
 
-        res = httpMocks.createResponse({
-          eventEmitter: require('events').EventEmitter
-        });
+        res = httpMocks.createResponse();
 
         req.decoded = {};
         req.session = {};
-        res.allowed = false;
-
         req.decoded.role = 'user';
 
         acl.authorize(req, res, next);
@@ -187,13 +174,10 @@
           }
         });
 
-        res = httpMocks.createResponse({
-          eventEmitter: require('events').EventEmitter
-        });
+        res = httpMocks.createResponse();
 
         req.decoded = {};
         req.session = {};
-        res.allowed = false;
 
         req.decoded.role = 'user';
 
@@ -225,13 +209,10 @@
           }
         });
 
-        res = httpMocks.createResponse({
-          eventEmitter: require('events').EventEmitter
-        });
+        res = httpMocks.createResponse();
 
         req.decoded = {};
         req.session = {};
-        res.allowed = false;
 
         req.decoded.role = 'user';
 
@@ -256,19 +237,13 @@
       it('should deny DElETE operation on /api/user/42', function(done) {
         req = httpMocks.createRequest({
           method: 'DElETE',
-          url: '/api/users/42',
-          params: {
-            id: 42
-          }
+          url: '/api/users/42'
         });
 
-        res = httpMocks.createResponse({
-          eventEmitter: require('events').EventEmitter
-        });
+        res = httpMocks.createResponse();
 
         req.decoded = {};
         req.session = {};
-        res.allowed = false;
 
         req.decoded.role = 'user';
 
