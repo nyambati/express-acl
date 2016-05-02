@@ -1,7 +1,0 @@
-[{
-  "group": "user",
-  "permissions": [{
-    "resource": "mangoes",
-    "action": "allow"
-  }]
-}]

@@ -280,52 +280,6 @@
       });
     });
 
-    describe('When no methods are defined', function() {
-      beforeEach(function(done) {
-        acl.config({
-          baseUrl: 'api',
-          filename: 'no-method.json',
-          path: './tests/config'
-        });
-
-        done();
-      });
-
-      it('should deny traffic to any route', function(done) {
-        req = httpMocks.createRequest({
-          method: 'DElETE',
-          url: '/api/mangoes/42'
-        });
-
-        res = httpMocks.createResponse({
-          eventEmitter: require('events').EventEmitter
-        });
-
-        req.decoded = {};
-        req.session = {};
-
-        req.decoded.role = 'user';
-
-        acl.authorize(req, res, next);
-
-        /**
-         * Traffic should be allowed
-         * {The policy denies traffic on the below methods,
-         *  but allow traffic to other methods not specified}
-         * methods: ["POST","GET","PUT"]
-         * action: "allow"
-         */
-
-        var data = res._getData();
-
-        assert(data, true);
-        assert.deepEqual(data.status, 403);
-        assert.deepEqual(data.success, false);
-        assert.deepEqual(data.error, 'ACCESS DENIED');
-
-        done();
-      });
-    });
   });
 
 })();
