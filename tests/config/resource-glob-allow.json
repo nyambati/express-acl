@@ -1,12 +1,12 @@
 [{
   "group": "user",
   "permissions": [{
-    "resource": "users",
+    "resource": "*",
     "methods": [
       "POST",
       "GET",
       "PUT"
-    ]
-  }],
-  "action": "deny"
+    ],
+    "action": "allow"
+  }]
 }]
