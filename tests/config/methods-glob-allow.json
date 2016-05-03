@@ -2,7 +2,7 @@
   "group": "user",
   "permissions": [{
     "resource": "mangoes",
-    "methods": "*"
-  }],
-  "action": "allow"
+    "methods": "*",
+    "action": "allow"
+  }]
 }]

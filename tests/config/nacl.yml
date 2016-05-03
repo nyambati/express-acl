@@ -1,0 +1,9 @@
+---
+- group: user
+  permissions:
+    - resource: users
+      methods:
+        - GET
+        - POST
+        - DELETE
+      action: allow
