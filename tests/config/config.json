@@ -6,7 +6,7 @@
       "POST",
       "GET",
       "PUT"
-    ]
-  }],
-  "action": "deny"
+    ],
+    "action": "deny"
+  }]
 }]
