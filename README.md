@@ -102,7 +102,7 @@ Express acl uses the configuration approach to define access levels.
   ACLs define the way requests will be handled by express acl, therefore its important to ensure that they are well designed to maximise efficiency. For more details follow this [link](https://github.com/andela-thomas/express-acl/wiki/How-to-write-effective-ACL-rules)
 
 2. #### Authentication
-express-acl depends on the role of each authenticated user to pick the corresponding ACL policy for each deifined user groups. Therefore, You should always place the acl middleware after the authenticate middleware. Example using jsonwebtoken middleware
+express-acl depends on the role of each authenticated user to pick the corresponding ACL policy for each defined user groups. Therefore, You should always place the acl middleware after the authenticate middleware. Example using jsonwebtoken middleware
 
   ``` js
   // jsonwebtoken powered middleware
