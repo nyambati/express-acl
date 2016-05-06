@@ -55,7 +55,7 @@
       it('should add the rules to the "opt" object ', function() {
         acl.config();
 
-        data = acl.getRules();
+        data = acl.utils.allRules();
 
         assert(Array.isArray(data), true);
         assert(data.length, 1);
