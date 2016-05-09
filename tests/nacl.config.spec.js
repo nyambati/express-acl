@@ -6,7 +6,7 @@
   var helper = require('../lib/helpers');
 
   describe('Express Access Control List Module', function() {
-    var res, rules, data;
+    var res, rules;
 
     /**
      * [Load config file]
@@ -49,16 +49,6 @@
 
         assert(typeof rules, 'string');
         assert.deepEqual(rules, res);
-
-      });
-
-      it('should add the rules to the "opt" object ', function() {
-        acl.config();
-
-        data = acl.utils.allRules();
-
-        assert(Array.isArray(data), true);
-        assert(data.length, 1);
 
       });
 
