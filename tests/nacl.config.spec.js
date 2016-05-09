@@ -21,7 +21,7 @@
 
         rules = acl.config({
           filename: 'config/config.json',
-          path: './tests',
+          path: 'tests',
           encoding: 'base64'
         });
 
