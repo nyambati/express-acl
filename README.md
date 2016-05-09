@@ -79,30 +79,30 @@ Express acl uses the configuration approach to define access levels.
 
 
 1. #### Configuration `nacl.json`
-  First step is to create a file called `nacl.json` and place this in the root folder. This is the file where we will define the roles that can access our application, and the policies that restrict or give access to certain resources. Take a look at the example below.
+    First step is to create a file called `nacl.json` and place this in the root folder. This is the file where we will define the roles that can access our application, and the policies that restrict or give access to certain resources. Take a look at the example below.
 
-  ```json
-
-  [{
-    "group": "admin",
-    "permissions": [{
-      "resource": "*",
-      "methods": "*"
-    }],
-    "action": "allow"
-  }, {
-    "group": "user",
-    "permissions": [{
-      "resource": "users",
-      "methods": [
-        "POST",
-        "GET",
-        "PUT"
-      ],
-      "action": "deny"
+    ```json
+  
+    [{
+      "group": "admin",
+      "permissions": [{
+        "resource": "*",
+        "methods": "*"
+      }],
+      "action": "allow"
+      }, {
+      "group": "user",
+      "permissions": [{
+        "resource": "users",
+        "methods": [
+          "POST",
+          "GET",
+          "PUT"
+        ],
+        "action": "deny"
+      }]
     }]
-  }]
-```
+  ```
 
   In the example above we have defined an ACL with two policies with two roles,  `user` and `admin`. A valid ACL should be an Array of objects(policies). The properties of the policies are explained below.
 
@@ -142,12 +142,15 @@ express-acl depends on the role of each authenticated user to pick the correspon
 
   ROUTER.use(acl.authorize);
   ```
+
 # API
 There are two API methods for express-acl.
 
-  **config[type: function, params: filename<string>,path<string>, yml<boolean>, encoding, baseUrl]**
-    This methods loads the configuration json file. When this method it looks for `nacl.json` the root folder if path is not specified.
-  ``` js
+**config[type: function, params: filename<string>,path<string>, yml<boolean>, encoding, baseUrl]**
+  
+This methods loads the configuration json file. When this method it looks for `nacl.json` the root folder if path is not specified.
+
+```js
   var acl = require('express-acl');
 
   // path not specified
@@ -176,9 +179,9 @@ There are two API methods for express-acl.
 
   ```
 
-  **getRules[type:  function, params: none]** _optional, use it in development environment only_
+**getRules[type:  function, params: none]** _optional, use it in development environment only_
 
-    This enables you to know the rule being applied on a specific user.
+  This enables you to know the rule being applied on a specific user.
 
   ```js
   // req.decoded.role  = 'user'
@@ -209,24 +212,26 @@ There are two API methods for express-acl.
 
 # Example
 Install express-acl
+
 ```
 npm install express-acl
 ```
 
 Create config.json in your root folder
-``` json
-[{
-  "group": "user",
-  "permissions": [{
-    "resource": "users",
-    "methods": [
-      "POST",
-      "GET",
-      "PUT"
-    ]
-  }],
-  "action": "allow"
-}]
+```json
+  [{
+    "group": "user",
+    "permissions": [{
+      "resource": "users",
+      "methods": [
+        "POST",
+        "GET",
+        "PUT"
+      ],
+    "action": "allow"
+    }]
+  }]
+  
 ```
 
 Require express-acl in your project router file.
