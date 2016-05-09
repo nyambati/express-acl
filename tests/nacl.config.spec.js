@@ -6,7 +6,7 @@
   var helper = require('../lib/helpers');
 
   describe('Express Access Control List Module', function() {
-    var res, rules, data;
+    var res, rules;
 
     /**
      * [Load config file]

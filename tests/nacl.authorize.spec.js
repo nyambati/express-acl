@@ -416,7 +416,6 @@
          */
 
         var data = res._getData();
-        console.log(data);
         assert(data, true);
         assert.deepEqual(data.status, 403);
         assert.deepEqual(data.success, false);
