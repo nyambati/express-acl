@@ -149,6 +149,10 @@ There are two API methods for express-acl.
 **config[type: function, params: filename<string>,path<string>, yml<boolean>, encoding, baseUrl]**
   
 This methods loads the configuration json file. When this method it looks for `nacl.json` the root folder if path is not specified.
+**filename**: Name of the ACL rule file e.g nacl.json
+**path**: Location of the ACL rule file
+**yml**: when set to true means use yaml parser else JSON parser
+**baseUrl**: The base url of your API e.g /developer/v1
 
 ```js
   var acl = require('express-acl');
@@ -179,17 +183,6 @@ This methods loads the configuration json file. When this method it looks for `n
 
   ```
 
-**getRules[type:  function, params: none]** _optional, use it in development environment only_
-
-  This enables you to know the rule being applied on a specific user.
-
-  ```js
-  // req.decoded.role  = 'user'
-  var currentRule = acl.getRules()
-
-  //current rule will have the rules for user role
-
-  ```
   **authorize [type: middleware]**
 
   This is the middleware that manages your application requests based on the role and acl rules.
@@ -217,7 +210,7 @@ Install express-acl
 npm install express-acl
 ```
 
-Create config.json in your root folder
+Create `nacl.json` in your root folder
 ```json
   [{
     "group": "user",
