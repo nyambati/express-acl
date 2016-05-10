@@ -13,6 +13,7 @@
 
     describe('Home route testing', function() {
       beforeEach(function(done) {
+
         acl.config();
 
         req = httpMocks.createRequest({
@@ -28,7 +29,7 @@
       });
 
       it('should allow traffic for the home route', function(done) {
-        //{ status: 403, success: false, error: 'ACCESS DENIED' }
+        //{ status: 403, success: false, message: 'ACCESS DENIED' }
         next = function() {
           res.send({
             status: 200,
@@ -243,9 +244,9 @@
 
         assert(data, true);
         assert(typeof data, 'object');
-        assert.deepEqual(data.status, 403);
+        assert.deepEqual(data.status, 'Access denied');
         assert.deepEqual(data.success, false);
-        assert.deepEqual(data.error, 'ACCESS DENIED');
+        assert.deepEqual(data.message, 'Unauthorized access');
 
         done();
       });
@@ -307,9 +308,9 @@
 
         assert(data, true);
         assert(typeof data, 'object');
-        assert.deepEqual(data.status, 403);
+        assert.deepEqual(data.status, 'Access denied');
         assert.deepEqual(data.success, false);
-        assert.deepEqual(data.error, 'ACCESS DENIED');
+        assert.deepEqual(data.message, 'Unauthorized access');
 
         done();
       });
@@ -340,9 +341,9 @@
 
         assert(data, true);
         assert(typeof data, 'object');
-        assert.deepEqual(data.status, 403);
+        assert.deepEqual(data.status, 'Access denied');
         assert.deepEqual(data.success, false);
-        assert.deepEqual(data.error, 'ACCESS DENIED');
+        assert.deepEqual(data.message, 'Unauthorized access');
 
         done();
       });
@@ -413,11 +414,10 @@
          */
 
         var data = res._getData();
-        console.log(data);
         assert(data, true);
-        assert.deepEqual(data.status, 403);
+        assert.deepEqual(data.status, 'Access denied');
         assert.deepEqual(data.success, false);
-        assert.deepEqual(data.error, 'ACCESS DENIED');
+        assert.deepEqual(data.message, 'REQUIRED: Policy not found');
 
         done();
 
