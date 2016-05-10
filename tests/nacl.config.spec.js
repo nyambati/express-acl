@@ -51,7 +51,6 @@
         assert.deepEqual(rules, res);
 
       });
-
     });
 
 

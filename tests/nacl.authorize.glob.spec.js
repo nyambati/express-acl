@@ -68,9 +68,9 @@
 
         assert(data, true);
         assert(typeof data, 'object');
-        assert.deepEqual(data.status, 403);
+        assert.deepEqual(data.status, 'Access denied');
         assert.deepEqual(data.success, false);
-        assert.deepEqual(data.error, 'ACCESS DENIED');
+        assert.deepEqual(data.message, 'Unauthorized access');
 
         done();
       });
@@ -101,9 +101,9 @@
 
         assert(data, true);
         assert(typeof data, 'object');
-        assert.deepEqual(data.status, 403);
+        assert.deepEqual(data.status, 'Access denied');
         assert.deepEqual(data.success, false);
-        assert.deepEqual(data.error, 'ACCESS DENIED');
+        assert.deepEqual(data.message, 'Unauthorized access');
 
         done();
 
@@ -133,9 +133,9 @@
 
         assert(data, true);
         assert(typeof data, 'object');
-        assert.deepEqual(data.status, 403);
+        assert.deepEqual(data.status, 'Access denied');
         assert.deepEqual(data.success, false);
-        assert.deepEqual(data.error, 'ACCESS DENIED');
+        assert.deepEqual(data.message, 'Unauthorized access');
 
 
         done();

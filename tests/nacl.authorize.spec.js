@@ -13,6 +13,7 @@
 
     describe('Home route testing', function() {
       beforeEach(function(done) {
+
         acl.config();
 
         req = httpMocks.createRequest({
@@ -28,7 +29,7 @@
       });
 
       it('should allow traffic for the home route', function(done) {
-        //{ status: 403, success: false, error: 'ACCESS DENIED' }
+        //{ status: 403, success: false, message: 'ACCESS DENIED' }
         next = function() {
           res.send({
             status: 200,
@@ -64,7 +65,9 @@
           url: '/api/users/42'
         });
 
-        res = httpMocks.createResponse();
+        res = httpMocks.createResponse(httpMocks.createResponse({
+          eventEmitter: require('events').EventEmitter
+        }));
 
         req.decoded = {};
         req.session = {};
@@ -77,14 +80,11 @@
       });
 
       it('should block traffic if no role is defined', function(done) {
-        //{ status: 403, success: false, error: 'ACCESS DENIED' }
         acl.authorize(req, res, next);
         var data = res._getData();
+
         assert(data, true);
-        assert(typeof data, 'object');
-        assert.deepEqual(data.status, 403);
-        assert.deepEqual(data.success, false);
-        assert.deepEqual(data.error, 'ACCESS DENIED');
+        assert.deepEqual(res.statusCode, 404);
         done();
       });
 
@@ -129,10 +129,10 @@
          */
         var data = res._getData();
         assert(data, true);
-        assert.deepEqual(data.status, 403);
+        assert.deepEqual(res.statusCode, 404);
+        assert.deepEqual(data.status, 'Access denied');
         assert.deepEqual(data.success, false);
-        assert.deepEqual(data.error, 'ACCESS DENIED');
-
+        assert.deepEqual(data.message, 'REQUIRED: Group not found');
         done();
       });
     });
@@ -246,9 +246,9 @@
 
         assert(data, true);
         assert(typeof data, 'object');
-        assert.deepEqual(data.status, 403);
+        assert.deepEqual(data.status, 'Access denied');
         assert.deepEqual(data.success, false);
-        assert.deepEqual(data.error, 'ACCESS DENIED');
+        assert.deepEqual(data.message, 'Unauthorized access');
 
         done();
       });
@@ -310,9 +310,9 @@
 
         assert(data, true);
         assert(typeof data, 'object');
-        assert.deepEqual(data.status, 403);
+        assert.deepEqual(data.status, 'Access denied');
         assert.deepEqual(data.success, false);
-        assert.deepEqual(data.error, 'ACCESS DENIED');
+        assert.deepEqual(data.message, 'Unauthorized access');
 
         done();
       });
@@ -343,9 +343,9 @@
 
         assert(data, true);
         assert(typeof data, 'object');
-        assert.deepEqual(data.status, 403);
+        assert.deepEqual(data.status, 'Access denied');
         assert.deepEqual(data.success, false);
-        assert.deepEqual(data.error, 'ACCESS DENIED');
+        assert.deepEqual(data.message, 'Unauthorized access');
 
         done();
       });
@@ -417,9 +417,9 @@
 
         var data = res._getData();
         assert(data, true);
-        assert.deepEqual(data.status, 403);
+        assert.deepEqual(data.status, 'Access denied');
         assert.deepEqual(data.success, false);
-        assert.deepEqual(data.error, 'ACCESS DENIED');
+        assert.deepEqual(data.message, 'REQUIRED: Policy not found');
 
         done();
 
