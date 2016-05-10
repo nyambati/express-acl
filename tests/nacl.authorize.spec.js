@@ -64,7 +64,9 @@
           url: '/api/users/42'
         });
 
-        res = httpMocks.createResponse();
+        res = httpMocks.createResponse(httpMocks.createResponse({
+          eventEmitter: require('events').EventEmitter
+        }));
 
         req.decoded = {};
         req.session = {};
@@ -77,14 +79,11 @@
       });
 
       it('should block traffic if no role is defined', function(done) {
-        //{ status: 403, success: false, error: 'ACCESS DENIED' }
         acl.authorize(req, res, next);
         var data = res._getData();
+
         assert(data, true);
-        assert(typeof data, 'object');
-        assert.deepEqual(data.status, 403);
-        assert.deepEqual(data.success, false);
-        assert.deepEqual(data.error, 'ACCESS DENIED');
+        assert.deepEqual(res.statusCode, 404);
         done();
       });
 
@@ -129,10 +128,8 @@
          */
         var data = res._getData();
         assert(data, true);
-        assert.deepEqual(data.status, 403);
-        assert.deepEqual(data.success, false);
-        assert.deepEqual(data.error, 'ACCESS DENIED');
-
+        assert.deepEqual(res.statusCode, 404);
+        assert.deepEqual(data.message, 'group not found');
         done();
       });
     });
@@ -416,6 +413,7 @@
          */
 
         var data = res._getData();
+        console.log(data);
         assert(data, true);
         assert.deepEqual(data.status, 403);
         assert.deepEqual(data.success, false);
