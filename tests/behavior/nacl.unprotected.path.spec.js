@@ -2,7 +2,7 @@
   'use strict';
 
   var assert = require('assert');
-  var acl = require('../');
+  var acl = require('../../');
   var httpMocks = require('node-mocks-http');
 
   describe('Acl middleware for express', function() {
