@@ -4,57 +4,41 @@
   var assert = require('assert');
   var acl = require('../../');
   var httpMocks = require('node-mocks-http');
+  var success = {
+    status: 200,
+    success: true,
+    message: 'ACCESS GRANTED'
+  };
 
-  describe('Acl middleware for express', function() {
+  describe('Testing for ubprotected routes', function() {
     var req, res, next, data;
 
-    describe('Policy based on action: "deny and methods glob "*"', function() {
+    context('When the routes is not authenticated', function() {
       beforeEach(function(done) {
         acl.config({
           baseUrl: 'api'
         });
-        done();
-      });
 
-      it('should give access to unprotected path', function(done) {
+        res = httpMocks.createResponse();
         req = httpMocks.createRequest({
           method: 'POST',
           url: '/api/oranges'
         });
+        next = function() {
+          res.send(success);
+        };
+        done();
+      });
 
-        res = httpMocks.createResponse();
-
+      it('Should give access to unprotected path', function(done) {
         req.decoded = {};
         req.session = {};
-
         req.decoded.role = 'user';
-
-        next = function() {
-          res.send({
-            status: 200,
-            success: true,
-            message: 'ACCESS GRANTED'
-          });
-        };
-
-        acl
-          .authorize
-          .unless({
-            path: [
-              '/api/oranges'
-            ]
-          })(req, res, next);
-
+        acl.authorize.unless({ path: ['/api/oranges'] })(req, res, next);
         data = res._getData();
-
         assert(data, true);
         assert(typeof data, 'object');
-        assert.deepEqual(data, {
-          status: 200,
-          success: true,
-          message: 'ACCESS GRANTED'
-        });
-
+        assert.deepEqual(data, success);
         done();
       });
 
