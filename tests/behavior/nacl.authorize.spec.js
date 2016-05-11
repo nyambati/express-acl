@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   var assert = require('assert');
-  var acl = require('../');
+  var acl = require('../../');
   var httpMocks = require('node-mocks-http');
 
   describe('Acl middleware for express', function() {
@@ -130,7 +130,9 @@
         var data = res._getData();
         assert(data, true);
         assert.deepEqual(res.statusCode, 404);
-        assert.deepEqual(data.message, 'group not found');
+        assert.deepEqual(data.status, 'Access denied');
+        assert.deepEqual(data.success, false);
+        assert.deepEqual(data.message, 'REQUIRED: Group not found');
         done();
       });
     });

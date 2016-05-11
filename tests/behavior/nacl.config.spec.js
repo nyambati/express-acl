@@ -2,8 +2,8 @@
   'use strict';
 
   var assert = require('assert');
-  var acl = require('../');
-  var helper = require('../lib/helpers');
+  var acl = require('../../');
+  var helper = require('../../lib/helpers');
 
   describe('Express Access Control List Module', function() {
     var res, rules;
@@ -21,7 +21,7 @@
 
         rules = acl.config({
           filename: 'config/config.json',
-          path: './tests',
+          path: 'tests',
           encoding: 'base64'
         });
 

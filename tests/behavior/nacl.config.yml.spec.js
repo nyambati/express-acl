@@ -2,7 +2,7 @@
   'use strict';
 
   var assert = require('assert');
-  var acl = require('../');
+  var acl = require('../../');
 
   describe('Yaml testing', function() {
     var rules;
