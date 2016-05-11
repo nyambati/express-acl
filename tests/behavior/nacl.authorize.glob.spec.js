@@ -7,265 +7,152 @@
 
   describe('Acl middleware for express', function() {
     var req, res, next, data;
+    var response = {
+      success: {
+        status: 200,
+        success: true,
+        message: 'ACCESS GRANTED'
+      },
+      restricted: {
+        status: 'Access denied',
+        success: false,
+        message: 'Unauthorized access'
+      }
+    };
 
-    /**
-     * user policy.
-     *
-     {
-      "group": "user",
-      "permissions": [{
-        "resource": "*",
-        "methods":"*"
-      }],
-      "action": "deny"
-     }
-     */
-
-    describe('Policy based on "*" and action: deny', function() {
-
+    describe('When the methods and resource is a glob', function() {
       beforeEach(function(done) {
-        acl.config({
-          baseUrl: 'api',
-          filename: 'all-glob-deny.json',
-          path: './tests/config'
-        });
-        done();
-      });
-
-      it('should deny POST operation on /api/user/42', function(done) {
-        req = httpMocks.createRequest({
-          method: 'POST',
-          url: '/api/users/42',
-          params: {
-            id: 42
-          }
-        });
-
         res = httpMocks.createResponse();
-
         next = function() {
-          res.send({
-            status: 200,
-            success: true,
-            message: 'ACCESS GRANTED'
-          });
+          res.send(response.success);
         };
-
-        req.decoded = {};
-        req.session = {};
-
-        req.decoded.role = 'user';
-
-        acl.authorize(req, res, next);
-
-        /**
-         * Traffic should be allowed
-         * methods: []
-         * action: "allow"
-         */
-
-        data = res._getData();
-
-        assert(data, true);
-        assert(typeof data, 'object');
-        assert.deepEqual(data.status, 'Access denied');
-        assert.deepEqual(data.success, false);
-        assert.deepEqual(data.message, 'Unauthorized access');
-
         done();
       });
 
-
-      it('should deny PUT operation on /api/user/42', function(done) {
-        req = httpMocks.createRequest({
-          method: 'PUT',
-          url: '/api/users/42'
+      context('When action deny', function() {
+        beforeEach(function(done) {
+          acl.config({
+            baseUrl: 'api',
+            filename: 'all-glob-deny.json',
+            path: './tests/config'
+          });
+          done();
         });
 
-        res = httpMocks.createResponse();
+        it('Shoud deny access to resource /api/user/42', function(done) {
+          req = httpMocks.createRequest({
+            method: 'POST',
+            url: '/api/users/42'
+          });
 
-        req.decoded = {};
-        req.session = {};
+          req.decoded = {};
+          req.session = {};
+          req.decoded.role = 'user';
+          acl.authorize(req, res, next);
+          data = res._getData();
+          assert(data, true);
+          assert(typeof data, 'object');
+          assert.deepEqual(data, response.restricted);
+          done();
+        });
 
-        req.decoded.role = 'user';
 
-        acl.authorize(req, res, next);
+        it('Should deny access to resource /api/user/42', function(done) {
+          req = httpMocks.createRequest({
+            method: 'PUT',
+            url: '/api/users/42'
+          });
 
-        /**
-         * Traffic should be allowed
-         * methods: []
-         * action: "allow"
-         */
+          req.decoded = {};
+          req.session = {};
+          req.decoded.role = 'user';
+          acl.authorize(req, res, next);
+          data = res._getData();
+          assert(data, true);
+          assert(typeof data, 'object');
+          assert.deepEqual(data, response.restricted);
+          done();
 
-        data = res._getData();
+        });
 
-        assert(data, true);
-        assert(typeof data, 'object');
-        assert.deepEqual(data.status, 'Access denied');
-        assert.deepEqual(data.success, false);
-        assert.deepEqual(data.message, 'Unauthorized access');
+        it('Should deny access to resource on /api/user/42', function(done) {
+          req = httpMocks.createRequest({
+            method: 'DElETE',
+            url: '/api/users/42'
+          });
 
-        done();
-
+          req.decoded = {};
+          req.session = {};
+          req.decoded.role = 'user';
+          acl.authorize(req, res, next);
+          data = res._getData();
+          assert(data, true);
+          assert(typeof data, 'object');
+          assert.deepEqual(data, response.restricted);
+          done();
+        });
       });
 
-      it('should deny DElETE operation on /api/user/42', function(done) {
-        req = httpMocks.createRequest({
-          method: 'DElETE',
-          url: '/api/users/42'
+      context('When action allow', function() {
+        beforeEach(function(done) {
+          acl.config({
+            baseUrl: 'api',
+            filename: 'all-glob-allow.json',
+            path: './tests/config'
+          });
+          done();
         });
 
-        res = httpMocks.createResponse();
+        it('Shoud Deny Access to resource /api/user/42', function(done) {
+          req = httpMocks.createRequest({
+            method: 'POST',
+            url: '/api/users/42'
+          });
 
-        req.decoded = {};
-        req.session = {};
-        req.decoded.role = 'user';
-
-        acl.authorize(req, res, next);
-
-        /**
-         * Traffic should be allowed
-         * methods: []
-         * action: "allow"
-         */
-
-        data = res._getData();
-
-        assert(data, true);
-        assert(typeof data, 'object');
-        assert.deepEqual(data.status, 'Access denied');
-        assert.deepEqual(data.success, false);
-        assert.deepEqual(data.message, 'Unauthorized access');
-
-
-        done();
-      });
-    });
-
-    /**
-       * user policy.
-       *
-       {
-        "group": "user",
-        "permissions": [{
-          "resource": "*",
-          "methods":"*",
-          "action": "deny"
-        }]
-       }
-       */
-
-    describe('Policy  based on "*" and action: allow', function() {
-      beforeEach(function(done) {
-        acl.config({
-          baseUrl: 'api',
-          filename: 'all-glob-allow.json',
-          path: './tests/config'
-        });
-        done();
-      });
-
-      it('should deny POST operation on /api/user/42', function(done) {
-        req = httpMocks.createRequest({
-          method: 'POST',
-          url: '/api/users/42',
-          params: {
-            id: 42
-          }
+          req.decoded = {};
+          req.session = {};
+          req.decoded.role = 'user';
+          acl.authorize(req, res, next);
+          data = res._getData();
+          assert(data, true);
+          assert.deepEqual(data, response.success);
+          done();
         });
 
-        res = httpMocks.createResponse();
 
-        req.decoded = {};
-        req.session = {};
+        it('Should deny access to resource /api/user/42', function(done) {
+          req = httpMocks.createRequest({
+            method: 'PUT',
+            url: '/api/users/42'
+          });
 
-        req.decoded.role = 'user';
-
-        acl.authorize(req, res, next);
-
-        /**
-         * Traffic should be allowed
-         * methods: []
-         * action: "allow"
-         */
-
-        var data = res._getData();
-
-        assert(data, true);
-        assert.deepEqual(data.status, 200);
-        assert.deepEqual(data.success, true);
-        assert.deepEqual(data.message, 'ACCESS GRANTED');
-
-        done();
-      });
-
-
-      it('should deny PUT operation on /api/user/42', function(done) {
-        req = httpMocks.createRequest({
-          method: 'PUT',
-          url: '/api/users/42',
-          params: {
-            id: 42
-          }
+          req.decoded = {};
+          req.session = {};
+          req.decoded.role = 'user';
+          acl.authorize(req, res, next);
+          data = res._getData();
+          assert(data, true);
+          assert.deepEqual(data, response.success);
+          done();
         });
 
-        res = httpMocks.createResponse();
+        it('should deny DElETE operation on /api/user/42', function(done) {
+          req = httpMocks.createRequest({
+            method: 'DElETE',
+            url: '/api/users/42'
+          });
 
-        req.decoded = {};
-        req.session = {};
-
-        req.decoded.role = 'user';
-
-        acl.authorize(req, res, next);
-
-        /**
-         * Traffic should be allowed
-         * methods: []
-         * action: "allow"
-         */
-
-        data = res._getData();
-
-        assert(data, true);
-        assert.deepEqual(data.status, 200);
-        assert.deepEqual(data.success, true);
-        assert.deepEqual(data.message, 'ACCESS GRANTED');
-
-        done();
-      });
-
-      it('should deny DElETE operation on /api/user/42', function(done) {
-        req = httpMocks.createRequest({
-          method: 'DElETE',
-          url: '/api/users/42'
+          req.decoded = {};
+          req.session = {};
+          req.decoded.role = 'user';
+          acl.authorize(req, res, next);
+          data = res._getData();
+          assert(data, true);
+          assert(data, true);
+          assert.deepEqual(data, response.success);
+          done();
         });
-
-        res = httpMocks.createResponse();
-
-        req.decoded = {};
-        req.session = {};
-
-        req.decoded.role = 'user';
-
-        acl.authorize(req, res, next);
-
-        /**
-         * Traffic should be allowed
-         * methods: []
-         * action: "allow"
-         */
-
-        data = res._getData();
-
-        assert(data, true);
-        assert(data, true);
-        assert.deepEqual(data.status, 200);
-        assert.deepEqual(data.success, true);
-        assert.deepEqual(data.message, 'ACCESS GRANTED');
-
-        done();
       });
     });
   });
-
 })();
