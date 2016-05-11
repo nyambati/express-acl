@@ -49,9 +49,11 @@
 
         assert(data, true);
         assert(typeof data, 'object');
-        assert.deepEqual(data.status, 200);
-        assert.deepEqual(data.success, true);
-        assert.deepEqual(data.message, 'ACCESS GRANTED');
+        assert.deepEqual(data, {
+          status: 200,
+          success: true,
+          message: 'ACCESS GRANTED'
+        });
 
         done();
       });
