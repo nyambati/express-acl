@@ -8,5 +8,8 @@ node_js:
 script: 'npm run test-travis'
 # Send coverage data to Coveralls
 
-after_script: 'cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js'
+after_script:
+  - 'cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js'
+  - cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage && rm -rf ./coverage
+
 
