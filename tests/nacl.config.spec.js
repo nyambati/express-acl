@@ -51,16 +51,6 @@
         assert.deepEqual(rules, res);
 
       });
-
-      it('should add the rules to the "opt" object ', function() {
-        acl.config();
-
-        data = acl.utils.allRules();
-
-        assert(Array.isArray(data), true);
-        assert(data.length, 1);
-
-      });
     });
 
 
