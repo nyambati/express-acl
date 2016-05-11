@@ -9,7 +9,6 @@
     beforeEach(function(done) {
       rules = acl.config({
         path: 'tests/config',
-        filename: 'nacl.yml',
         baseUrl: 'api',
         yml: true
       });
