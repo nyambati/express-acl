@@ -130,7 +130,7 @@
         var data = res._getData();
         assert(data, true);
         assert.deepEqual(res.statusCode, 404);
-        assert.deepEqual(data.message, 'group not found');
+        assert.deepEqual(data.message, 'REQUIRED: Group not found');
         done();
       });
     });
