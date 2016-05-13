@@ -22,6 +22,7 @@
   "author": "Nyambati Thomas <thomasnyambati@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "chai-spies": "^0.7.1",
     "colors": "^1.1.2",
     "express-unless": "^0.3.0",
     "js-yaml": "^3.6.0",
