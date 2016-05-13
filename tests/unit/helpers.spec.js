@@ -24,12 +24,10 @@
       });
 
       it('Should throw an error', function() {
-        var error = {
-          message: 'Error: Unknown encoding: -1'
-        };
+        var error = new Error('Error: Unknown encoding: 1');
 
         try {
-          rules = helper.getRules(path, -1, true);
+          rules = helper.getRules(path, 1, true);
         } catch (err) {
           expect(err.message).to.equal(error.message);
         }
