@@ -1,11 +1,18 @@
 (function() {
   'use strict';
 
-  var expect = require('chai').expect;
-  var helper = require('../../lib/helpers');
-  var httpMocks = require('node-mocks-http');
+  var chai = require('chai'),
+   helper = require('../../lib/helpers'),
+   httpMocks = require('node-mocks-http'),
+   spies = require('chai-spies');
 
   describe('Helpers test', function() {
+    var expect;
+
+    beforeEach(function() {
+      expect = chai.expect;
+    });
+
     context('getRules', function() {
       var path;
       var rules;
@@ -137,6 +144,36 @@
 
         expect(res.statusCode).to.equal(404);
         expect(data.message).to.equal(error.message);
+      });
+    });
+
+    context('resource', function() {
+      var next;
+
+      beforeEach(function() {
+        next = function() {
+          return;
+        };
+      });
+
+      it('Should return the resource for a given url', function() {
+        var url = '/api/user/4';
+        var baseUrl = 'api';
+        var resource = helper.resource(next, url, baseUrl);
+
+        expect(resource).to.not.be.empty;
+        expect(resource).to.equal('user');
+      });
+
+      it('Should call next', function() {
+        chai.use(spies);
+        var url = '';
+        var baseUrl = 'api';
+        var spy = chai.spy(next);
+        var resource = helper.resource(spy, url, baseUrl);
+
+        expect(resource).to.be.empty;
+        expect(spy).to.have.been.called();
       });
     });
   });
