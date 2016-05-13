@@ -76,6 +76,7 @@
         var group = helper.getGroup(res, mockRules, mockRole);
         var data = res._getData();
 
+        expect(group).to.be.empty;
         expect(res.statusCode).to.equal(404);
         expect(data.message).to.equal(error.message);
         done();
@@ -122,7 +123,7 @@
         expect(role).to.equal(decoded.role);
       });
 
-      it('Should return the role when session exits and decoded is empty', function() {
+      it('Should return the role when session exits', function() {
         var session = {
           role: 'admin'
         };
@@ -142,6 +143,7 @@
         var role = helper.getRole(res, decoded, session);
         var data = res._getData();
 
+        expect(role).to.be.empty;
         expect(res.statusCode).to.equal(404);
         expect(data.message).to.equal(error.message);
       });
