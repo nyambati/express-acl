@@ -24,8 +24,6 @@
 
     var methods = ['GET', 'PUT', 'DELETE'];
 
-
-
     beforeEach(function(done) {
       res = httpMocks.createResponse();
 
@@ -259,9 +257,72 @@
           expect(data).to.be.an('object');
           assert.deepEqual(data, response.success);
         });
+      });
+    });
 
+    describe('Check properties', function() {
+      it('Should assert core properties and return the rules', function() {
+        var mockRule = [{
+          group: 'user',
+          permissions: [{
+            resource: 'users',
+            methods: [
+              'POST',
+              'GET',
+              'PUT'
+            ],
+            action: 'deny'
+          }]
+        }];
+        var rules = utils.checkProperties(mockRule);
+
+        expect(rules).to.not.be.empty;
+        expect(rules).to.be.instanceof(Array);
+      });
+    });
+
+    describe('Validate', function() {
+      var rules;
+
+      it('Should return rules once validated', function() {
+        var mockRule = [{
+          group: 'user',
+          permissions: [{
+            resource: 'users',
+            methods: [
+              'POST',
+              'GET',
+              'PUT'
+            ],
+            action: 'deny'
+          }]
+        }];
+        rules = utils.validate(mockRule);
+
+        expect(rules).to.not.be.empty;
+        expect(rules).to.be.instanceof(Array);
       });
 
+      it('Should throw an error when rules is not an array', function() {
+        var mockRule = {
+          group: 'user'
+        };
+        try{
+          utils.validate(mockRule);
+        } catch(error) {
+          expect(utils.validate).to.throw(Error);
+        }
+      });
+
+      it('Should return a message when rules is empty', function() {
+        var mockRule = [];
+        var message = '\u001b[33mPolicy not set, ' + 
+          'All traffic will be denied\u001b[39m';
+        rules = utils.validate(mockRule);
+
+        expect(rules).to.not.be.empty;
+        expect(rules).to.equal(message);
+      });
     });
   });
 })();
