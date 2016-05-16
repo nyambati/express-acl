@@ -261,7 +261,7 @@
     });
 
     describe('Check properties', function() {
-      it('Should assert that each core property exists and return the rules', function() {
+      it('Should assert core properties and return the rules', function() {
         var mockRule = [{
           group: 'user',
           permissions: [{
@@ -316,7 +316,8 @@
 
       it('Should return a message when rules is empty', function() {
         var mockRule = [];
-        var message = '\u001b[33mPolicy not set, All traffic will be denied\u001b[39m';
+        var message = '\u001b[33mPolicy not set, ' + 
+          'All traffic will be denied\u001b[39m';
         rules = utils.validate(mockRule);
 
         expect(rules).to.not.be.empty;
