@@ -1,142 +1,151 @@
-var jwt = require('jsonwebtoken');
-var faker = require('faker');
-var acl = require('../../');
-
-/**
- * Configure acl
- * Add the baseUrl so that express-acl depends on this
- * to locate our resources.
- * @type {String}
- */
-// if you have none or ignore the baseUrl entirely
-// acl.config({
-//   baseUrl: '/'
-// });
-//
-//
-
-acl.config({
-  filename: 'nacl.json',
-  baseUrl: 'v1'
-});
-
-module.exports = function(app, express) {
-  var ROUTER = express.Router();
+(function() {
+  'use strict';
+  var jwt = require('jsonwebtoken');
+  var faker = require('faker');
+  var acl = require('../../');
 
   /**
-   * [createToken create a tojen from the user data]
-   * @param  {[object]} user
-   * @return {[string]} token
+   * Configure acl
+   * Add the baseUrl so that express-acl depends on this
+   * to locate our resources.
+   * @type {String}
    */
-  var key = 'thisisaverysecurekey';
+  // if you have none or ignore the baseUrl entirely
+  // acl.config({
+  //   baseUrl: '/'
+  // });
+  //
+  //
 
-  var createToken = function(user) {
-    var token = jwt.sign(user, key, {
-      expiresInMinute: 1440
-    });
-    return token;
-  };
-  /**
-   * [mockUser Fake user]
-   * @type {Object}
-   */
-
-  var mockUser = {
-    _id: faker.random.uuid(),
-    firstname: faker.name.firstName(),
-    lastname: faker.name.lastName(),
-    username: faker.internet.userName(),
-    email: faker.internet.email(),
-    password: faker.internet.password(),
-    role: 'user'
-  };
-
-  /**
-   * Middleware to inject token to header
-   * Note: this is done in the front end,
-   *  therefore this code is for illustration only
-   */
-  ROUTER.use(function(req, res, next) {
-
-    var token = createToken(mockUser);
-    req.headers['x-access-token'] = token;
-    next();
+  acl.config({
+    filename: 'nacl.json',
+    baseUrl: 'v1'
   });
 
-  /**
-   * lets create our jwt middleware
-   */
+  module.exports = function(app, express) {
+    var ROUTER = express.Router();
 
-  ROUTER.use(function(req, res, next) {
-    var token = req.headers['x-access-token'];
-    if (token) {
-      jwt.verify(token, key, function(err, decoded) {
-        if (err) {
-          return res.send(err);
-        } else {
-          req.decoded = decoded;
-          next();
-        }
+    /**
+     * [createToken create a tojen from the user data]
+     * @param  {[object]} user
+     * @return {[string]} token
+     */
+    var key = 'thisisaverysecurekey';
 
+    var createToken = function(user) {
+      var token = jwt.sign(user, key, {
+        expiresInMinute: 1440
       });
-    }
-  });
+      return token;
+    };
+    /**
+     * [mockUser Fake user]
+     * @type {Object}
+     */
 
-  /**
-   * our acl middleware will go here
-   */
+    var mockUser = {
+      _id: faker.random.uuid(),
+      firstname: faker.name.firstName(),
+      lastname: faker.name.lastName(),
+      username: faker.internet.userName(),
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+      role: 'user'
+    };
 
-  ROUTER.use(acl.authorize.unless({
-    path: ['/v1/blogs']
-  }));
+    /**
+     * Middleware to inject token to header
+     * Note: this is done in the front end,
+     *  therefore this code is for illustration only
+     */
+    ROUTER.use(function(req, res, next) {
 
-  /**
-   * Other routes we are protecting
-   */
-
-  ROUTER.route('/users')
-    .post(function(req, res) {
-      res.send({
-        message: 'Access granted'
-      });
-    })
-    .get(function(req, res) {
-      res.send({
-        message: 'Access granted'
-      });
-    })
-    .put(function(req, res) {
-      res.send({
-        message: 'Access granted'
-      });
-    })
-    .delete(function(req, res) {
-      res.send({
-        message: 'Access granted'
-      });
+      var token = createToken(mockUser);
+      req.headers['x-access-token'] = token;
+      next();
     });
 
+    /**
+     * lets create our jwt middleware
+     */
 
-  ROUTER.route('/blogs')
-    .get(function(req, res) {
-      res.send({
-        message: 'Access granted'
-      });
-    })
-    .put(function(req, res) {
-      res.send({
-        message: 'Access granted'
-      });
-    })
-    .delete(function(req, res) {
-      res.send({
-        message: 'Access granted'
-      });
+    ROUTER.use(function(req, res, next) {
+      var token = req.headers['x-access-token'];
+      if (token) {
+        jwt.verify(token, key, function(err, decoded) {
+          if (err) {
+            return res.send(err);
+          } else {
+            req.decoded = decoded;
+            next();
+          }
+
+        });
+      }
     });
-  /**
-   * Now lets include our router to the main app
-   */
+
+    /**
+     * our acl middleware will go here
+     */
+
+    ROUTER.use(acl.authorize.unless({
+      path: ['v1/blogs'],
+      method: ['POST']
+    }));
+
+    /**
+     * Other routes we are protecting
+     */
+
+    ROUTER.route('/users')
+      .post(function(req, res) {
+        res.send({
+          message: 'Access granted'
+        });
+      })
+      .get(function(req, res) {
+        res.send({
+          message: 'Access granted'
+        });
+      })
+      .put(function(req, res) {
+        res.send({
+          message: 'Access granted'
+        });
+      })
+      .delete(function(req, res) {
+        res.send({
+          message: 'Access granted'
+        });
+      });
 
 
-  app.use('/v1', ROUTER);
-};
+    ROUTER.route('/blogs')
+      .post(function(req, res) {
+        res.send({
+          message: 'Access granted'
+        });
+      })
+      .get(function(req, res) {
+        res.send({
+          message: 'Access granted'
+        });
+      })
+      .put(function(req, res) {
+        res.send({
+          message: 'Access granted'
+        });
+      })
+      .delete(function(req, res) {
+        res.send({
+          message: 'Access granted'
+        });
+      });
+    /**
+     * Now lets include our router to the main app
+     */
+
+
+    app.use('/v1', ROUTER);
+  };
+})();
