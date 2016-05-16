@@ -17,6 +17,7 @@
     "jQuery",
     "jasmine",
     "beforeEach",
+    "context",
     "describe",
     "expect",
     "it",
@@ -34,6 +35,7 @@
     "sinon",
     "spyOn"
   ],
+  "esnext": "true",
   "quotmark": true,
   "trailing": true,
   "undef": true,
