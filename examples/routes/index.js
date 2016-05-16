@@ -50,7 +50,7 @@
       username: faker.internet.userName(),
       email: faker.internet.email(),
       password: faker.internet.password(),
-      role: 'user'
+      role: 'monk'
     };
 
     /**
