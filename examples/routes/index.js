@@ -89,8 +89,7 @@
      */
 
     ROUTER.use(acl.authorize.unless({
-      path: ['v1/blogs'],
-      method: ['POST']
+      path: ['/v1/blogs']
     }));
 
     /**
