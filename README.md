@@ -3,7 +3,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/andela-thomas/express-acl/badge.svg?branch=develop)](https://coveralls.io/github/andela-thomas/express-acl?branch=develop)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/6cba987b85b84f11bb5ab0340388a556)](https://www.codacy.com/app/thomas-nyambati/express-acl)
 
-Express Access Control Lists (express-acl) enable you to manage the requests made to your express server. It makes use of ACL rules to protect your sever from unauthorized access. ACLs defines which user groups are granted access and the type of access they have against a specified resource. When a request is received against a resource, `express-acl` checks the corresponding ACL policy to verify if the requester has the necessary access permissions.
+Express-acl is a lightweight implementation of Access Control Lists for express applications. This package enables you to easly manage and protect your express server against unauthorized access. This is achieved through the use of ACL policies that define access levels of each user group in you app. This policies defines which user groups are granted access to your app and the type of access they have against a specified resources. When a request is made against a resource, `express-acl` checks the corresponding ACL policy to verify if the requester has the necessary access permissions to access that resource. 
 
 ##### What is ACL rules
 ACL is a set of rules that tell `express-acl` how to handle the requests made to your server against a specific resource. Think of them like road signs or traffic lights that control how your traffic flows in your app. ACL rules are defined in JSON or yaml syntax.
