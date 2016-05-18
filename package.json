@@ -7,17 +7,18 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "mocha tests/*",
-    "test-travis": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec ./tests/*"
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/andela-thomas/express-access-control-list/"
   },
   "keywords": [
-    "acl",
     "express-acl",
-    "node-acl"
+    "Acl",
+    "node-acl",
+    "Access control list",
+    "Expressjs",
   ],
   "author": "Nyambati Thomas <thomasnyambati@gmail.com>",
   "license": "MIT",
@@ -33,7 +34,15 @@
     "chai": "^3.5.0",
     "codacy-coverage": "^1.1.3",
     "coveralls": "^2.11.9",
+    "gulp": "^3.9.1",
+    "gulp-istanbul": "^0.10.4",
+    "gulp-jshint": "^2.0.1",
+    "gulp-load-plugins": "^1.2.2",
+    "gulp-mocha": "^2.2.0",
+    "gulp-shell": "^0.5.2",
     "istanbul": "^0.4.3",
+    "jshint": "^2.9.2",
+    "jshint-stylish": "^2.2.0",
     "mocha": "^2.4.5",
     "node-mocks-http": "^1.5.2"
   }
