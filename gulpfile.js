@@ -27,7 +27,7 @@
   gulp.task('test',['pre-test'], function() {
       return gulp.src(paths.tests, { read: false })
           // The reporter can be changed to preferable one
-          .pipe(plugins.mocha( { reporter: 'list' }))
+          .pipe(plugins.mocha())
           // Creating the reports after tests ran
           .pipe(plugins.istanbul.writeReports())
           // Enforce a coverage of at least 90%
