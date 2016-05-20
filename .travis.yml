@@ -7,7 +7,7 @@ node_js:
 install:
   - npm install -g gulp
   - npm install
-
+  
 script: 'npm test'
 # Send coverage data to Coveralls
 
