@@ -242,7 +242,7 @@ Call the config method
 
 Add the acl middleware
 ```js
-  app.get(acl.authorize);
+  app.use(acl.authorize);
 ```
 
 For more details check the examples folder.[examples](https://github.com/andela-thomas/express-acl/tree/master/examples)
