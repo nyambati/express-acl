@@ -1,15 +1,16 @@
 language: node_js
-sudo: false
+sudo: yes
 
 node_js:
   - '5.9.0'
   - 'stable'
-
-script: 'npm run test-travis'
+install:
+  - npm install -g gulp
+  - npm install
+  
+script: 'npm test'
 # Send coverage data to Coveralls
 
 after_script:
   - 'cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js'
   - cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage && rm -rf ./coverage
-
-
