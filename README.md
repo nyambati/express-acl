@@ -5,7 +5,7 @@
 
 Express Access Control Lists (express-acl) enable you to manage the requests made to your express server. It makes use of ACL rules to protect your sever from unauthorized access. ACLs defines which user groups are granted access and the type of access they have against a specified resource. When a request is received against a resource, `express-acl` checks the corresponding ACL policy to verify if the requester has the necessary access permissions.
 
-##### What is ACL rules
+##### What are ACL rules
 ACL is a set of rules that tell `express-acl` how to handle the requests made to your server against a specific resource. Think of them like road signs or traffic lights that control how your traffic flows in your app. ACL rules are defined in JSON or yaml syntax.
 
 **Example**
@@ -82,7 +82,7 @@ Express acl uses the configuration approach to define access levels.
     First step is to create a file called `nacl.json` and place this in the root folder. This is the file where we will define the roles that can access our application, and the policies that restrict or give access to certain resources. Take a look at the example below.
 
     ```json
-  
+
     [{
       "group": "admin",
       "permissions": [{
@@ -108,7 +108,7 @@ Express acl uses the configuration approach to define access levels.
 
     Property | Type | Description
     --- | --- | ---
-    **group** | `string` | This property defines the access group to which a user can belong to  e.g `user`, `guest`, `admin`, `trainer`. This may vary depending with the architecture of you application.
+    **group** | `string` | This property defines the access group to which a user can belong to  e.g `user`, `guest`, `admin`, `trainer`. This may vary depending with the architecture of your application.
     **permissions** | `Array` | This property contains an array of objects that define the resources exposed to a group and the methods allowed/denied
     **resource** | `string` | This is the resource that we are either giving access to. e.g `blogs` for route `/api/blogs`, `users` for route `/api/users`. You can also specify a glob `*` for all resource/routes in your application(recommended for admin users only)
     **methods** | `string or Array` | This are http methods that a user is allowed or denied from executing. `["POST", "GET", "PUT"]`. use glob `*` if you want to include all http methods.
@@ -147,7 +147,7 @@ express-acl depends on the role of each authenticated user to pick the correspon
 There are two API methods for express-acl.
 
 **config[type: function, params: filename<string>,path<string>, yml<boolean>, encoding, baseUrl]**
-  
+
 This methods loads the configuration json file. When this method it looks for `nacl.json` the root folder if path is not specified.
 **filename**: Name of the ACL rule file e.g nacl.json
 **path**: Location of the ACL rule file
@@ -193,7 +193,7 @@ This methods loads the configuration json file. When this method it looks for `n
   ```
   **unless[type:function, params: function or object]**
 
-  By default any route that has no defined policy against it is blocked, this means you can not access this route untill you specify a policy. This method enables you to exclude unprotected routes. This method uses express-unless package to achive this functionality. For more details on its usage follow this link [express-unless](https://github.com/jfromaniello/express-unless/blob/master/README.md)
+  By default any route that has no defined policy against it is blocked, this means you cannot access this route untill you specify a policy. This method enables you to exclude unprotected routes. This method uses express-unless package to achive this functionality. For more details on its usage follow this link [express-unless](https://github.com/jfromaniello/express-unless/blob/master/README.md)
   ```js
   //assuming we want to hide /auth/google from express acl
 
@@ -224,7 +224,7 @@ Create `nacl.json` in your root folder
     "action": "allow"
     }]
   }]
-  
+
 ```
 
 Require express-acl in your project router file.
@@ -245,7 +245,7 @@ Add the acl middleware
   app.use(acl.authorize);
 ```
 
-For more details check the examples folder.[examples](https://github.com/andela-thomas/express-acl/tree/master/examples)
+For more details checkout the [examples folder](https://github.com/andela-thomas/express-acl/tree/master/examples).
 
 # Contributions
 Pull requests are welcome. If you are adding a new feature or fixing an as-yet-untested use case, please consider writing unit tests to cover your change(s). For more information visit the contributions [page](https://github.com/andela-thomas/express-acl/wiki/contributions)
