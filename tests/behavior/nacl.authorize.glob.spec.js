@@ -39,7 +39,7 @@
           done();
         });
 
-        it('Shoud deny access to resource /api/user/42', function(done) {
+        it('Should deny access to resource /api/user/42', function(done) {
           req = httpMocks.createRequest({
             method: 'POST',
             url: '/api/users/42'
@@ -103,7 +103,7 @@
           done();
         });
 
-        it('Shoud Deny Access to resource /api/user/42', function(done) {
+        it('Should Deny Access to resource /api/user/42', function(done) {
           req = httpMocks.createRequest({
             method: 'POST',
             url: '/api/users/42'

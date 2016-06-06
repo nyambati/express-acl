@@ -121,7 +121,7 @@
           done();
         });
 
-        it('Shoud allow access to /api/user/42', function(done) {
+        it('Should allow access to /api/user/42', function(done) {
           req = httpMocks.createRequest({
             method: 'POST',
             url: '/api/users/42'
