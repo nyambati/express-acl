@@ -146,13 +146,14 @@ express-acl depends on the role of each authenticated user to pick the correspon
 # API
 There are two API methods for express-acl.
 
-**config[type: function, params: filename<string>,path<string>, yml<boolean>, encoding, baseUrl]**
+**config[type: function, params: filename<string>,path<string>, yml<boolean>, encoding, baseUrl, rules]**
 
 This methods loads the configuration json file. When this method it looks for `nacl.json` the root folder if path is not specified.
 **filename**: Name of the ACL rule file e.g nacl.json
 **path**: Location of the ACL rule file
 **yml**: when set to true means use yaml parser else JSON parser
 **baseUrl**: The base url of your API e.g /developer/v1
+**rules**: The rules you can direct set for nacl
 
 ```js
   var acl = require('express-acl');
@@ -180,6 +181,12 @@ This methods loads the configuration json file. When this method it looks for `n
 
   // When specifying path you can also rename the json file e.g
   // The above file can be acl.json or nacl.json or any_file_name.json
+
+  acl.config({
+	rules: rulesArray
+  });
+
+  // When you use rules api, nacl will **not** to find the json/yaml file, so you can save your acl-rules with any Database; 
 
   ```
 
