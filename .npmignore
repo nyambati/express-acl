@@ -1,7 +1,7 @@
 # should not be published by NPM
 .gitignore
 tests
-config.json
+nacl.json
 examples
 .houd.yml
 .eslintrc
@@ -9,3 +9,4 @@ examples
 .travis.yml
 .coveralls.yml
 coverage
+docs
