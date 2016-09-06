@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="../../css/highlight.css">
+  <link href="../../css/highlight.css" rel="stylesheet">
 
   
   <script>
@@ -215,6 +216,8 @@ $ npm install express-acl --save
 ROUTER.use(acl.authorize);
 
 </code></pre>
+
+<p>Once this middware is called, express-acl will pick the role from the authenticated user,and apply corresponding polices dependng on he role and resource sbeing requested for.</p>
               
             </div>
           </div>

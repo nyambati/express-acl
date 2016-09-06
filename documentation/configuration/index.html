@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="../../css/highlight.css">
+  <link href="../../css/highlight.css" rel="stylesheet">
 
   
   <script>
@@ -79,6 +80,22 @@
         <a class="current" href="./">Configuration options</a>
         
             <ul>
+            
+                <li class="toctree-l3"><a href="#overview">Overview</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#options">Options</a></li>
+                
+                    <li><a class="toctree-l4" href="#filename-filename-optional">Filename filename [optional]</a></li>
+                
+                    <li><a class="toctree-l4" href="#path-path-optional">Path path [optional]</a></li>
+                
+                    <li><a class="toctree-l4" href="#file-type-yml-optional">File Type yml [optional].</a></li>
+                
+                    <li><a class="toctree-l4" href="#encoding-encoding-optional">Encoding encoding [optional].</a></li>
+                
+                    <li><a class="toctree-l4" href="#base-url-baseurl-required">Base URL baseUrl [required].</a></li>
+                
             
             </ul>
         
@@ -142,7 +159,70 @@
           <div role="main">
             <div class="section">
               
-                
+                <h1 id="overview">Overview</h1>
+<p>This are the options that are passed to the config method. This options determin how the rules will be loaded and how resource matching should start from.</p>
+<h1 id="options">Options</h1>
+<p>The config method takes in an object with possible five parameters, They include</p>
+<ul>
+<li>filename: <code>string</code></li>
+<li>path: <code>string</code></li>
+<li>yml: <code>boolean</code></li>
+<li>encoding: <code>string</code></li>
+<li>baseUrl: <code>string</code></li>
+</ul>
+<h2 id="filename-filename-optional">Filename <code>filename [optional]</code></h2>
+<p>This property holds the name of the file that contains the acl configurations. By default express-acl will look for <code>nacl.json</code> or <code>nacl.yml</code> in the root folder of your project. If you plan to change the name you can specify the name of your file in this property.</p>
+<pre><code class="javascript">
+  const options = {
+    filename: 'anotherFile.json'
+  };
+
+  acl.config(options);
+
+</code></pre>
+
+<p>Its important to note that the filename should have an extension attached to it e.g <code>.json</code> or <code>.yml</code>.</p>
+<h2 id="path-path-optional">Path <code>path [optional]</code></h2>
+<p>This property specifies the location of the configuration file. By default the acl configuration file is located in the root folder of the project. However sometimes you may want to place this file among other configuration files of your project. You can achieve this by adding the location of the file relative to the root folder.</p>
+<p>If the config folder is <code>/server/config</code>, then we can configure the path property as shown below.</p>
+<pre><code class="javascript">  const options = {
+    filename: 'acl.json',
+    path:'server/config'
+  };
+
+  acl.config(options);
+
+</code></pre>
+
+<p>Basically what this means is that, you are instructing express-acl to go to the <code>server/config</code> folder and load the contents of <code>acl.json</code>.</p>
+<h2 id="file-type-yml-optional">File Type <code>yml [optional]</code>.</h2>
+<p>Express acl supports two types of configuration syntax. <code>JSON</code> and <code>yml</code>. By default it uses JSON as its primary syntax, however you can change to whichever syntax that works for you.</p>
+<p>This property is false by default therefore if you want to use <code>yml</code> as your syntax then change it to true. This will instruct express-acl to use a <code>YAML</code> parser instead of the <code>JSON</code> parser.</p>
+<pre><code class="js">  const options = {
+    filename:'acl.yml',
+    path:'server/config',
+    yml:true
+  };
+
+  acl.config(options);
+
+</code></pre>
+
+<h2 id="encoding-encoding-optional">Encoding <code>encoding [optional]</code>.</h2>
+<p>This is the encoding type <code>fs</code> module uses to read nacl file. For more information refer to the <a href="https://nodejs.org/api/fs.html">file system </a> Nodejs documentation.</p>
+<h2 id="base-url-baseurl-required">Base URL <code>baseUrl [required]</code>.</h2>
+<p>The base URL represent the prefix of your API. This can either be <code>api</code>,<code>v1</code>,<code>/developer/v1</code> etc. This is important because express-acl will use this url to map the location of the resources. Take an example of the following url <code>/api/users</code>.</p>
+<p>In this URL our resource is users,and the base URL being <code>api</code>. If we donot specify the base URL express will treat <code>api</code> as our resource instead of <code>users</code>.</p>
+<pre><code class="js">  const options = {
+    filename:'acl.yml',
+    path:'server/config',
+    baseUrl:'api'
+    yml:true
+  };
+
+  acl.config(options);
+
+</code></pre>
               
             </div>
           </div>
