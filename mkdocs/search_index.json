@@ -1,0 +1,64 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "Express Acl\n\n\nThis is NodeJs runtime module that Implements ACL for expressJS Application. Its is designed to provide configuration approach to ACL implemantation as saving you the nightmare of writing countless middlewares. It suppports JSON and YAML as the configuration syntax.\n\n\nInstallation\n\n\nExample usage\n\n\n  const express = require('express');\n  const acl = require('express-acl');\n  const app = express()\n\n  // load acl configuration, from acl file\n  // default filename is nacl.json or nacl.yml\n\n  acl.config({\n    baseUrl:'api',\n  })\n\n  // Call the acl authorize middleware\n  app.use(acl.authorize);", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#express-acl", 
+            "text": "This is NodeJs runtime module that Implements ACL for expressJS Application. Its is designed to provide configuration approach to ACL implemantation as saving you the nightmare of writing countless middlewares. It suppports JSON and YAML as the configuration syntax.  Installation", 
+            "title": "Express Acl"
+        }, 
+        {
+            "location": "/#example-usage", 
+            "text": "const express = require('express');\n  const acl = require('express-acl');\n  const app = express()\n\n  // load acl configuration, from acl file\n  // default filename is nacl.json or nacl.yml\n\n  acl.config({\n    baseUrl:'api',\n  })\n\n  // Call the acl authorize middleware\n  app.use(acl.authorize);", 
+            "title": "Example usage"
+        }, 
+        {
+            "location": "/documentation/getting-started/", 
+            "text": "Installation\n\n\nExpress Acl is available via NPM registry\n\n\n\n$ npm install express-acl --save\n\n\n\n\n\nConfiguration\n\n\nExpress acl uses acl rules to manage and protect your resources, They have to be loaded and configured before being used.\n\n\n  const acl = require('express-acl');\n\n  // Call the config method and pass in the  options\n  acl.config({\n    baseUrl:'api',\n    yml:true\n  });\n\n\n\n\n\nFor more details check the \nconfiguration options\n page\n\n\nAdding Rules\n\n\nThe config method loads the rules for the local file. By default this module will look for \nnacl.json\n file in the root folder of your project. This can be overidden by adding more options to the config method as we have added yml which will look for \nnacl.yml\n file instead.\n\n\n- group: user\n  permissions:\n    - resource: users\n      methods:\n        - GET\n        - POST\n        - DELETE\n      action: allow\n\n\n\n\nThis file instructs this module on how to manage access to your resources. The contets of this file will be covered in details in the \nAcl rules\n section\n\n\nAuthentication\n\n\nExpress Acl depends on the \nrole\n of each authenticated user to pick the corresponding ACL policy for each defined user groups. Therefore, You should always place the acl middleware after the authenticate middleware.\n\n\nBelow is an example of an Authenticatio middleware implementation using jsonwebtokens.\n\n\n  ROUTER.use(function(req, res, next) {\n    var token = req.headers['x-access-token'];\n    if (token) {\n      jwt.verify(token, key, function(err, decoded) {\n        if (err) {\n          return res.send(err);\n        } else {\n          req.decoded = decoded;\n          next();\n        }\n      });\n    }\n  });\n\n\n\n\n\nAuthorize\n\n\nThe acl module provides a middleware \nauthorize\n. This middleware should be placed after the authentication middleware. It will intercept all the requests made for all the resources and apply relevant policies ton these to either deny or allow access depending on the configuration.\n\n\n\nROUTER.use(acl.authorize);", 
+            "title": "Getting started"
+        }, 
+        {
+            "location": "/documentation/getting-started/#installation", 
+            "text": "Express Acl is available via NPM registry  \n$ npm install express-acl --save", 
+            "title": "Installation"
+        }, 
+        {
+            "location": "/documentation/getting-started/#configuration", 
+            "text": "Express acl uses acl rules to manage and protect your resources, They have to be loaded and configured before being used.    const acl = require('express-acl');\n\n  // Call the config method and pass in the  options\n  acl.config({\n    baseUrl:'api',\n    yml:true\n  });  For more details check the  configuration options  page", 
+            "title": "Configuration"
+        }, 
+        {
+            "location": "/documentation/getting-started/#adding-rules", 
+            "text": "The config method loads the rules for the local file. By default this module will look for  nacl.json  file in the root folder of your project. This can be overidden by adding more options to the config method as we have added yml which will look for  nacl.yml  file instead.  - group: user\n  permissions:\n    - resource: users\n      methods:\n        - GET\n        - POST\n        - DELETE\n      action: allow  This file instructs this module on how to manage access to your resources. The contets of this file will be covered in details in the  Acl rules  section", 
+            "title": "Adding Rules"
+        }, 
+        {
+            "location": "/documentation/getting-started/#authentication", 
+            "text": "Express Acl depends on the  role  of each authenticated user to pick the corresponding ACL policy for each defined user groups. Therefore, You should always place the acl middleware after the authenticate middleware.  Below is an example of an Authenticatio middleware implementation using jsonwebtokens.    ROUTER.use(function(req, res, next) {\n    var token = req.headers['x-access-token'];\n    if (token) {\n      jwt.verify(token, key, function(err, decoded) {\n        if (err) {\n          return res.send(err);\n        } else {\n          req.decoded = decoded;\n          next();\n        }\n      });\n    }\n  });", 
+            "title": "Authentication"
+        }, 
+        {
+            "location": "/documentation/getting-started/#authorize", 
+            "text": "The acl module provides a middleware  authorize . This middleware should be placed after the authentication middleware. It will intercept all the requests made for all the resources and apply relevant policies ton these to either deny or allow access depending on the configuration.  \nROUTER.use(acl.authorize);", 
+            "title": "Authorize"
+        }, 
+        {
+            "location": "/documentation/configuration/", 
+            "text": "", 
+            "title": "Configuration options"
+        }, 
+        {
+            "location": "/documentation/acl-rules/", 
+            "text": "", 
+            "title": "Acl rules"
+        }, 
+        {
+            "location": "/contribution/", 
+            "text": "", 
+            "title": "Contribution"
+        }
+    ]
+}
