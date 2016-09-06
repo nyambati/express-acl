@@ -6,6 +6,7 @@ strict: true
 # css  and javascript
 
 extra_css:
+  - css/highlight.css
 extra_javascript:
 #
 pages:

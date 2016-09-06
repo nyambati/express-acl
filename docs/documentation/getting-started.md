@@ -76,5 +76,6 @@ ROUTER.use(acl.authorize);
 
 ```
 
+Once this middware is called, express-acl will pick the role from the authenticated user,and apply corresponding polices dependng on he role and resource sbeing requested for.
 
 
