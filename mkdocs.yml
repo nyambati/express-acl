@@ -1,0 +1,18 @@
+site_name: Express Acl
+repo_url: https://github.com/andela-thomas/express-acl
+site_description: This is documentation for express-acl project
+site_favicon: favicon.ico
+strict: true
+# css  and javascript
+
+extra_css:
+extra_javascript:
+#
+pages:
+  - Home: index.md
+  - Documentation:
+      - Getting started: documentation/getting-started.md
+      - Configuration options: documentation/configuration.md
+      - Acl rules: documentation/acl-rules.md
+  - Contribution: contribution.md
+theme: readthedocs
