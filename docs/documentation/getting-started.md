@@ -13,7 +13,7 @@ $ npm install express-acl --save
 
 Express acl uses acl rules to manage and protect your resources, They have to be loaded and configured before being used.
 
-```javascript
+```js
   const acl = require('express-acl');
 
   // Call the config method and pass in the  options

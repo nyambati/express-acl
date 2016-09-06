@@ -5,8 +5,7 @@ site_favicon: favicon.ico
 strict: true
 # css  and javascript
 
-extra_css:
-  - css/highlight.css
+extra_css: [css/extra.css]
 extra_javascript:
 #
 pages:
