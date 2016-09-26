@@ -53,7 +53,9 @@
     .pipe(plugins.istanbul.hookRequire());
   });
 
-
+  gulp.task('build-image', plugins.shell.task([
+    'docker build -t thomasnyambati/constable .'
+  ]));
   /**
    * Start gulp
    */
