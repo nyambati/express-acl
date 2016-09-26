@@ -58,15 +58,11 @@ Property | Type | Description
 
 ## How to write effective ACL Rules
 
-ACLs define the way requests will be handled by express acl, therefore its important to ensure that they are well designed to maximise efficiency.
-
-How to write ACL rules
-
-Designing a good ACL is important to ensure that your application traffic is handled well and effectively. In this page, I am going to show you how to design a good ACL based on your application needs.
+ACLs define the way requests will be handled by express acl, therefore its important to ensure that they are well designed to maximise efficiency.In this section we are going to look at how to design a good ACL based on your application needs.
 
 Assuming you have a blog application, and you want to make blogs read only, deny user ability to delete their own account. You want the admin to have all the access on resources.
 
-solution:
+**solution:**
 
 ```
 admin:
@@ -86,7 +82,8 @@ user:
   action: allow
 
 ```
-## Explanation
+
+**Explanation**
 
 The admin group has access to all resource and can perform all operation on any resource. Therefore, we need to allow all resources and methods. However, the user group is allowed to only read the blogs, create, read and update their own user profiles.
 

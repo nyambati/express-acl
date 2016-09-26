@@ -14,5 +14,6 @@ pages:
       - Getting started: documentation/getting-started.md
       - Configuration options: documentation/configuration.md
       - Acl rules: documentation/acl-rules.md
+      - Status codes and responses: documentation/status-and-responses.md
   - Contribution: contribution.md
 theme: readthedocs
