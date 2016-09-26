@@ -1,0 +1,11 @@
+  @media only screen and (min-width: 992px) {
+    .wy-nav-content {
+      position: relative;
+      margin-left: 200px;
+    }
+  }
+
+  body {
+    font-size: 18px;
+    line-height: 2;
+  }
