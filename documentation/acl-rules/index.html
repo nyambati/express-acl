@@ -88,7 +88,21 @@
         
             <ul>
             
+                <li class="toctree-l3"><a href="#acl-rules">ACL Rules</a></li>
+                
+                    <li><a class="toctree-l4" href="#understanding-acl-rules">Understanding ACL rules</a></li>
+                
+                    <li><a class="toctree-l4" href="#how-to-write-effective-acl-rules">How to write effective ACL Rules</a></li>
+                
+            
             </ul>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../status-and-responses/">Status codes and responses</a>
         
     </li>
 
@@ -143,7 +157,141 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="_1"></h1>
+                <h1 id="acl-rules">ACL Rules</h1>
+<p>Express acl uses Rules to define what access should be given to certain user groups over specific resources.</p>
+<p>The first step to making acl rules is by creating nacl.json or nacl.yml depending on the syntax you prefer to use. Below is an example of ACL rules using both syntax.</p>
+<p>JSON syntax</p>
+<pre><code class="json">[{
+  &quot;group&quot;: &quot;admin&quot;,
+  &quot;permissions&quot;: [{
+    &quot;resource&quot;: &quot;*&quot;,
+    &quot;methods&quot;: &quot;*&quot;
+  }],
+  &quot;action&quot;: &quot;allow&quot;
+  }, {
+  &quot;group&quot;: &quot;user&quot;,
+  &quot;permissions&quot;: [{
+    &quot;resource&quot;: &quot;users&quot;,
+    &quot;methods&quot;: [
+      &quot;POST&quot;,
+      &quot;GET&quot;,
+      &quot;PUT&quot;
+    ],
+    &quot;action&quot;: &quot;deny&quot;
+  }]
+}]
+</code></pre>
+
+<p>YAML syntax</p>
+<pre><code class="yml">- group: admin
+  permissions:
+    - resource: *
+      methods: *
+      action: allow
+
+- group: user
+  permissions:
+    - resource: users
+      methods:
+        - GET
+        - POST
+        - DELETE
+      action: deny
+</code></pre>
+
+<h2 id="understanding-acl-rules">Understanding ACL rules</h2>
+<p>Its important to Understand each property that consitute an acl. Below is a table that has a Description of each property.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>group</strong></td>
+<td><code>string</code></td>
+<td>This property defines the access group to which a user can belong to  e.g <code>user</code>, <code>guest</code>, <code>admin</code>, <code>trainer</code>. This may vary depending with the architecture of your application.</td>
+</tr>
+<tr>
+<td><strong>permissions</strong></td>
+<td><code>Array</code></td>
+<td>This property contains an array of objects that define the resources exposed to a group and the methods allowed/denied</td>
+</tr>
+<tr>
+<td><strong>resource</strong></td>
+<td><code>string</code></td>
+<td>This is the resource that we are either giving access to. e.g <code>blogs</code> for route <code>/api/blogs</code>, <code>users</code> for route <code>/api/users</code>. You can also specify a glob <code>*</code> for all resource/routes in your application(recommended for admin users only)</td>
+</tr>
+<tr>
+<td><strong>methods</strong></td>
+<td><code>string or Array</code></td>
+<td>This are http methods that a user is allowed or denied from executing. <code>["POST", "GET", "PUT"]</code>. use glob <code>*</code> if you want to include all http methods.</td>
+</tr>
+<tr>
+<td><strong>action</strong></td>
+<td><code>string</code></td>
+<td>This property tell express-acl what action to perform on the permission given. Using the above example, the user policy specifies a deny action, meaning all traffic on route <code>/api/users</code> for methods <code>GET, PUT, POST</code> are denied, but the rest allowed. And for the admin, all traffic for all resource is allowed.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-to-write-effective-acl-rules">How to write effective ACL Rules</h2>
+<p>ACLs define the way requests will be handled by express acl, therefore its important to ensure that they are well designed to maximise efficiency.In this section we are going to look at how to design a good ACL based on your application needs.</p>
+<p>Assuming you have a blog application, and you want to make blogs read only, deny user ability to delete their own account. You want the admin to have all the access on resources.</p>
+<p><strong>solution:</strong></p>
+<pre><code>admin:
+  resource: all
+  methods: all
+  action: allow
+
+user:
+  resource: users
+  methods:
+    - DELETE
+  action: deny
+
+  resource: blogs
+  methods:
+    - GET
+  action: allow
+
+</code></pre>
+
+<p><strong>Explanation</strong></p>
+<p>The admin group has access to all resource and can perform all operation on any resource. Therefore, we need to allow all resources and methods. However, the user group is allowed to only read the blogs, create, read and update their own user profiles.</p>
+<p>You may ask, why did we apply deny action on DELETE method instead of allowing other HTTP methods? In express-acl when you allow one method, you automatically deny access to the other methods and when you deny one you allow the remaining methods.</p>
+<p>Thus denying one method is faster than allowing three or four methods. When it comes to blogs we only need them to read therefore we allow GET methods which means the other methods are denied.</p>
+<p>For you to formulate good ACL rules, you need to understand the princple of negation. To allow is to deny and to deny is to allow, confusing right? how can you deny and allow at the same time?. Lets look at this example, if I have 4 methods POST, GET, PUT, DELETE and I deny POST. This is same as saying allow GET,PUT,DELETE and if I allow POST is same as saying deny GET,PUT,DELETE.</p>
+<p>Now that we have established that lets write our config file. Our nacl.json will look like this.</p>
+<pre><code class="json">[{
+   &quot;group&quot;: &quot;admin&quot;,
+   &quot;permissions&quot;: [{
+     &quot;resource&quot;: &quot;*&quot;,
+     &quot;methods&quot;: &quot;*&quot;,
+     &quot;action&quot;: &quot;allow&quot;
+   }]
+ },
+ {
+   &quot;group&quot;: &quot;user&quot;,
+   &quot;permissions&quot;: [
+   {
+     &quot;resource&quot;: &quot;users&quot;,
+     &quot;methods&quot;: [
+       &quot;DELETE&quot;,
+     ],
+    &quot;action&quot;:&quot;deny&quot;
+   },
+   {
+     &quot;resource&quot;: &quot;users&quot;,
+     &quot;methods&quot;: [
+       &quot;GET&quot;,
+     ],
+    &quot;action&quot;: &quot;allow&quot;
+   }]
+ }]
+</code></pre>
               
             </div>
           </div>
@@ -151,7 +299,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../../contribution/" class="btn btn-neutral float-right" title="Contribution">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../status-and-responses/" class="btn btn-neutral float-right" title="Status codes and responses">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../configuration/" class="btn btn-neutral" title="Configuration options"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -185,7 +333,7 @@
         <span><a href="../configuration/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../../contribution/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../status-and-responses/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

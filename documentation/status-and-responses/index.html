@@ -8,7 +8,7 @@
   
   
   
-  <title>Getting started - Express Acl</title>
+  <title>Status codes and responses - Express Acl</title>
   
 
   <link rel="shortcut icon" href="../../favicon.ico">
@@ -25,9 +25,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Getting started";
-    var mkdocs_page_input_path = "documentation/getting-started.md";
-    var mkdocs_page_url = "/documentation/getting-started/";
+    var mkdocs_page_name = "Status codes and responses";
+    var mkdocs_page_input_path = "documentation/status-and-responses.md";
+    var mkdocs_page_url = "/documentation/status-and-responses/";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
@@ -69,27 +69,8 @@
 
         
             
-    <li class="toctree-l1 current">
-        <a class="current" href="./">Getting started</a>
-        
-            <ul>
-            
-                <li class="toctree-l3"><a href="#installation">Installation</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#configuration">Configuration</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#adding-rules">Adding Rules</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#authentication">Authentication</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#authorize">Authorize</a></li>
-                
-            
-            </ul>
+    <li class="toctree-l1 ">
+        <a class="" href="../getting-started/">Getting started</a>
         
     </li>
 
@@ -109,8 +90,24 @@
 
         
             
-    <li class="toctree-l1 ">
-        <a class="" href="../status-and-responses/">Status codes and responses</a>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Status codes and responses</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#status-codes-and-responses">Status codes and responses</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#missing-role">Missing role</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#missing-group">Missing Group</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#unauthorized-access">Unauthorized access.</a></li>
+                
+            
+            </ul>
         
     </li>
 
@@ -151,7 +148,7 @@
         
       
     
-    <li>Getting started</li>
+    <li>Status codes and responses</li>
     <li class="wy-breadcrumbs-aside">
       
         
@@ -165,66 +162,44 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="installation">Installation</h1>
-<p>Express Acl is available via NPM registry</p>
-<pre><code class="bash">
-$ npm install express-acl --save
+                <h2 id="status-codes-and-responses">Status codes and responses</h2>
+<p>Express acl return  status codes and responses when authorization fails. In this section We will look into these codes and scenarios that might trigger such responses.</p>
+<p>When Authorization fails,this module returns a json response with the following properties.</p>
+<ul>
+<li>status</li>
+<li>success</li>
+<li>Message</li>
+</ul>
+<h2 id="missing-role">Missing role</h2>
+<p>Express acl uses user's role to match the approriate policy to use. Therefore it is required that each use object to have a role defined. However if the user role is not defined, Express acl will deny that user access to the system.</p>
+<pre><code class="json">{
+  &quot;status&quot;: &quot;Access Denied&quot;,
+  &quot;success&quot;: false,
+  &quot;message&quot;:&quot;REQUIRED: Role not found&quot;
+}
 
 </code></pre>
 
-<h1 id="configuration">Configuration</h1>
-<p>Express acl uses acl rules to manage and protect your resources, They have to be loaded and configured before being used.</p>
-<pre><code class="js">  const acl = require('express-acl');
-
-  // Call the config method and pass in the  options
-  acl.config({
-    baseUrl:'api',
-    yml:true
-  });
-
-</code></pre>
-
-<p>For more details check the <a href="../../documentation/configuration">configuration options</a> page</p>
-<h1 id="adding-rules">Adding Rules</h1>
-<p>The config method loads the rules for the local file. By default this module will look for <code>nacl.json</code> file in the root folder of your project. This can be overidden by adding more options to the config method as we have added yml which will look for <code>nacl.yml</code> file instead.</p>
-<pre><code class="yaml">- group: user
-  permissions:
-    - resource: users
-      methods:
-        - GET
-        - POST
-        - DELETE
-      action: allow
-</code></pre>
-
-<p>This file instructs this module on how to manage access to your resources. The contets of this file will be covered in details in the <a href="../../documentation/acl-rules">Acl rules</a> section</p>
-<h1 id="authentication">Authentication</h1>
-<p>Express Acl depends on the <code>role</code> of each authenticated user to pick the corresponding ACL policy for each defined user groups. Therefore, You should always place the acl middleware after the authenticate middleware.</p>
-<p>Below is an example of an Authenticatio middleware implementation using jsonwebtokens.</p>
-<pre><code class="javascript">  ROUTER.use(function(req, res, next) {
-    var token = req.headers['x-access-token'];
-    if (token) {
-      jwt.verify(token, key, function(err, decoded) {
-        if (err) {
-          return res.send(err);
-        } else {
-          req.decoded = decoded;
-          next();
-        }
-      });
-    }
-  });
+<p>This error will also return a status of <code>404</code></p>
+<h2 id="missing-group">Missing Group</h2>
+<p>Policies are defined under user groups. This enables us to group users using roles and define policies through groups insted of doing it per user. If a user group is not defined this means that users of that role will not be gived access to the system. Therefore if you have a role associated to users, ensure that such role has been defined in your rules configurations.</p>
+<pre><code class="json">{
+  &quot;status&quot;: &quot;Access Denied&quot;,
+  &quot;success&quot;: false,
+  &quot;message&quot;:&quot;REQUIRED: Role not found&quot;
+}
 
 </code></pre>
 
-<h1 id="authorize">Authorize</h1>
-<p>The acl module provides a middleware <code>authorize</code>. This middleware should be placed after the authentication middleware. It will intercept all the requests made for all the resources and apply relevant policies ton these to either deny or allow access depending on the configuration.</p>
-<pre><code class="javascript">
-ROUTER.use(acl.authorize);
-
+<p>This error will also return a status of <code>404</code>.</p>
+<h2 id="unauthorized-access">Unauthorized access.</h2>
+<p>When a user is trying to access a resource that they are not allowed access to, Express acl will deny access to that a resource and send status of <code>403</code> with JSON response as follows.</p>
+<pre><code class="json">{
+  &quot;status&quot;: &quot;Access Denied&quot;,
+  &quot;success&quot;: false,
+  &quot;message&quot;:&quot;Unauthorized access&quot;
+}
 </code></pre>
-
-<p>Once this middware is called, express-acl will pick the role from the authenticated user,and apply corresponding polices dependng on he role and resource sbeing requested for.</p>
               
             </div>
           </div>
@@ -232,10 +207,10 @@ ROUTER.use(acl.authorize);
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../configuration/" class="btn btn-neutral float-right" title="Configuration options">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../../contribution/" class="btn btn-neutral float-right" title="Contribution">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../.." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../acl-rules/" class="btn btn-neutral" title="Acl rules"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -263,10 +238,10 @@ ROUTER.use(acl.authorize);
           <a href="https://github.com/andela-thomas/express-acl" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../.." style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../acl-rules/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../configuration/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../../contribution/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
