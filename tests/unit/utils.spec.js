@@ -234,23 +234,85 @@
     });
 
     describe('Check properties', function() {
-      it('Should assert core properties and return the rules', function() {
-        var mockRule = [{
-          group: 'user',
-          permissions: [{
-            resource: 'users',
-            methods: [
-              'POST',
-              'GET',
-              'PUT'
-            ],
-            action: 'deny'
-          }]
-        }];
-        var rules = utils.checkProperties(mockRule);
+      context('When valid rules are passed', function() {
+        it('Should assert core properties and return the rules', function() {
+          var mockRule = [{
+            group: 'user',
+            permissions: [{
+              resource: 'users',
+              methods: [
+                'POST',
+                'GET',
+                'PUT'
+              ],
+              action: 'deny'
+            }]
+          }];
+          var rules = utils.checkProperties(mockRule);
 
-        expect(rules).to.not.be.empty;
-        expect(rules).to.be.instanceof(Array);
+          expect(rules).to.not.be.empty;
+          expect(rules).to.be.instanceof(Array);
+        });
+      });
+
+      context('When invalid methods are passed', function() {
+        it('Should assert core properties and return the rules', function() {
+          var mockRule = [{
+            group: 'user',
+            permissions: [{
+              resource: 'users',
+              methods: {},
+              action: 'deny'
+            }]
+          }];
+          try {
+            utils.checkProperties(mockRule);
+          } catch (error) {
+            expect(error.message).to.equal(
+              'TypeError: Methods should be a array or string'
+            );
+          }
+        });
+      });
+
+      context('When invalid Glob are passed', function() {
+        it('Should assert core properties and return the rules', function() {
+          var mockRule = [{
+            group: 'user',
+            permissions: [{
+              resource: 'users',
+              methods: '&',
+              action: 'deny'
+            }]
+          }];
+          try {
+            utils.checkProperties(mockRule);
+          } catch (error) {
+            expect(error.message).to.equal(
+              'DefinitionError: Unrecognised glob "&" , use "*" instead'
+            );
+          }
+        });
+      });
+
+      context('When invalid action is passed ', function() {
+        it('Should assert core properties and return the rules', function() {
+          var mockRule = [{
+            group: 'user',
+            permissions: [{
+              resource: 'users',
+              methods: '*',
+              action: 'what'
+            }]
+          }];
+          try {
+            utils.checkProperties(mockRule);
+          } catch (error) {
+            expect(error.message).to.equal(
+              'TypeError: action should be either "deny" or "allow"'
+            );
+          }
+        });
       });
     });
 

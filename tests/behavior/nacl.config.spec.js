@@ -11,8 +11,7 @@
       it('Should return JSON object of the ACL rules', function() {
         rules = acl.config({
           filename: 'config/config.json',
-          path: 'tests',
-          encoding: 'base64'
+          path: 'tests'
         });
         assert(Array.isArray(rules), true);
         assert(rules.length, 1);
