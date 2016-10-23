@@ -95,15 +95,6 @@
           assert.deepEqual(data, response.success);
         });
 
-        it('Should throw Error if wrong glob is passed', function() {
-          try {
-            utils.whenGlobAndActionAllow(null, null, null, '&');
-          } catch (error) {
-            var err = 'DefinitionError: Unrecognised glob, use "*"';
-            expect(error.message).to.deep.equal(err);
-          }
-        });
-
       });
 
       context('When the methods are an Array', function() {
@@ -145,15 +136,6 @@
           assert(data, true);
           expect(data).to.be.an('object');
           assert.deepEqual(data, response.restricted);
-        });
-
-        it('Should throw Error if wrong glob is passed', function() {
-          try {
-            utils.whenGlobAndActionDeny(null, null, null, '&');
-          } catch (error) {
-            var err = 'DefinitionError: Unrecognised glob, use "*"';
-            expect(error.message).to.deep.equal(err);
-          }
         });
 
       });
@@ -206,15 +188,6 @@
         assert(data, true);
         expect(data).to.be.an('object');
         assert.deepEqual(data, response.restricted);
-      });
-
-      it('Should throw Error if wrong glob is passed', function() {
-        try {
-          utils.whenResourceAndMethodGlob(null, null, null, '&');
-        } catch (error) {
-          var err = 'DefinitionError: Unrecognised glob, use "*"';
-          expect(error.message).to.deep.equal(err);
-        }
       });
 
     });
@@ -307,16 +280,16 @@
         var mockRule = {
           group: 'user'
         };
-        try{
+        try {
           utils.validate(mockRule);
-        } catch(error) {
+        } catch (error) {
           expect(utils.validate).to.throw(Error);
         }
       });
 
       it('Should return a message when rules is empty', function() {
         var mockRule = [];
-        var message = '\u001b[33mPolicy not set, ' + 
+        var message = '\u001b[33mPolicy not set, ' +
           'All traffic will be denied\u001b[39m';
         rules = utils.validate(mockRule);
 
