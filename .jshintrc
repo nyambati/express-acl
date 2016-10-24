@@ -36,6 +36,7 @@
     "spyOn"
   ],
   "esnext": "true",
+  "node": true,
   "quotmark": true,
   "trailing": true,
   "undef": true,
