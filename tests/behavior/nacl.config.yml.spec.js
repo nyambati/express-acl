@@ -17,17 +17,15 @@
 
     it('should read the yaml file and convert to json', function() {
       var expectedRule = [{
-        group: 'user',
-        permissions: [{
-          resource: 'users',
-          methods: ['GET', 'POST', 'DELETE'],
-          action: 'allow'
-        }]
+        resource: 'users',
+        methods: ['GET', 'POST', 'DELETE'],
+        action: 'allow'
       }];
+
       assert(rules, true);
-      assert(typeof rules, 'object');
-      assert(rules.length, 1);
-      assert.deepEqual(rules, expectedRule);
+      console.log(typeof rules);
+      assert(rules.has('user'));
+      assert.deepEqual(rules.get('user'), expectedRule);
 
     });
   });

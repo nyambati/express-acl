@@ -249,9 +249,10 @@
             }]
           }];
           var rules = utils.checkProperties(mockRule);
-
-          expect(rules).to.not.be.empty;
-          expect(rules).to.be.instanceof(Array);
+          var permissions = rules.get('user');
+          expect(typeof rules).to.equal('object');
+          expect(permissions).to.be.instanceof(Array);
+          expect(permissions).to.equal(mockRule[0].permissions);
         });
       });
 
@@ -334,8 +335,10 @@
         }];
         rules = utils.validate(mockRule);
 
-        expect(rules).to.not.be.empty;
-        expect(rules).to.be.instanceof(Array);
+        var permissions = rules.get('user');
+        expect(typeof rules).to.equal('object');
+        expect(permissions).to.be.instanceof(Array);
+        expect(permissions).to.equal(mockRule[0].permissions);
       });
 
       it('Should throw an error when rules is not an array', function() {
