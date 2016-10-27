@@ -8,7 +8,7 @@
   describe('Acl configuration file', function() {
     var res, rules;
     context('When path is specified', function() {
-      it('Should return A map of the ACL rules', function() {
+      it('Should return a map of the ACL rules', function() {
         rules = acl.config({
           filename: 'config/config.json',
           path: 'tests'

@@ -1,6 +1,5 @@
 (function() {
   'use strict';
-
   var assert = require('assert');
   var acl = require('../../');
 
@@ -23,7 +22,6 @@
       }];
 
       assert(rules, true);
-      console.log(typeof rules);
       assert(rules.has('user'));
       assert.deepEqual(rules.get('user'), expectedRule);
 
