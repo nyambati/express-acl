@@ -2,6 +2,9 @@
   "bitwise": true,
   "node": true,
   "mocha": true,
+  "globals": {
+    "expect": true
+  },
   "indent": 2,
   "camelcase": true,
   "eqeqeq": true,
