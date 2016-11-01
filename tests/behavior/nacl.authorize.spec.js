@@ -56,7 +56,7 @@
     context('When role is defined in the user object', function() {
 
       beforeEach(function(done) {
-        acl.config();
+        acl.config({ baseUrl: 'api' });
         req = httpMocks.createRequest({
           method: 'GET',
           url: '/api/users/42'

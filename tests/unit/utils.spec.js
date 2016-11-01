@@ -95,15 +95,6 @@
           assert.deepEqual(data, response.success);
         });
 
-        it('Should throw Error if wrong glob is passed', function() {
-          try {
-            utils.whenGlobAndActionAllow(null, null, null, '&');
-          } catch (error) {
-            var err = 'DefinitionError: Unrecognised glob, use "*"';
-            expect(error.message).to.deep.equal(err);
-          }
-        });
-
       });
 
       context('When the methods are an Array', function() {
@@ -145,15 +136,6 @@
           assert(data, true);
           expect(data).to.be.an('object');
           assert.deepEqual(data, response.restricted);
-        });
-
-        it('Should throw Error if wrong glob is passed', function() {
-          try {
-            utils.whenGlobAndActionDeny(null, null, null, '&');
-          } catch (error) {
-            var err = 'DefinitionError: Unrecognised glob, use "*"';
-            expect(error.message).to.deep.equal(err);
-          }
         });
 
       });
@@ -208,15 +190,6 @@
         assert.deepEqual(data, response.restricted);
       });
 
-      it('Should throw Error if wrong glob is passed', function() {
-        try {
-          utils.whenResourceAndMethodGlob(null, null, null, '&');
-        } catch (error) {
-          var err = 'DefinitionError: Unrecognised glob, use "*"';
-          expect(error.message).to.deep.equal(err);
-        }
-      });
-
     });
 
     describe('Utils.whenIsArrayMethod', function() {
@@ -261,23 +234,86 @@
     });
 
     describe('Check properties', function() {
-      it('Should assert core properties and return the rules', function() {
-        var mockRule = [{
-          group: 'user',
-          permissions: [{
-            resource: 'users',
-            methods: [
-              'POST',
-              'GET',
-              'PUT'
-            ],
-            action: 'deny'
-          }]
-        }];
-        var rules = utils.checkProperties(mockRule);
+      context('When valid rules are passed', function() {
+        it('Should assert core properties and return the rules', function() {
+          var mockRule = [{
+            group: 'user',
+            permissions: [{
+              resource: 'users',
+              methods: [
+                'POST',
+                'GET',
+                'PUT'
+              ],
+              action: 'deny'
+            }]
+          }];
+          var rules = utils.checkProperties(mockRule);
+          var permissions = rules.get('user');
+          expect(typeof rules).to.equal('object');
+          expect(permissions).to.be.instanceof(Array);
+          expect(permissions).to.equal(mockRule[0].permissions);
+        });
+      });
 
-        expect(rules).to.not.be.empty;
-        expect(rules).to.be.instanceof(Array);
+      context('When invalid methods are passed', function() {
+        it('Should assert core properties and return the rules', function() {
+          var mockRule = [{
+            group: 'user',
+            permissions: [{
+              resource: 'users',
+              methods: {},
+              action: 'deny'
+            }]
+          }];
+          try {
+            utils.checkProperties(mockRule);
+          } catch (error) {
+            expect(error.message).to.equal(
+              'TypeError: Methods should be a array or string'
+            );
+          }
+        });
+      });
+
+      context('When invalid Glob are passed', function() {
+        it('Should assert core properties and return the rules', function() {
+          var mockRule = [{
+            group: 'user',
+            permissions: [{
+              resource: 'users',
+              methods: '&',
+              action: 'deny'
+            }]
+          }];
+          try {
+            utils.checkProperties(mockRule);
+          } catch (error) {
+            expect(error.message).to.equal(
+              'DefinitionError: Unrecognised glob "&" , use "*" instead'
+            );
+          }
+        });
+      });
+
+      context('When invalid action is passed ', function() {
+        it('Should assert core properties and return the rules', function() {
+          var mockRule = [{
+            group: 'user',
+            permissions: [{
+              resource: 'users',
+              methods: '*',
+              action: 'what'
+            }]
+          }];
+          try {
+            utils.checkProperties(mockRule);
+          } catch (error) {
+            expect(error.message).to.equal(
+              'TypeError: action should be either "deny" or "allow"'
+            );
+          }
+        });
       });
     });
 
@@ -299,24 +335,26 @@
         }];
         rules = utils.validate(mockRule);
 
-        expect(rules).to.not.be.empty;
-        expect(rules).to.be.instanceof(Array);
+        var permissions = rules.get('user');
+        expect(typeof rules).to.equal('object');
+        expect(permissions).to.be.instanceof(Array);
+        expect(permissions).to.equal(mockRule[0].permissions);
       });
 
       it('Should throw an error when rules is not an array', function() {
         var mockRule = {
           group: 'user'
         };
-        try{
+        try {
           utils.validate(mockRule);
-        } catch(error) {
+        } catch (error) {
           expect(utils.validate).to.throw(Error);
         }
       });
 
       it('Should return a message when rules is empty', function() {
         var mockRule = [];
-        var message = '\u001b[33mPolicy not set, ' + 
+        var message = '\u001b[33mPolicy not set, ' +
           'All traffic will be denied\u001b[39m';
         rules = utils.validate(mockRule);
 

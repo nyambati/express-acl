@@ -2,9 +2,9 @@
   'use strict';
 
   var chai = require('chai'),
-   helper = require('../../lib/helpers'),
-   httpMocks = require('node-mocks-http'),
-   spies = require('chai-spies');
+    helper = require('../../lib/helpers'),
+    httpMocks = require('node-mocks-http'),
+    spies = require('chai-spies');
 
   describe('Helpers test', function() {
     var expect;
@@ -23,11 +23,11 @@
 
       it('Should return an array containing the rules', function() {
         rules = helper.getRules(path, null, false);
-
-        expect(rules).to.not.be.empty;
-        expect(Array.isArray(rules)).to.be.true;
-        expect(rules[0]).to.have.property('group');
-        expect(rules[0]).to.have.property('permissions');
+        var permissions = rules.get('user');
+        expect(rules.has('user')).to.equal(true);
+        expect(permissions[0]).to.have.property('resource');
+        expect(permissions[0]).to.have.property('methods');
+        expect(permissions[0]).to.have.property('action');
       });
 
       it('Should throw an error', function() {
@@ -39,61 +39,16 @@
       });
     });
 
-    context('getGroup', function() {
-      var res;
-      var mockRules;
-
-      beforeEach(function(done) {
-        mockRules = [{
-          group: 'admin',
-          permissions: [{
-            resource: '*',
-            methods: '*',
-            action: 'allow'
-          }]
-        }];
-
-        res = httpMocks.createResponse(httpMocks.createResponse({
-          eventEmitter: require('events').EventEmitter
-        }));
-
-        done();
-      });
-
-      it('Should return a group for a specific rule', function() {
-        var mockRole = 'admin';
-        var group = helper.getGroup(res, mockRules, mockRole);
-
-        expect(group).to.not.be.empty;
-        expect(group.group).to.equal(mockRole);
-      });
-
-      it('Should return a 404 status', function(done) {
-        var error = {
-          message: 'REQUIRED: Group not found'
-        };
-        var mockRole = 'user';
-        var group = helper.getGroup(res, mockRules, mockRole);
-        var data = res._getData();
-
-        expect(group).to.be.empty;
-        expect(res.statusCode).to.equal(404);
-        expect(data.message).to.equal(error.message);
-        done();
-      });
-    });
 
     context('getPolicy', function() {
       it('Should return the permissions specified', function() {
         var mockResource = 'users';
-        var mockGroup = {
-          group: 'admin',
-          permissions: [{
-            resource: 'users',
-            methods: '*',
-            action: 'allow'
-          }]
-        };
+        var mockGroup = [{
+          resource: 'users',
+          methods: '*',
+          action: 'allow'
+        }];
+
         var policy = helper.getPolicy(mockGroup, mockResource);
 
         expect(policy).to.not.be.empty;
@@ -106,9 +61,7 @@
       var res;
 
       beforeEach(function(done) {
-        res = httpMocks.createResponse(httpMocks.createResponse({
-          eventEmitter: require('events').EventEmitter
-        }));
+        res = httpMocks.createResponse();
         done();
       });
 

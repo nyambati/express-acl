@@ -8,22 +8,28 @@
   describe('Acl configuration file', function() {
     var res, rules;
     context('When path is specified', function() {
-      it('Should return JSON object of the ACL rules', function() {
+      it('Should return a map of the ACL rules', function() {
         rules = acl.config({
           filename: 'config/config.json',
-          path: 'tests',
-          encoding: 'base64'
+          path: 'tests'
         });
-        assert(Array.isArray(rules), true);
-        assert(rules.length, 1);
+
+        var permissions = rules.get('user');
+        assert(rules);
+        assert(typeof rules, 'object');
+        assert(Array.isArray(permissions), true);
+        assert(permissions.length, 1);
       });
     });
 
     context('When no path is specified', function() {
       it('Should Load the rules from the root folder', function() {
         rules = acl.config();
-        assert(Array.isArray(rules), true);
-        assert(rules.length, 1);
+        var permissions = rules.get('user');
+        assert(rules);
+        assert(typeof rules, 'object');
+        assert(Array.isArray(permissions), true);
+        assert(permissions.length, 1);
       });
     });
 
