@@ -1,46 +1,32 @@
-(function() {
-  'use strict';
+'use strict';
+const assert = require('assert');
+const acl = require('../../');
 
-  var assert = require('assert');
-  var acl = require('../../');
+let rulesArr = [{
+  group: 'user',
+  permissions: [{
+    resource: 'users',
+    methods: [
+      'GET',
+      'POST',
+      'DELETE'
+    ],
+    action: 'allow'
+  }]
+}];
 
-  //
-  var rulesArr = [{
-    group: 'user',
-    permissions: [{
-      resource: 'users',
-      methods: [
-	'GET',
-	'POST',
-	'DELETE'
-      ],
-      action: 'allow'
-    }]
-  }];
-
-  describe('Array testing', function() {
-    var rules;
-    beforeEach(function(done) {
-      rules = acl.config({
-	rules: rulesArr
-      });
-      done();
+describe('Array testing', function() {
+  let rules;
+  beforeEach(function(done) {
+    rules = acl.config({
+      rules: rulesArr
     });
-
-    it('should can direct setted config rules by Array', function() {
-      var expectedRule = [{
-        group: 'user',
-        permissions: [{
-          resource: 'users',
-          methods: ['GET', 'POST', 'DELETE'],
-          action: 'allow'
-        }]
-      }];
-      assert(rules, true);
-      assert(typeof rules, 'object');
-      assert(rules.length, 1);
-      assert.deepEqual(rules, expectedRule);
-
-    });
+    done();
   });
-})();
+
+  it('should can direct setted config rules by Array', function() {
+    assert(rules.has('user'), true);
+    assert(typeof rules, 'object');
+    assert.deepEqual(rules.get('user'), rulesArr[0].permissions);
+  });
+});
