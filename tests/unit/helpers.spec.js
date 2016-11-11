@@ -3,17 +3,12 @@ const chai = require('chai');
 const helper = require('../../lib/helpers');
 const httpMocks = require('node-mocks-http');
 const spies = require('chai-spies');
+const expect = chai.expect;
 
 describe('Helpers test', function() {
-  let expect;
-
-  beforeEach(function() {
-    expect = chai.expect;
-  });
 
   context('getRules', function() {
-    let path;
-    let rules;
+    let path, rules;
 
     beforeEach(function() {
       path = './tests/config/config.json';
