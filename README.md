@@ -47,7 +47,7 @@ The contents of this file will be discussed in the usage section
 You can download `express-acl` from NPM
 ```bash
 
-  $ npm install express-acl
+$ npm install express-acl
 
 ```
 
@@ -55,21 +55,21 @@ then in your project require express-acl
 
 ``` js
 
- const acl =  require('express-acl');
+const acl =  require('express-acl');
 
 ```
 
  or GitHub
 
  ```
-  $ git clone https://github.com/andela-thomas/express-acl.git
+$ git clone https://github.com/andela-thomas/express-acl.git
 
   ```
 copy the lib folder to your project and then require `nacl.js`
 
 ``` js
 
- const acl =  require('./lib/nacl');
+const acl =  require('./lib/nacl');
 
 ```
 
@@ -83,32 +83,32 @@ First step is to create a file called `nacl.json` and place this in the root fol
 
 ```json
 
-    [{
-      "group": "admin",
-      "permissions": [{
-        "resource": "*",
-        "methods": "*"
-      }],
-      "action": "allow"
-      }, {
-      "group": "user",
-      "permissions": [{
-        "resource": "users",
-        "methods": [
-          "POST",
-          "GET",
-          "PUT"
-        ],
-        "action": "deny"
-      }]
-    }]
+[{
+  "group": "admin",
+  "permissions": [{
+    "resource": "*",
+    "methods": "*"
+  }],
+  "action": "allow"
+  }, {
+  "group": "user",
+  "permissions": [{
+    "resource": "users",
+    "methods": [
+      "POST",
+      "GET",
+      "PUT"
+    ],
+    "action": "deny"
+  }]
+}]
 
 ```
 
 In the example above we have defined an ACL with two policies with two roles,  `user` and `admin`. A valid ACL should be an Array of objects(policies). The properties of the policies are explained below.
 
-  Property | Type | Description
-  |--- | --- | ---|
+Property | Type | Description
+|--- | --- | ---|
   **group** | `string` | This property defines the access group to which a user can belong to  e.g `user`, `guest`, `admin`, `trainer`. This mayconsty depending with the architecture of your application.
   **permissions** | `Array` | This property contains an array of objects that define the resources exposed to a group and the methods allowed/denied
 |**resource** | `string` | This is the resource that we are either giving access to. e.g `blogs` for route `/api/blogs`, `users` for route `/api/users`. You can also specify a glob `*` for all resource/routes in your application(recommended for admin users only)
@@ -240,30 +240,31 @@ Anytime that this route is visited, unless method will exlude it from being pass
 Install express-acl
 
 ```
-npm install express-acl
+$ npm install express-acl
+
 ```
 
 Create `nacl.json` in your root folder
 ```json
-  [{
-    "group": "user",
-    "permissions": [{
-      "resource": "users",
-      "methods": [
-        "POST",
-        "GET",
-        "PUT"
-      ],
-    "action": "allow"
-    }]
+[{
+  "group": "user",
+  "permissions": [{
+    "resource": "users",
+    "methods": [
+      "POST",
+      "GET",
+      "PUT"
+    ],
+  "action": "allow"
   }]
+}]
 
 ```
 
 Require express-acl in your project router file.
 
 ```js
- const acl = require('express-acl');
+const acl = require('express-acl');
 ```
 
 Call the config method
