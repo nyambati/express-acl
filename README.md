@@ -107,16 +107,16 @@ First step is to create a file called `nacl.json` and place this in the root fol
 
 In the example above we have defined an ACL with two policies with two roles,  `user` and `admin`. A valid ACL should be an Array of objects(policies). The properties of the policies are explained below.
 
-  Property | Type | Description
-  |--- | --- | ---|
+Property | Type | Description
+|--- | --- | ---|
   **group** | `string` | This property defines the access group to which a user can belong to  e.g `user`, `guest`, `admin`, `trainer`. This mayconsty depending with the architecture of your application.
   **permissions** | `Array` | This property contains an array of objects that define the resources exposed to a group and the methods allowed/denied
 |**resource** | `string` | This is the resource that we are either giving access to. e.g `blogs` for route `/api/blogs`, `users` for route `/api/users`. You can also specify a glob `*` for all resource/routes in your application(recommended for admin users only)
   **methods** | `string or Array` | This are http methods that a user is allowed or denied from executing. `["POST", "GET", "PUT"]`. use glob `*` if you want to include all http methods.
   **action** | `string` | This property tell express-acl what action to perform on the permission given. Using the above example, the user policy specifies a deny action, meaning all traffic on route `/api/users` for methods `GET, PUT, POST` are denied, but the rest allowed. And for the admin, all traffic for all resource is allowed.
 
-  #### How to write ACL rules
-  ACLs define the way requests will be handled by express acl, therefore its important to ensure that they are well designed to maximise efficiency. For more details follow this [link](https://github.com/andela-thomas/express-acl/wiki/How-to-write-effective-ACL-rules)
+#### How to write ACL rules
+ACLs define the way requests will be handled by express acl, therefore its important to ensure that they are well designed to maximise efficiency. For more details follow this [link](https://github.com/andela-thomas/express-acl/wiki/How-to-write-effective-ACL-rules)
 
 ## Authentication
 express-acl depends on the role of each authenticated user to pick the corresponding ACL policy for each defined user groups. Therefore, You should always place the acl middleware after the authenticate middleware. Example using jsonwebtoken middleware
