@@ -2,11 +2,14 @@
 .gitignore
 tests
 nacl.json
+site
 examples
-.houd.yml
+.hound.yml
 .eslintrc
 .codeclimate.yml
 .travis.yml
 .coveralls.yml
 coverage
 docs
+*.yml
+>>>>>>> develop
