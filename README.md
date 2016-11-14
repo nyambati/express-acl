@@ -1,4 +1,9 @@
-# express-acl
+# Express ACL
+
+<p align="center">
+  <img src="http://static.dnaindia.com/sites/default/files/2015/03/28/322483-traffic-police.jpg">
+</p>
+
 [![Build Status](https://travis-ci.org/andela-thomas/express-acl.svg?branch=master)](https://travis-ci.org/andela-thomas/express-acl)
 [![Coverage Status](https://coveralls.io/repos/github/andela-thomas/express-acl/badge.svg?branch=develop)](https://coveralls.io/github/andela-thomas/express-acl?branch=develop)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/6cba987b85b84f11bb5ab0340388a556)](https://www.codacy.com/app/thomas-nyambati/express-acl)
@@ -148,7 +153,7 @@ express-acl depends on the role of each authenticated user to pick the correspon
 # API
 There are two API methods for express-acl.
 
-## config[type: function, params: config { filename<string>,path<string>, yml<boolean>, encoding, baseUrl, rules}, response {}]
+### config[type: function, params: config { filename<string>,path<string>, yml<boolean>, encoding, baseUrl, rules}, response {}]
 
 This methods loads the configuration json file. When this method it looks for `nacl.json` the root folder if path is not specified.
 
