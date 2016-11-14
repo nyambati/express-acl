@@ -114,7 +114,7 @@ In the example above we have defined an ACL with two policies with two roles,  `
 
 Property | Type | Description
 |--- | --- | ---|
-  **group** | `string` | This property defines the access group to which a user can belong to  e.g `user`, `guest`, `admin`, `trainer`. This mayconsty depending with the architecture of your application.
+  **group** | `string` | This property defines the access group to which a user can belong to  e.g `user`, `guest`, `admin`, `trainer`. This may vary depending with the architecture of your application.
   **permissions** | `Array` | This property contains an array of objects that define the resources exposed to a group and the methods allowed/denied
 |**resource** | `string` | This is the resource that we are either giving access to. e.g `blogs` for route `/api/blogs`, `users` for route `/api/users`. You can also specify a glob `*` for all resource/routes in your application(recommended for admin users only)
   **methods** | `string or Array` | This are http methods that a user is allowed or denied from executing. `["POST", "GET", "PUT"]`. use glob `*` if you want to include all http methods.
