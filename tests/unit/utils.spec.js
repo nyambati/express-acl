@@ -6,7 +6,7 @@ const utils = require('../../lib/utils');
 
 describe('Testing Utils', function() {
   // mock res
-  let res, next, method;
+  let res, data, next, method;
 
   let response = {
     success: {
@@ -58,7 +58,7 @@ describe('Testing Utils', function() {
 
     it('should return default message when called with status', function() {
       utils.deny(res, 403);
-      let data = res._getData();
+      data = res._getData();
       assert(data, true);
       expect(data).to.be.an('object');
       assert.deepEqual(data, response.restricted);
@@ -66,7 +66,7 @@ describe('Testing Utils', function() {
 
     it('Should return custom message when called with message', function() {
       utils.deny(res, 450, 'Role not found');
-      let data = res._getData();
+      data = res._getData();
       assert(data, true);
       expect(data).to.be.an('object');
       assert.deepEqual(data, {
@@ -83,7 +83,7 @@ describe('Testing Utils', function() {
       };
 
       utils.deny(res, 403, null, customErrorResponse);
-      let data = res._getData();
+      data = res._getData();
       assert(data);
       expect(data).to.be.an('object');
       expect(res.statusCode).to.equal(403);
@@ -97,7 +97,7 @@ describe('Testing Utils', function() {
 
       it('should call next when method is string and *', function() {
         utils.whenGlobAndActionAllow(res, next, null, '*');
-        let data = res._getData();
+        data = res._getData();
         assert(data, true);
         expect(data).to.be.an('object');
         assert.deepEqual(data, response.success);
@@ -108,9 +108,9 @@ describe('Testing Utils', function() {
     context('When the methods are an Array', function() {
 
       it('Should call next if methods is Array and method exist', function() {
-        let method = 'GET';
+        method = 'GET';
         utils.whenGlobAndActionAllow(res, next, method, methods, null);
-        let data = res._getData();
+        data = res._getData();
         assert(data, true);
         expect(data).to.be.an('object');
         assert.deepEqual(data, response.success);
@@ -118,9 +118,9 @@ describe('Testing Utils', function() {
       });
 
       it('Should return deny response if method does not exist', function() {
-        let method = 'PATCH';
+        method = 'PATCH';
         utils.whenGlobAndActionAllow(res, next, method, methods, null);
-        let data = res._getData();
+        data = res._getData();
         assert(data, true);
         expect(data).to.be.an('object');
         assert.deepEqual(data, response.restricted);
@@ -135,7 +135,7 @@ describe('Testing Utils', function() {
 
       it('Should return deny response when called with *', function() {
         utils.whenGlobAndActionDeny(res, null, null, '*', null);
-        let data = res._getData();
+        data = res._getData();
         assert(data, true);
         expect(data).to.be.an('object');
         assert.deepEqual(data, response.restricted);
@@ -147,7 +147,7 @@ describe('Testing Utils', function() {
       it('Should call next if methods is Array and method exist', function() {
         method = 'GET';
         utils.whenGlobAndActionDeny(res, next, method, methods, null);
-        let data = res._getData();
+        data = res._getData();
         assert(data, true);
         expect(data).to.be.an('object');
         assert.deepEqual(data, response.restricted);
@@ -157,7 +157,7 @@ describe('Testing Utils', function() {
       it('Should return deny response if method does not exist', function() {
         method = 'PATCH';
         utils.whenGlobAndActionDeny(res, next, method, methods, null);
-        let data = res._getData();
+        data = res._getData();
         assert(data, true);
         expect(data).to.be.an('object');
         assert.deepEqual(data, response.success);
@@ -171,7 +171,7 @@ describe('Testing Utils', function() {
 
     it('Should return next if action allow', function() {
       utils.whenResourceAndMethodGlob(res, next, 'allow', '*');
-      let data = res._getData();
+      data = res._getData();
       assert(data, true);
       expect(data).to.be.an('object');
       assert.deepEqual(data, response.success);
@@ -179,7 +179,7 @@ describe('Testing Utils', function() {
 
     it('Should return deny response when action deny', function() {
       utils.whenResourceAndMethodGlob(res, next, 'deny', '*', null);
-      let data = res._getData();
+      data = res._getData();
       assert(data, true);
       expect(data).to.be.an('object');
       assert.deepEqual(data, response.restricted);
@@ -192,7 +192,7 @@ describe('Testing Utils', function() {
 
       it('Should call next if method exist', function() {
         utils.whenIsArrayMethod(res, next, 'allow', 'GET', methods, null);
-        let data = res._getData();
+        data = res._getData();
         assert(data, true);
         expect(data).to.be.an('object');
         assert.deepEqual(data, response.success);
@@ -200,7 +200,7 @@ describe('Testing Utils', function() {
 
       it('Should return deny response if method doesn\'t exist', function() {
         utils.whenIsArrayMethod(res, next, 'allow', 'PATCH', methods, null);
-        let data = res._getData();
+        data = res._getData();
         assert(data, true);
         expect(data).to.be.an('object');
         assert.deepEqual(data, response.restricted);
@@ -212,7 +212,7 @@ describe('Testing Utils', function() {
 
       it('Should return deny response if method exist', function() {
         utils.whenIsArrayMethod(res, next, 'deny', 'GET', methods, null);
-        let data = res._getData();
+        data = res._getData();
         assert(data, true);
         expect(data).to.be.an('object');
         assert.deepEqual(data, response.restricted);
@@ -220,7 +220,7 @@ describe('Testing Utils', function() {
 
       it('Should call next if method doesn\'t exist', function() {
         utils.whenIsArrayMethod(res, next, 'deny', 'PATCH', methods, null);
-        let data = res._getData();
+        data = res._getData();
         assert(data, true);
         expect(data).to.be.an('object');
         assert.deepEqual(data, response.success);
