@@ -58,9 +58,7 @@ describe('Testing Utils', function() {
 
     it('should return default message when called with status', function() {
       utils.deny(res, 403);
-
       data = res._getData();
-
       assert(data, true);
       expect(data).to.be.an('object');
       assert.deepEqual(data, response.restricted);
@@ -68,9 +66,7 @@ describe('Testing Utils', function() {
 
     it('Should return custom message when called with message', function() {
       utils.deny(res, 450, 'Role not found');
-
       data = res._getData();
-
       assert(data, true);
       expect(data).to.be.an('object');
       assert.deepEqual(data, {
@@ -80,6 +76,20 @@ describe('Testing Utils', function() {
       });
     });
 
+    it('should return custom error when called with custom error messages', function() {
+      let customErrorResponse = {
+        status: 'Access Denied',
+        message: 'You are not authorized to access this resource'
+      };
+
+      utils.deny(res, 403, null, customErrorResponse);
+      data = res._getData();
+      assert(data);
+      expect(data).to.be.an('object');
+      expect(res.statusCode).to.equal(403);
+      assert.deepEqual(data, customErrorResponse);
+    });
+
   });
 
   describe('Utils.whenGlobAndActionAllow', function() {
@@ -87,7 +97,6 @@ describe('Testing Utils', function() {
 
       it('should call next when method is string and *', function() {
         utils.whenGlobAndActionAllow(res, next, null, '*');
-
         data = res._getData();
         assert(data, true);
         expect(data).to.be.an('object');
@@ -100,11 +109,8 @@ describe('Testing Utils', function() {
 
       it('Should call next if methods is Array and method exist', function() {
         method = 'GET';
-
-        utils.whenGlobAndActionAllow(res, next, method, methods);
-
+        utils.whenGlobAndActionAllow(res, next, method, methods, null);
         data = res._getData();
-
         assert(data, true);
         expect(data).to.be.an('object');
         assert.deepEqual(data, response.success);
@@ -113,7 +119,7 @@ describe('Testing Utils', function() {
 
       it('Should return deny response if method does not exist', function() {
         method = 'PATCH';
-        utils.whenGlobAndActionAllow(res, next, method, methods);
+        utils.whenGlobAndActionAllow(res, next, method, methods, null);
         data = res._getData();
         assert(data, true);
         expect(data).to.be.an('object');
@@ -128,10 +134,8 @@ describe('Testing Utils', function() {
     context('When the Methods are a string', function() {
 
       it('Should return deny response when called with *', function() {
-        utils.whenGlobAndActionDeny(res, null, null, '*');
-
+        utils.whenGlobAndActionDeny(res, null, null, '*', null);
         data = res._getData();
-
         assert(data, true);
         expect(data).to.be.an('object');
         assert.deepEqual(data, response.restricted);
@@ -139,15 +143,11 @@ describe('Testing Utils', function() {
 
     });
 
-
     context('When the methods are an Array', function() {
       it('Should call next if methods is Array and method exist', function() {
         method = 'GET';
-
-        utils.whenGlobAndActionDeny(res, next, method, methods);
-
+        utils.whenGlobAndActionDeny(res, next, method, methods, null);
         data = res._getData();
-
         assert(data, true);
         expect(data).to.be.an('object');
         assert.deepEqual(data, response.restricted);
@@ -156,7 +156,7 @@ describe('Testing Utils', function() {
 
       it('Should return deny response if method does not exist', function() {
         method = 'PATCH';
-        utils.whenGlobAndActionDeny(res, next, method, methods);
+        utils.whenGlobAndActionDeny(res, next, method, methods, null);
         data = res._getData();
         assert(data, true);
         expect(data).to.be.an('object');
@@ -171,19 +171,15 @@ describe('Testing Utils', function() {
 
     it('Should return next if action allow', function() {
       utils.whenResourceAndMethodGlob(res, next, 'allow', '*');
-
       data = res._getData();
-
       assert(data, true);
       expect(data).to.be.an('object');
       assert.deepEqual(data, response.success);
     });
 
     it('Should return deny response when action deny', function() {
-      utils.whenResourceAndMethodGlob(res, next, 'deny', '*');
-
+      utils.whenResourceAndMethodGlob(res, next, 'deny', '*', null);
       data = res._getData();
-
       assert(data, true);
       expect(data).to.be.an('object');
       assert.deepEqual(data, response.restricted);
@@ -195,7 +191,7 @@ describe('Testing Utils', function() {
     context('When action allow', function() {
 
       it('Should call next if method exist', function() {
-        utils.whenIsArrayMethod(res, next, 'allow', 'GET', methods);
+        utils.whenIsArrayMethod(res, next, 'allow', 'GET', methods, null);
         data = res._getData();
         assert(data, true);
         expect(data).to.be.an('object');
@@ -203,7 +199,7 @@ describe('Testing Utils', function() {
       });
 
       it('Should return deny response if method doesn\'t exist', function() {
-        utils.whenIsArrayMethod(res, next, 'allow', 'PATCH', methods);
+        utils.whenIsArrayMethod(res, next, 'allow', 'PATCH', methods, null);
         data = res._getData();
         assert(data, true);
         expect(data).to.be.an('object');
@@ -215,7 +211,7 @@ describe('Testing Utils', function() {
     context('When action deny', function() {
 
       it('Should return deny response if method exist', function() {
-        utils.whenIsArrayMethod(res, next, 'deny', 'GET', methods);
+        utils.whenIsArrayMethod(res, next, 'deny', 'GET', methods, null);
         data = res._getData();
         assert(data, true);
         expect(data).to.be.an('object');
@@ -223,7 +219,7 @@ describe('Testing Utils', function() {
       });
 
       it('Should call next if method doesn\'t exist', function() {
-        utils.whenIsArrayMethod(res, next, 'deny', 'PATCH', methods);
+        utils.whenIsArrayMethod(res, next, 'deny', 'PATCH', methods, null);
         data = res._getData();
         assert(data, true);
         expect(data).to.be.an('object');
@@ -332,8 +328,8 @@ describe('Testing Utils', function() {
           action: 'deny'
         }]
       }];
-      rules = utils.validate(mockRule);
 
+      rules = utils.validate(mockRule);
       let permissions = rules.get('user');
       expect(typeof rules).to.equal('object');
       expect(permissions).to.be.instanceof(Array);
@@ -356,7 +352,6 @@ describe('Testing Utils', function() {
       let message = '\u001b[33mPolicy not set, ' +
         'All traffic will be denied\u001b[39m';
       rules = utils.validate(mockRule);
-
       expect(rules).to.not.be.empty;
       expect(rules).to.equal(message);
     });
