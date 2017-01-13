@@ -18,7 +18,6 @@
   "noempty": true,
   "nonew": true,
   "esversion": 6,
-  "node": true,
   "quotmark": true,
   "trailing": true,
   "undef": true,
