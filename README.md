@@ -4,13 +4,9 @@
   <img src="http://static.dnaindia.com/sites/default/files/2015/03/28/322483-traffic-police.jpg">
 </p>
 
-[![Build Status](https://travis-ci.org/andela-thomas/express-acl.svg?branch=master)](https://travis-ci.org/andela-thomas/express-acl)
+[![Build Status](https://travis-ci.org/nyambati/express-acl.svg?branch=master)](https://travis-ci.org/nyambati/express-acl)
 [![Coverage Status](https://coveralls.io/repos/github/andela-thomas/express-acl/badge.svg?branch=develop)](https://coveralls.io/github/andela-thomas/express-acl?branch=develop)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/6cba987b85b84f11bb5ab0340388a556)](https://www.codacy.com/app/thomas-nyambati/express-acl)
-
-<p align="center">
-  <img src="docs/express-acl.jpg">
-</p>
 
 Express Access Control Lists (express-acl) enable you to manage the requests made to your express server. It makes use of ACL rules to protect your sever from unauthorized access. ACLs defines which user groups are granted access and the type of access they have against a specified resource. When a request is received against a resource, `express-acl` checks the corresponding ACL policy to verify if the requester has the necessary access permissions.
 
@@ -86,7 +82,7 @@ const acl =  require('./lib/nacl');
 
 Express acl uses the configuration approach to define access levels.
 
-## Configuration 
+## Configuration
 
 First step is to create a file called `nacl.json` and place this in the root folder. This is the file where we will define the roles that can access our application, and the policies that restrict or give access to certain resources. Take a look at the example below.
 
