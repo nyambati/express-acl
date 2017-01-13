@@ -1,11 +1,19 @@
 # should not be published by NPM
 .gitignore
 tests
-config.json
+nacl.json
+site
 examples
-.houd.yml
+.hound.yml
 .eslintrc
 .codeclimate.yml
 .travis.yml
 .coveralls.yml
 coverage
+Makefile
+CHANGELOG.md
+Dockerfile
+gulpfile.js
+node_modules
+docs
+*.yml
