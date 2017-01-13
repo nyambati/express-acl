@@ -1,6 +1,6 @@
 {
   "name": "express-acl",
-  "version": "0.1.2",
+  "version": "1.0.1",
   "description": "Access control list manager for Expressjs",
   "main": "index.js",
   "directories": {
@@ -25,8 +25,7 @@
   "dependencies": {
     "express-unless": "^0.3.0",
     "js-yaml": "^3.6.0",
-    "lodash": "^4.11.2",
-    "npmlog": "^2.0.3"
+    "lodash": "^4.11.2"
   },
   "devDependencies": {
     "chai-spies": "^0.7.1",

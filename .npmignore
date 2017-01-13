@@ -10,5 +10,10 @@ examples
 .travis.yml
 .coveralls.yml
 coverage
+Makefile
+CHANGELOG.md
+Dockerfile
+gulpfile.js
+node_modules
 docs
 *.yml
