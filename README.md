@@ -83,10 +83,14 @@ const acl =  require('./lib/nacl');
 Express acl uses the configuration approach to define access levels.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## Configuration
 =======
 ### Configuration
 >>>>>>> chore(cleanup): Update README file & npmignore
+=======
+## Configuration
+>>>>>>> bd677e5610f8fa0cd7f1f1bb6128af9290b12ef2
 
 First step is to create a file called `nacl.json` and place this in the root folder. This is the file where we will define the roles that can access our application, and the policies that restrict or give access to certain resources. Take a look at the example below.
 
