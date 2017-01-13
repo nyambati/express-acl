@@ -4,17 +4,13 @@
   <img src="http://static.dnaindia.com/sites/default/files/2015/03/28/322483-traffic-police.jpg">
 </p>
 
-[![Build Status](https://travis-ci.org/andela-thomas/express-acl.svg?branch=master)](https://travis-ci.org/andela-thomas/express-acl)
+[![Build Status](https://travis-ci.org/nyambati/express-acl.svg?branch=master)](https://travis-ci.org/nyambati/express-acl)
 [![Coverage Status](https://coveralls.io/repos/github/andela-thomas/express-acl/badge.svg?branch=develop)](https://coveralls.io/github/andela-thomas/express-acl?branch=develop)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/6cba987b85b84f11bb5ab0340388a556)](https://www.codacy.com/app/thomas-nyambati/express-acl)
 
-<p align="center">
-  <img src="docs/express-acl.jpg">
-</p>
-
 Express Access Control Lists (express-acl) enable you to manage the requests made to your express server. It makes use of ACL rules to protect your sever from unauthorized access. ACLs defines which user groups are granted access and the type of access they have against a specified resource. When a request is received against a resource, `express-acl` checks the corresponding ACL policy to verify if the requester has the necessary access permissions.
 
-##### What are ACL rules
+## What are ACL rules
 ACL is a set of rules that tell `express-acl` how to handle the requests made to your server against a specific resource. Think of them like road signs or traffic lights that control how your traffic flows in your app. ACL rules are defined in JSON or yaml syntax.
 
 **Example**
@@ -82,11 +78,15 @@ const acl =  require('./lib/nacl');
 
 ```
 
-# Usage
+## Usage
 
 Express acl uses the configuration approach to define access levels.
 
-## Configuration 
+<<<<<<< HEAD
+## Configuration
+=======
+### Configuration
+>>>>>>> chore(cleanup): Update README file & npmignore
 
 First step is to create a file called `nacl.json` and place this in the root folder. This is the file where we will define the roles that can access our application, and the policies that restrict or give access to certain resources. Take a look at the example below.
 
@@ -124,7 +124,7 @@ Property | Type | Description
   **methods** | `string or Array` | This are http methods that a user is allowed or denied from executing. `["POST", "GET", "PUT"]`. use glob `*` if you want to include all http methods.
   **action** | `string` | This property tell express-acl what action to perform on the permission given. Using the above example, the user policy specifies a deny action, meaning all traffic on route `/api/users` for methods `GET, PUT, POST` are denied, but the rest allowed. And for the admin, all traffic for all resource is allowed.
 
-#### How to write ACL rules
+## How to define effective ACL rules
 ACLs define the way requests will be handled by express acl, therefore its important to ensure that they are well designed to maximise efficiency. For more details follow this [link](https://github.com/andela-thomas/express-acl/wiki/How-to-write-effective-ACL-rules)
 
 ## Authentication
@@ -154,19 +154,19 @@ express-acl depends on the role of each authenticated user to pick the correspon
 
 ```
 
-# API
+## API
 There are two API methods for express-acl.
 
-### config[type: function, params: config { filename<string>,path<string>, yml<boolean>, encoding, baseUrl, rules}, response {}]
+**config[type: function, params: config { filename<string>,path<string>, yml<boolean>, encoding, baseUrl, rules}, response {}]**
 
 This methods loads the configuration json file. When this method it looks for `nacl.json` the root folder if path is not specified.
 
-### config
+**config**
 - **filename**: Name of the ACL rule file e.g nacl.json
 - **path**: Location of the ACL rule file
 - **yml**: when set to true means use yaml parser else JSON parser
 - **baseUrl**: The base url of your API e.g /developer/v1
-- **rules**: The rules you can direct set for nacl
+- **rules**: Allows you to set rules directly withour using config file.
 
 ```js
   const acl = require('express-acl');
@@ -202,11 +202,10 @@ This methods loads the configuration json file. When this method it looks for `n
   // When you use rules api, nacl will **not** to find the json/yaml file, so you can save your acl-rules with any Database;
 
 ```
-### response
+## Response
 This is the custom error you would like returned when a user is denied access to a resource. This error will be bound to status code of `403`
 
 ```js
-
 const acl = require('express-acl');
 
 let configObject = {
@@ -245,7 +244,7 @@ Anytime that this route is visited, unless method will exlude it from being pass
 
 **N/B** You don't have to install `express-unless` it has already been included into the project.
 
-# Example
+## Example
 Install express-acl
 
 ```
