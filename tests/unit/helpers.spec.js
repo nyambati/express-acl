@@ -51,42 +51,55 @@ describe('Helpers test', function() {
   });
 
   context('getRole', function() {
+    let req;
     let res;
 
     beforeEach(function(done) {
+      req = httpMocks.createRequest();
       res = httpMocks.createResponse();
       done();
     });
 
     it('Should return the role', function() {
-      let session = {};
-      let decoded = {
+      req.decoded = {
         role: 'user'
       };
-      let role = helper.getRole(res, decoded, session);
+      let role = helper.getRole(req, res);
 
       expect(role).to.not.be.empty;
-      expect(role).to.equal(decoded.role);
+      expect(role).to.equal(req.decoded.role);
     });
 
-    it('Should return the role when session exits', function() {
-      let session = {
+    it('Should return the role when session exists', function() {
+      req.session = {
         role: 'admin'
       };
-      let decoded = {};
-      let role = helper.getRole(res, decoded, session);
+      let role = helper.getRole(req, res);
 
       expect(role).to.not.be.empty;
-      expect(role).to.equal(session.role);
+      expect(role).to.equal(req.session.role);
+    });
+
+    it('Should return the role when option exists', function() {
+
+      let opt = {
+        decodedObjectName: 'decodedObjectName'
+      };
+
+      req[opt.decodedObjectName] = {
+        role: 'admin'
+      };
+      let role = helper.getRole(req, res, opt);
+
+      expect(role).to.not.be.empty;
+      expect(role).to.equal(req[opt.decodedObjectName].role);
     });
 
     it('Should respond with 404', function() {
       let error = {
         message: 'REQUIRED: Role not found'
       };
-      let session = {};
-      let decoded = {};
-      let role = helper.getRole(res, decoded, session);
+      let role = helper.getRole(req, res);
       let data = res._getData();
 
       expect(role).to.be.empty;
