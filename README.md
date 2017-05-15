@@ -197,12 +197,20 @@ This methods loads the configuration json file. When this method it looks for `n
   });
 
   // When you use rules api, nacl will **not** to find the json/yaml file, so you can save your acl-rules with any Database;
-
+  
+// The default role alllows you to specify which role users will assumne if they are not assigned any
   acl.config({
     defaultRole: 'anonymous'
   });
 
-  // The default role alllows you to specify which role users will assumne if they are not assigned any
+  
+// By default this module will look for role in decoded object, if you would like to change the name of the object, you can specify this with decodedObjectName property.
+
+// As per the example below, this module will look for req.user.role as compared to default req.decoded.role.
+
+  acl.config({
+    decodedObjectName:'user'
+  })
 
 ```
 ## Response
