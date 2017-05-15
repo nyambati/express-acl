@@ -3,7 +3,7 @@ const assert = require('assert');
 const acl = require('../../');
 const httpMocks = require('node-mocks-http');
 
-describe('Authorize middleware', function() {
+describe('Authorize middleware', function () {
   let req, res, data, next;
   let response = {
     success: {
@@ -18,9 +18,9 @@ describe('Authorize middleware', function() {
     }
   };
 
-  beforeEach(function(done) {
+  beforeEach(function (done) {
     res = httpMocks.createResponse();
-    next = function() {
+    next = function () {
       res.send({
         status: 200,
         success: true,
@@ -30,8 +30,8 @@ describe('Authorize middleware', function() {
     done();
   });
 
-  context('When request comes from home route', function() {
-    beforeEach(function(done) {
+  context('When request comes from home route', function () {
+    beforeEach(function (done) {
       acl.config();
       req = httpMocks.createRequest({
         method: 'GET',
@@ -42,7 +42,7 @@ describe('Authorize middleware', function() {
       done();
     });
 
-    it('should allow traffic for the home route', function(done) {
+    it('should allow traffic for the home route', function (done) {
       acl.authorize(req, res, next);
       data = res._getData();
       assert(data, true);
@@ -52,9 +52,9 @@ describe('Authorize middleware', function() {
 
   });
 
-  context('When role is defined in the user object', function() {
+  context('When role is defined in the user object', function () {
 
-    beforeEach(function(done) {
+    beforeEach(function (done) {
       acl.config({ baseUrl: 'api' });
       req = httpMocks.createRequest({
         method: 'GET',
@@ -67,7 +67,7 @@ describe('Authorize middleware', function() {
     });
 
 
-    it('should allow when role is defined on /api/user/42', function(done) {
+    it('should allow when role is defined on /api/user/42', function (done) {
       req.decoded.role = 'user';
       acl.authorize(req, res, next);
       data = res._getData();
@@ -77,16 +77,16 @@ describe('Authorize middleware', function() {
     });
   });
 
-  describe('Testing Access With roles', function() {
+  describe('Testing Access With roles', function () {
 
-    context('When role is not defined in the user object', function() {
-      it('should block traffic if no role is defined', function(done) {
+    context('When role is not defined in the user object', function () {
+      it('should block traffic if no role is defined', function (done) {
         req.decoded = {};
         acl.authorize(req, res, next);
         let expectedResponse = {
           status: 'Access denied',
           success: false,
-          message: 'REQUIRED: Role not found'
+          message: 'REQUIRED: Group not found'
         };
 
         data = res._getData();
@@ -97,8 +97,8 @@ describe('Authorize middleware', function() {
       });
     });
 
-    context('When no policy is defined for such role', function() {
-      it('should deny access if no policy for such role', function(done) {
+    context('When no policy is defined for such role', function () {
+      it('should deny access if no policy for such role', function (done) {
         req.decoded.role = 'guest';
         acl.authorize(req, res, next);
         let expectedResponse = {
@@ -114,13 +114,13 @@ describe('Authorize middleware', function() {
       });
     });
 
-    context('When action is allow ', function() {
-      beforeEach(function(done) {
+    context('When action is allow ', function () {
+      beforeEach(function (done) {
         acl.config({ baseUrl: 'api' });
         done();
       });
 
-      it('Should allow access to /api/user/42', function(done) {
+      it('Should allow access to /api/user/42', function (done) {
         req = httpMocks.createRequest({
           method: 'POST',
           url: '/api/users/42'
@@ -136,7 +136,7 @@ describe('Authorize middleware', function() {
         done();
       });
 
-      it('Should allow access to resource  /api/user/42', function(done) {
+      it('Should allow access to resource  /api/user/42', function (done) {
         req = httpMocks.createRequest({
           method: 'PUT',
           url: '/api/users/42'
@@ -152,7 +152,7 @@ describe('Authorize middleware', function() {
         done();
       });
 
-      it('Should deny access to resource /api/user/42', function(done) {
+      it('Should deny access to resource /api/user/42', function (done) {
         req = httpMocks.createRequest({
           method: 'DElETE',
           url: '/api/users/42'
@@ -172,8 +172,8 @@ describe('Authorize middleware', function() {
     });
 
 
-    context('When action deny', function() {
-      beforeEach(function(done) {
+    context('When action deny', function () {
+      beforeEach(function (done) {
         acl.config({
           baseUrl: 'api',
           filename: 'deny-user-config.json',
@@ -182,7 +182,7 @@ describe('Authorize middleware', function() {
         done();
       });
 
-      it('Should deny access to resource /api/user/42', function(done) {
+      it('Should deny access to resource /api/user/42', function (done) {
         req = httpMocks.createRequest({
           method: 'POST',
           url: '/api/users/42'
@@ -201,7 +201,7 @@ describe('Authorize middleware', function() {
       });
 
 
-      it('Should deny access to resource /api/user/42', function(done) {
+      it('Should deny access to resource /api/user/42', function (done) {
         req = httpMocks.createRequest({
           method: 'PUT',
           url: '/api/users/42'
@@ -220,7 +220,7 @@ describe('Authorize middleware', function() {
         done();
       });
 
-      it('Should allow access to resource /api/user/42', function(done) {
+      it('Should allow access to resource /api/user/42', function (done) {
         req = httpMocks.createRequest({
           method: 'DElETE',
           url: '/api/users/42'
@@ -239,16 +239,16 @@ describe('Authorize middleware', function() {
 
     });
 
-    context('When not policy is defined', function() {
+    context('When not policy is defined', function () {
 
-      beforeEach(function(done) {
+      beforeEach(function (done) {
         acl.config({
           baseUrl: 'api'
         });
         done();
       });
 
-      it('should deny if not policy match resource', function(done) {
+      it('should deny if not policy match resource', function (done) {
         req = httpMocks.createRequest({
           method: 'POST',
           url: '/api/cargo/42'

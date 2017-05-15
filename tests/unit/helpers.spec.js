@@ -5,16 +5,16 @@ const httpMocks = require('node-mocks-http');
 const spies = require('chai-spies');
 const expect = chai.expect;
 
-describe('Helpers test', function() {
+describe('Helpers test', function () {
 
-  context('getRules', function() {
+  context('getRules', function () {
     let path, rules;
 
-    beforeEach(function() {
+    beforeEach(function () {
       path = './tests/config/config.json';
     });
 
-    it('Should return an array containing the rules', function() {
+    it('Should return an array containing the rules', function () {
       rules = helper.getRules(path, null, false);
       let permissions = rules.get('user');
       expect(rules.has('user')).to.equal(true);
@@ -23,7 +23,7 @@ describe('Helpers test', function() {
       expect(permissions[0]).to.have.property('action');
     });
 
-    it('Should throw an error', function() {
+    it('Should throw an error', function () {
       try {
         rules = helper.getRules(path, 1, true);
       } catch (err) {
@@ -33,8 +33,8 @@ describe('Helpers test', function() {
   });
 
 
-  context('getPolicy', function() {
-    it('Should return the permissions specified', function() {
+  context('getPolicy', function () {
+    it('Should return the permissions specified', function () {
       let mockResource = 'users';
       let mockGroup = [{
         resource: 'users',
@@ -65,7 +65,6 @@ describe('Helpers test', function() {
         role: 'user'
       };
       let role = helper.getRole(req, res);
-
       expect(role).to.not.be.empty;
       expect(role).to.equal(req.decoded.role);
     });
@@ -75,7 +74,6 @@ describe('Helpers test', function() {
         role: 'admin'
       };
       let role = helper.getRole(req, res);
-
       expect(role).to.not.be.empty;
       expect(role).to.equal(req.session.role);
     });
@@ -89,35 +87,30 @@ describe('Helpers test', function() {
       req[opt.decodedObjectName] = {
         role: 'admin'
       };
-      let role = helper.getRole(req, res, opt);
+      let role = helper.getRole(req, res, opt.decodedObjectName);
 
       expect(role).to.not.be.empty;
       expect(role).to.equal(req[opt.decodedObjectName].role);
     });
 
-    it('Should respond with 404', function() {
-      let error = {
-        message: 'REQUIRED: Role not found'
-      };
-      let role = helper.getRole(req, res);
-      let data = res._getData();
-
-      expect(role).to.be.empty;
-      expect(res.statusCode).to.equal(404);
-      expect(data.message).to.equal(error.message);
+    it('Should return default role if user has no role defined', function () {
+      let defaultRole = 'guest'
+      let role = helper.getRole(req, res, undefined, defaultRole);
+      expect(role).not.to.be.empty;
+      expect(role).to.eq(defaultRole);
     });
   });
 
-  context('resource', function() {
+  context('resource', function () {
     let next;
 
-    beforeEach(function() {
-      next = function() {
+    beforeEach(function () {
+      next = function () {
         return;
       };
     });
 
-    it('Should return the resource for a given url', function() {
+    it('Should return the resource for a given url', function () {
       let url = '/api/user/4';
       let baseUrl = 'api';
       let resource = helper.resource(next, url, baseUrl);
@@ -126,7 +119,7 @@ describe('Helpers test', function() {
       expect(resource).to.equal('user');
     });
 
-    it('Should call next', function() {
+    it('Should call next', function () {
       chai.use(spies);
       let url = '';
       let baseUrl = 'api';
