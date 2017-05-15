@@ -164,6 +164,7 @@ This methods loads the configuration json file. When this method it looks for `n
 - **baseUrl**: The base url of your API e.g /developer/v1
 - **rules**: Allows you to set rules directly withour using config file.
 - **defaultRole** : The default role to be assigned to users if they have no role defined.
+- **decodedObjectName**: The name of the object in the request where the role resides.
 
 ```js
   const acl = require('express-acl');
