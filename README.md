@@ -163,6 +163,8 @@ This methods loads the configuration json file. When this method it looks for `n
 - **yml**: when set to true means use yaml parser else JSON parser
 - **baseUrl**: The base url of your API e.g /developer/v1
 - **rules**: Allows you to set rules directly withour using config file.
+- **defaultRole** : The default role to be assigned to users if they have no role defined.
+- **decodedObjectName**: The name of the object in the request where the role resides.
 
 ```js
   const acl = require('express-acl');
@@ -192,10 +194,24 @@ This methods loads the configuration json file. When this method it looks for `n
   // The above file can be acl.json or nacl.json or any_file_name.json
 
   acl.config({
-	rules: rulesArray
+	  rules: rulesArray
   });
 
   // When you use rules api, nacl will **not** to find the json/yaml file, so you can save your acl-rules with any Database;
+  
+// The default role alllows you to specify which role users will assumne if they are not assigned any
+  acl.config({
+    defaultRole: 'anonymous'
+  });
+
+  
+// By default this module will look for role in decoded object, if you would like to change the name of the object, you can specify this with decodedObjectName property.
+
+// As per the example below, this module will look for req.user.role as compared to default req.decoded.role.
+
+  acl.config({
+    decodedObjectName:'user'
+  })
 
 ```
 ## Response
