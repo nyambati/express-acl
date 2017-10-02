@@ -99,6 +99,18 @@ describe('Helpers test', function () {
       expect(role).not.to.be.empty;
       expect(role).to.eq(defaultRole);
     });
+
+    it('Should return role from a deep path', function () {
+      let path = 'guest';
+      req.user = {
+        Role: {
+          name: 'admin'
+        }
+      }
+      let role = helper.getRole(req, res, undefined, undefined, 'user.Role.name');
+      expect(role).not.to.be.empty;
+      expect(role).to.eq(req.user.Role.name);
+    });
   });
 
   context('resource', function () {
