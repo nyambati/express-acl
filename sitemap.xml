@@ -3,8 +3,8 @@
 
     
     <url>
-     <loc>None/</loc>
-     <lastmod>2016-09-30</lastmod>
+     <loc>/</loc>
+     <lastmod>2017-10-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -12,26 +12,32 @@
     
         
     <url>
-     <loc>None/documentation/getting-started/</loc>
-     <lastmod>2016-09-30</lastmod>
+     <loc>/documentation/getting-started/</loc>
+     <lastmod>2017-10-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/documentation/configuration/</loc>
-     <lastmod>2016-09-30</lastmod>
+     <loc>/documentation/configuration/</loc>
+     <lastmod>2017-10-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/documentation/acl-rules/</loc>
-     <lastmod>2016-09-30</lastmod>
+     <loc>/documentation/methods/</loc>
+     <lastmod>2017-10-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/documentation/status-and-responses/</loc>
-     <lastmod>2016-09-30</lastmod>
+     <loc>/documentation/rules/</loc>
+     <lastmod>2017-10-16</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/documentation/status-and-responses/</loc>
+     <lastmod>2017-10-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -39,8 +45,8 @@
 
     
     <url>
-     <loc>None/contribution/</loc>
-     <lastmod>2016-09-30</lastmod>
+     <loc>/contribution/</loc>
+     <lastmod>2017-10-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
