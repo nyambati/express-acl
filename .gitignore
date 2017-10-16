@@ -4,3 +4,4 @@ examples/node_modules
 coverage
 site
 .DS_Store
+env

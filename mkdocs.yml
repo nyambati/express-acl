@@ -13,7 +13,11 @@ pages:
   - Documentation:
       - Getting started: documentation/getting-started.md
       - Configuration options: documentation/configuration.md
-      - Acl rules: documentation/acl-rules.md
-      - Status codes and responses: documentation/status-and-responses.md
+      - Api Methods: documentation/methods.md
+      - Acl Rules: documentation/rules.md
+      - Status Codes and Responses: documentation/status-and-responses.md
   - Contribution: contribution.md
-theme: readthedocs
+theme: material
+markdown_extensions:
+  - codehilite
+  - admonition

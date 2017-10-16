@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
   var jwt = require('jsonwebtoken');
   var faker = require('faker');
@@ -22,7 +22,7 @@
     baseUrl: 'v1'
   });
 
-  module.exports = function(app, express) {
+  module.exports = function (app, express) {
     var ROUTER = express.Router();
 
     /**
@@ -32,7 +32,7 @@
      */
     var key = 'thisisaverysecurekey';
 
-    var createToken = function(user) {
+    var createToken = function (user) {
       var token = jwt.sign(user, key, {
         expiresInMinute: 1440
       });
@@ -50,7 +50,7 @@
       username: faker.internet.userName(),
       email: faker.internet.email(),
       password: faker.internet.password(),
-      role: 'monk'
+      role: 'user1'
     };
 
     /**
@@ -58,7 +58,7 @@
      * Note: this is done in the front end,
      *  therefore this code is for illustration only
      */
-    ROUTER.use(function(req, res, next) {
+    ROUTER.use(function (req, res, next) {
 
       var token = createToken(mockUser);
       req.headers['x-access-token'] = token;
@@ -69,10 +69,10 @@
      * lets create our jwt middleware
      */
 
-    ROUTER.use(function(req, res, next) {
+    ROUTER.use(function (req, res, next) {
       var token = req.headers['x-access-token'];
       if (token) {
-        jwt.verify(token, key, function(err, decoded) {
+        jwt.verify(token, key, function (err, decoded) {
           if (err) {
             return res.send(err);
           } else {
@@ -96,23 +96,23 @@
      * Other routes we are protecting
      */
 
-    ROUTER.route('/users')
-      .post(function(req, res) {
+    ROUTER.route('/admin')
+      .post(function (req, res) {
         res.send({
           message: 'Access granted'
         });
       })
-      .get(function(req, res) {
+      .get(function (req, res) {
         res.send({
           message: 'Access granted'
         });
       })
-      .put(function(req, res) {
+      .put(function (req, res) {
         res.send({
           message: 'Access granted'
         });
       })
-      .delete(function(req, res) {
+      .delete(function (req, res) {
         res.send({
           message: 'Access granted'
         });
@@ -120,22 +120,22 @@
 
 
     ROUTER.route('/blogs')
-      .post(function(req, res) {
+      .post(function (req, res) {
         res.send({
           message: 'Access granted'
         });
       })
-      .get(function(req, res) {
+      .get(function (req, res) {
         res.send({
           message: 'Access granted'
         });
       })
-      .put(function(req, res) {
+      .put(function (req, res) {
         res.send({
           message: 'Access granted'
         });
       })
-      .delete(function(req, res) {
+      .delete(function (req, res) {
         res.send({
           message: 'Access granted'
         });
