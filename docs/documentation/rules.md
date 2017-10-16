@@ -5,7 +5,9 @@ Express acl uses Rules to define what access should be given to certain user gro
 The first step to making acl rules is by creating nacl.json or nacl.yml depending on the syntax you prefer to use. Below is an example of ACL rules using both syntax.
 
 JSON syntax
+
 ```json
+
 [{
   "group": "admin",
   "permissions": [{
@@ -28,7 +30,9 @@ JSON syntax
 ```
 
 YAML syntax
+
 ```yml
+
 - group: admin
   permissions:
     - resource: *
@@ -46,6 +50,7 @@ YAML syntax
 ```
 
 ## Understanding ACL rules
+
 Its important to Understand each property that consitute an acl. Below is a table that has a Description of each property.
 
 Property | Type | Description
@@ -64,7 +69,8 @@ Assuming you have a blog application, and you want to make blogs read only, deny
 
 **solution:**
 
-```
+```yaml
+
 admin:
   resource: all
   methods: all
@@ -96,6 +102,7 @@ For you to formulate good ACL rules, you need to understand the princple of nega
 Now that we have established that lets write our config file. Our nacl.json will look like this.
 
 ```json
+
 [{
    "group": "admin",
    "permissions": [{

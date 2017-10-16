@@ -8,8 +8,7 @@ $ npm install express-acl --save
 
 ```
 
-
-# Configuration
+## Configuration
 
 Express acl uses acl rules to manage and protect your resources, They have to be loaded and configured before being used.
 
@@ -26,11 +25,12 @@ Express acl uses acl rules to manage and protect your resources, They have to be
 
 For more details check the [configuration options](/documentation/configuration) page
 
-# Adding Rules
+## Adding Rules
 
 The config method loads the rules for the local file. By default this module will look for `nacl.json` file in the root folder of your project. This can be overidden by adding more options to the config method as we have added yml which will look for `nacl.yml` file instead.
 
 ```yaml
+
 - group: user
   permissions:
     - resource: users
@@ -43,13 +43,14 @@ The config method loads the rules for the local file. By default this module wil
 
 This file instructs this module on how to manage access to your resources. The contets of this file will be covered in details in the [Acl rules](/documentation/acl-rules) section
 
+## Authentication
 
-# Authentication
 Express Acl depends on the `role` of each authenticated user to pick the corresponding ACL policy for each defined user groups. Therefore, You should always place the acl middleware after the authenticate middleware.
 
 Below is an example of an Authenticatio middleware implementation using jsonwebtokens.
 
-```javascript
+```js
+
   ROUTER.use(function(req, res, next) {
     var token = req.headers['x-access-token'];
     if (token) {
@@ -66,16 +67,14 @@ Below is an example of an Authenticatio middleware implementation using jsonwebt
 
 ```
 
-# Authorize
+## Authorize
 
 The acl module provides a middleware `authorize`. This middleware should be placed after the authentication middleware. It will intercept all the requests made for all the resources and apply relevant policies ton these to either deny or allow access depending on the configuration.
 
-```javascript
+```js
 
 ROUTER.use(acl.authorize);
 
 ```
 
 Once this middware is called, express-acl will pick the role from the authenticated user,and apply corresponding polices dependng on he role and resource sbeing requested for.
-
-
