@@ -6,5 +6,5 @@
 
 (function() {
   'use strict';
-  module.exports = require('./lib/nacl');
+  module.exports = require('./lib');
 })();

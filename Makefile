@@ -15,7 +15,7 @@ serve: mk_docs
 
 # Deploy documentatin to github
 deploy: mk_docs
-	mkdocs gh-deploy --clean /
+	mkdocs gh-deploy --clean
 
 # remove sites and coverage folders
 clean:
