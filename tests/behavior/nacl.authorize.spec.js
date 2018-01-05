@@ -57,7 +57,6 @@ describe('Authorize middleware', function() {
 
   context('When role is defined in the user object', function() {
     beforeEach(function(done) {
-      res = httpMocks.createResponse();
       req = httpMocks.createRequest({
         method: 'GET',
         url: '/api/users/42',
@@ -69,7 +68,6 @@ describe('Authorize middleware', function() {
     });
 
     it('should allow when role is defined on /api/user/42', function(done) {
-      res = httpMocks.createResponse();
       req.decoded.role = 'user';
       acl.authorize(req, res, next);
       data = res._getData();
@@ -81,6 +79,7 @@ describe('Authorize middleware', function() {
 
   context('When role is not defined in the user object', function() {
     it('should block traffic if no role is defined', function(done) {
+      console.log(req.originalUrl);
       req.decoded = {};
       res = httpMocks.createResponse();
       acl.authorize(req, res, next);
