@@ -7,13 +7,13 @@ let response = {
   success: {
     status: 200,
     success: true,
-    message: 'ACCESS GRANTED'
+    message: 'ACCESS GRANTED',
   },
   restricted: {
     status: 'Access denied',
     success: false,
-    message: 'Unauthorized access'
-  }
+    message: 'Unauthorized access',
+  },
 };
 
 describe('Testing for resource scenarios', function() {
@@ -23,7 +23,7 @@ describe('Testing for resource scenarios', function() {
       acl.config({
         baseUrl: 'api',
         filename: 'resource-glob-deny.json',
-        path: './tests/config'
+        path: './tests/config',
       });
 
       res = httpMocks.createResponse();
@@ -37,31 +37,30 @@ describe('Testing for resource scenarios', function() {
     it('Should deny access to resource /api/mangoes/42', function(done) {
       req = httpMocks.createRequest({
         method: 'POST',
-        url: '/api/mangoes/42'
+        url: '/api/mangoes/42',
       });
       req.decoded = {};
       req.session = {};
       req.decoded.role = 'user';
       acl.authorize(req, res, next);
-      data = res._getData();
+      data = JSON.parse(res._getData());
       assert(data, true);
       assert(typeof data, 'object');
       assert.deepEqual(data, response.restricted);
       done();
     });
 
-
     it('Should deny access to resource /api/mangoes/42', function(done) {
       req = httpMocks.createRequest({
         method: 'PUT',
-        url: '/api/mangoes/42'
+        url: '/api/mangoes/42',
       });
 
       req.decoded = {};
       req.session = {};
       req.decoded.role = 'user';
       acl.authorize(req, res, next);
-      data = res._getData();
+      data = JSON.parse(res._getData());
       assert(data, true);
       assert(typeof data, 'object');
       assert.deepEqual(data, response.restricted);
@@ -71,7 +70,7 @@ describe('Testing for resource scenarios', function() {
     it('Should allow access to resource /api/user/42', function(done) {
       req = httpMocks.createRequest({
         method: 'DElETE',
-        url: '/api/mangoes/42'
+        url: '/api/mangoes/42',
       });
 
       req.decoded = {};
@@ -90,15 +89,16 @@ describe('Testing for resource scenarios', function() {
       acl.config({
         baseUrl: 'api',
         filename: 'resource-glob-allow.json',
-        path: './tests/config'
+        path: './tests/config',
       });
+      res = httpMocks.createResponse();
       done();
     });
 
     it('Should allow access to resource /api/mangoes/42', function(done) {
       req = httpMocks.createRequest({
         method: 'POST',
-        url: '/api/mangoes/42'
+        url: '/api/mangoes/42',
       });
 
       req.decoded = {};
@@ -112,11 +112,10 @@ describe('Testing for resource scenarios', function() {
       done();
     });
 
-
     it('Should allow access to resource /api/mangoes/42', function(done) {
       req = httpMocks.createRequest({
         method: 'PUT',
-        url: '/api/mangoes/42'
+        url: '/api/mangoes/42',
       });
 
       req.decoded = {};
@@ -132,14 +131,16 @@ describe('Testing for resource scenarios', function() {
     it('Should deny access to resource /api/user/42', function(done) {
       req = httpMocks.createRequest({
         method: 'DElETE',
-        url: '/api/mangoes/42'
+        url: '/api/mangoes/42',
+        params: {
+          id: 42,
+        },
       });
 
       req.decoded = {};
-      req.session = {};
       req.decoded.role = 'user';
       acl.authorize(req, res, next);
-      data = res._getData();
+      data = JSON.parse(res._getData());
       assert(data, true);
       assert.deepEqual(data, response.restricted);
       done();

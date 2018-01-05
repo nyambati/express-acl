@@ -9,7 +9,7 @@ describe('Acl configuration file', function() {
     it('Should return a map of the ACL rules', function() {
       rules = acl.config({
         filename: 'config/config.json',
-        path: 'tests'
+        path: 'tests',
       });
 
       let permissions = rules.get('user');
@@ -33,16 +33,16 @@ describe('Acl configuration file', function() {
 
   context('When no Rules are denied', function() {
     it('Log error when no policy is defined', function() {
-      res = '\u001b[33mPolicy not set, All traffic will be denied\u001b[39m';
+      res =
+        '\u001b[33mWARNING: You have not set any policies, All traffic will be denied\u001b[39m';
       rules = acl.config({
         path: './tests/config',
-        filename: 'empty-policy.json'
+        filename: 'empty-policy.json',
       });
       assert(typeof rules, 'string');
       assert.deepEqual(rules, res);
     });
   });
-
 
   context('When no baseUrl is defined', function() {
     it('Should be able to locate the location of the resource', function() {
@@ -53,7 +53,6 @@ describe('Acl configuration file', function() {
       let resource = helper.resource(next, url);
       assert.deepEqual(resource, 'users');
     });
-
   });
 
   context('When the baseUrl is defined', function() {
@@ -63,11 +62,10 @@ describe('Acl configuration file', function() {
         return true;
       };
       let config = {
-        baseUrl: 'developer/v1/'
+        baseUrl: 'developer/v1/',
       };
       let resource = helper.resource(next, url, config.baseUrl);
       assert.deepEqual(resource, 'users');
     });
   });
-
 });

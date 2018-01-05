@@ -8,21 +8,22 @@ describe('Yaml testing', function() {
     rules = acl.config({
       path: 'tests/config',
       baseUrl: 'api',
-      yml: true
+      filename: 'nacl.yml',
     });
     done();
   });
 
   it('should read the yaml file and convert to json', function() {
-    let expectedRule = [{
-      resource: 'users',
-      methods: ['GET', 'POST', 'DELETE'],
-      action: 'allow'
-    }];
+    let expectedRule = [
+      {
+        resource: 'users/*',
+        methods: ['GET', 'POST', 'DELETE'],
+        action: 'allow',
+      },
+    ];
 
     assert(rules, true);
     assert(rules.has('user'));
     assert.deepEqual(rules.get('user'), expectedRule);
-
   });
 });
