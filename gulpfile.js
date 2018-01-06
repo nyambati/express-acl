@@ -2,7 +2,7 @@
 const gulp = require('gulp');
 const plugins = require('gulp-load-plugins')();
 const paths = {
-  tests: ['tests/behavior/**.spec.js'],
+  tests: ['tests/**/**.spec.js'],
   scripts: ['lib/**', 'tests/**', '!tests/config/**.yml'],
 };
 
