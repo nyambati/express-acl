@@ -10,11 +10,12 @@ const {
   findRoleFromRequest,
   findPermissionForRoute,
   checkIfHasAccess,
+  matchUrlToResource,
   validatePolicies,
 } = require('../../lib/common');
 
-describe('Unit test for ACL functionality', _ => {
-  context('Test Deny function', _ => {
+describe('Unit test for ACL functionality', () => {
+  context('Test Deny function', () => {
     it('Should exist and be a function', done => {
       assert(deny, true);
       assert(typeof deny, 'function');
@@ -53,7 +54,7 @@ describe('Unit test for ACL functionality', _ => {
     });
   });
 
-  context('Test urlToArray function', _ => {
+  context('Test urlToArray function', () => {
     it('Should exist and is an function', done => {
       assert(urlToArray, true);
       assert(typeof urlToArray, 'function');
@@ -75,7 +76,7 @@ describe('Unit test for ACL functionality', _ => {
     });
   });
 
-  context('Test assertIsGlobOrArray function', _ => {
+  context('Test assertIsGlobOrArray function', () => {
     it('Should exist and is a function', done => {
       assert(assertIsGlobOrArray, true);
       assert(typeof assertIsGlobOrArray, 'function');
@@ -110,7 +111,7 @@ describe('Unit test for ACL functionality', _ => {
     });
   });
 
-  context('Test readConfigFile function', _ => {
+  context('Test readConfigFile function', () => {
     it('Should exist and be a function', done => {
       assert(readConfigFile, true);
       assert(typeof readConfigFile, 'function');
@@ -125,9 +126,20 @@ describe('Unit test for ACL functionality', _ => {
       assert(config, expectedFile);
       done();
     });
+    it('Should throw an error is file is missing', done => {
+      try {
+        readConfigFile();
+      } catch ({message}) {
+        assert.equal(
+          message,
+          'TypeError: Path must be a string. Received undefined'
+        );
+      }
+      done();
+    });
   });
 
-  context('Test mapPolicyToGroup function', _ => {
+  context('Test mapPolicyToGroup function', () => {
     it('It should exist and should be a function', done => {
       assert(mapPolicyToGroup, true);
       assert(typeof mapPolicyToGroup, 'function');
@@ -173,7 +185,7 @@ describe('Unit test for ACL functionality', _ => {
     });
   });
 
-  context('Test validatePolicies function', _ => {
+  context('Test validatePolicies function', () => {
     it('Should exist and should be a function', done => {
       assert(validatePolicies, true);
       assert(typeof validatePolicies, 'function');
@@ -197,7 +209,7 @@ describe('Unit test for ACL functionality', _ => {
     });
   });
 
-  context('Test findRoleFromRequest', _ => {
+  context('Test findRoleFromRequest', () => {
     it('Should exist and should be a function', done => {
       assert(findRoleFromRequest, true);
       assert(typeof findRoleFromRequest, 'function');
@@ -262,7 +274,7 @@ describe('Unit test for ACL functionality', _ => {
     });
   });
 
-  context('Test findPermissionForRoute function', _ => {
+  context('Test findPermissionForRoute function', () => {
     it('Should exist and should be a function', done => {
       assert(findPermissionForRoute, true);
       assert(typeof findPermissionForRoute, 'function');
@@ -331,5 +343,20 @@ describe('Unit test for ACL functionality', _ => {
       assert.equal(permissions, undefined);
       done();
     });
+  });
+  context('Test matchUrlToResource', () => {
+    it('Should exist and should be a function', done => {
+      assert(matchUrlToResource, true);
+      assert(typeof matchUrlToResource, 'function');
+      done();
+    });
+    it('Should return true or false when given url and resource', done => {
+      assert.equal(matchUrlToResource('/api/users', '*'), true);
+      assert.equal(matchUrlToResource('/api/users', '/api/users'), true);
+      assert.equal(matchUrlToResource('/api/users', '/king/mong'), false);
+      done();
+    });
+
+    it;
   });
 });

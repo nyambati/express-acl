@@ -79,7 +79,6 @@ describe('Authorize middleware', function() {
 
   context('When role is not defined in the user object', function() {
     it('should block traffic if no role is defined', function(done) {
-      console.log(req.originalUrl);
       req.decoded = {};
       res = httpMocks.createResponse();
       acl.authorize(req, res, next);
@@ -166,7 +165,6 @@ describe('Authorize middleware', function() {
         baseUrl: 'api',
       });
       acl.authorize(req, res, next);
-      console.log(res._getData());
       data = JSON.parse(res._getData());
 
       assert(data, true);
