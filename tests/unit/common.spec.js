@@ -359,4 +359,12 @@ describe('Unit test for ACL functionality', () => {
 
     it;
   });
+
+  context('Test checkIfHasAcess function', () => {
+    it('Should exist and should be a function', done => {
+      assert(checkIfHasAccess, true);
+      assert(typeof checkIfHasAccess, 'function');
+      done();
+    });
+  });
 });

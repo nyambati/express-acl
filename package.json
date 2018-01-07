@@ -25,23 +25,20 @@
   "dependencies": {
     "express-unless": "^0.3.0",
     "js-yaml": "^3.6.0",
-    "lodash": "^4.11.2",
     "object-path": "^0.11.4"
   },
   "devDependencies": {
-    "chai-spies": "^0.7.1",
     "chai": "^3.5.0",
+    "chai-spies": "^0.7.1",
     "codacy-coverage": "^1.1.3",
     "coveralls": "^2.11.9",
     "gulp": "^3.9.1",
     "gulp-istanbul": "^0.10.4",
-    "gulp-jshint": "^2.0.1",
-    "gulp-load-plugins": "^1.2.2",
     "gulp-mocha": "^2.2.0",
     "istanbul": "^0.4.3",
-    "jshint": "^2.9.2",
-    "jshint-stylish": "^2.2.0",
     "mocha": "^2.4.5",
-    "node-mocks-http": "^1.5.2"
+    "gulp-eslint": "^4.0.1",
+    "node-mocks-http": "^1.5.2",
+    "gulp-load-plugins": "^1.5.0"
   }
 }

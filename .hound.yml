@@ -1,5 +1,0 @@
-fail_on_violations: true
-
-javascript:
-  config_file: .jshintrc
-
