@@ -1,5 +1,7 @@
 const assert = require('assert');
 const http = require('node-mocks-http');
+const yaml = require('js-yaml');
+const fs = require('fs');
 
 const {
   deny,
@@ -10,6 +12,7 @@ const {
   findRoleFromRequest,
   findPermissionForRoute,
   checkIfHasAccess,
+  isAllowed,
   matchUrlToResource,
   validatePolicies,
 } = require('../../lib/common');
@@ -123,7 +126,16 @@ describe('Unit test for ACL functionality', () => {
       assert(config, true);
       assert(typeof config, 'object');
       assert(Array.isArray(config), true);
-      assert(config, expectedFile);
+      assert.deepEqual(config, expectedFile);
+      // Read yaml file
+      const expectedConfig = yaml.safeLoad(
+        fs.readFileSync('tests/config/nacl.yml')
+      );
+      const yamlConfig = readConfigFile('tests/config/nacl.yml');
+
+      assert(yamlConfig, true);
+      assert(Array.isArray(yamlConfig), true);
+      assert.deepEqual(expectedConfig, yamlConfig);
       done();
     });
     it('Should throw an error is file is missing', done => {
@@ -354,6 +366,8 @@ describe('Unit test for ACL functionality', () => {
       assert.equal(matchUrlToResource('/api/users', '*'), true);
       assert.equal(matchUrlToResource('/api/users', '/api/users'), true);
       assert.equal(matchUrlToResource('/api/users', '/king/mong'), false);
+      assert.equal(matchUrlToResource('/api/users/king', '/api/users/*'), true);
+      assert.equal(matchUrlToResource('/api/users/king', '/api/users'), false);
       done();
     });
 
@@ -364,6 +378,45 @@ describe('Unit test for ACL functionality', () => {
     it('Should exist and should be a function', done => {
       assert(checkIfHasAccess, true);
       assert(typeof checkIfHasAccess, 'function');
+      done();
+    });
+
+    it('Should return appropriate response when checking for access', done => {
+      const res = http.createResponse();
+      const next = () => {
+        return {
+          message: 'ACCESS GRANTED',
+        };
+      };
+
+      const permission = {
+        resource: 'users/*',
+        methods: ['POST', 'GET', 'PUT'],
+        action: 'allow',
+      };
+
+      assert.deepEqual(checkIfHasAccess('GET', res, next, permission), next());
+      checkIfHasAccess('DELETE', res, next, permission);
+      const data = JSON.parse(res._getData());
+      assert.deepEqual(data, {
+        status: 'Access denied',
+        success: false,
+        message: 'Unauthorized access',
+      });
+      done();
+    });
+  });
+
+  context('Test isAllowed function', () => {
+    it('Should return true of false if method is allowed', done => {
+      const permission = {
+        resource: 'users/*',
+        methods: ['POST', 'GET', 'PUT'],
+        action: 'allow',
+      };
+
+      assert.equal(isAllowed('GET', permission), true);
+      assert.equal(isAllowed('DELETE', permission), false);
       done();
     });
   });
