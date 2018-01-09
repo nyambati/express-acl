@@ -3,7 +3,7 @@
     "group": "user",
     "permissions": [
       {
-        "resource": "users/*",
+        "resource": "users/",
         "methods": ["POST", "GET", "PUT"],
         "action": "allow",
         "subRoutes": [
