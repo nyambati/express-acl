@@ -1,6 +1,6 @@
 # Overview
 
-This are the options that are passed to the config method. This options determin how the rules will be loaded and how resource matching should start from.
+This are the options that are passed to the config method. This options determine how the rules will be loaded and how resource matching should start from.
 
 The config method takes in an object with possible five parameters, They include
 
@@ -84,7 +84,7 @@ This is the encoding type `fs` module uses to read nacl file. For more informati
 
 The base URL represent the prefix of your API. This can either be `api`,`v1`,`/developer/v1` etc. This is important because express-acl will use this url to map the location of the resources. Take an example of the following url `/api/users`.
 
-In this URL our resource is users,and the base URL being `api`. If we donot specify the base URL express will treat `api` as our resource instead of `users`.
+In this URL our resource is users, and the base URL being `api`. If we do not specify the base URL express will treat `api` as our resource instead of `users`.
 
 ```js
 
@@ -147,7 +147,7 @@ acl.config({
 
 ## Search Path And Decoded Object Name
 
-This two properties enable you to customize how and where your user role will be located in the request object. By default this module looks for `req.decoded.role`, However this might be the case with everyone. if your decoed object uses different format you can specify using the above properties.
+This two properties enable you to customize how and where your user role will be located in the request object. By default this module looks for `req.decoded.role`, However this might be the case with everyone. if your decoded object uses different format you can specify using the above properties.
 
 !!! note
     Both of these properties are use to locate the role in your request object, therefore  they cannot be used together.
