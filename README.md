@@ -92,9 +92,9 @@ First step is to create a file called `nacl.json` and place this in the root fol
   "group": "admin",
   "permissions": [{
     "resource": "*",
-    "methods": "*"
-  }],
-  "action": "allow"
+    "methods": "*",
+    "action": "allow"
+  }]
   }, {
   "group": "user",
   "permissions": [{
@@ -199,13 +199,13 @@ This methods loads the configuration json file. When this method it looks for `n
   });
 
   // When you use rules api, nacl will **not** to find the json/yaml file, so you can save your acl-rules with any Database;
-  
+
 // The default role alllows you to specify which role users will assumne if they are not assigned any
   acl.config({
     defaultRole: 'anonymous'
   });
 
-  
+
 // By default this module will look for role in decoded object, if you would like to change the name of the object, you can specify this with decodedObjectName property.
 
 // As per the example below, this module will look for req.user.role as compared to default req.decoded.role.
