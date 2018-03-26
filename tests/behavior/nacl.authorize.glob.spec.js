@@ -9,13 +9,13 @@ describe('Acl middleware for express', function() {
     success: {
       status: 200,
       success: true,
-      message: 'ACCESS GRANTED',
+      message: 'ACCESS GRANTED'
     },
     restricted: {
       status: 'Access denied',
       success: false,
-      message: 'Unauthorized access',
-    },
+      message: 'Unauthorized access'
+    }
   };
 
   describe('When the methods and resource is a glob', function() {
@@ -32,7 +32,7 @@ describe('Acl middleware for express', function() {
         acl.config({
           baseUrl: 'api',
           filename: 'all-glob-deny.json',
-          path: './tests/config',
+          path: './tests/config'
         });
         done();
       });
@@ -40,7 +40,7 @@ describe('Acl middleware for express', function() {
       it('Should deny access to resource /api/user/42', function(done) {
         req = httpMocks.createRequest({
           method: 'POST',
-          url: '/api/users/42',
+          url: '/api/users/42'
         });
 
         req.decoded = {};
@@ -57,7 +57,7 @@ describe('Acl middleware for express', function() {
       it('Should deny access to resource /api/user/42', function(done) {
         req = httpMocks.createRequest({
           method: 'PUT',
-          url: '/api/users/42',
+          url: '/api/users/42'
         });
 
         req.decoded = {};
@@ -74,7 +74,7 @@ describe('Acl middleware for express', function() {
       it('Should deny access to resource on /api/user/42', function(done) {
         req = httpMocks.createRequest({
           method: 'DElETE',
-          url: '/api/users/42',
+          url: '/api/users/42'
         });
 
         req.decoded = {};
@@ -94,7 +94,7 @@ describe('Acl middleware for express', function() {
         acl.config({
           baseUrl: 'api',
           filename: 'all-glob-allow.json',
-          path: './tests/config',
+          path: './tests/config'
         });
         done();
       });
@@ -102,7 +102,7 @@ describe('Acl middleware for express', function() {
       it('Should Deny Access to resource /api/user/42', function(done) {
         req = httpMocks.createRequest({
           method: 'POST',
-          url: '/api/users/42',
+          url: '/api/users/42'
         });
 
         req.decoded = {};
@@ -118,7 +118,7 @@ describe('Acl middleware for express', function() {
       it('Should deny access to resource /api/user/42', function(done) {
         req = httpMocks.createRequest({
           method: 'PUT',
-          url: '/api/users/42',
+          url: '/api/users/42'
         });
 
         req.decoded = {};
@@ -134,7 +134,7 @@ describe('Acl middleware for express', function() {
       it('should deny DElETE operation on /api/user/42', function(done) {
         req = httpMocks.createRequest({
           method: 'DElETE',
-          url: '/api/users/42',
+          url: '/api/users/42'
         });
 
         req.decoded = {};

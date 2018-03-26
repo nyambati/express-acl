@@ -7,13 +7,13 @@ let response = {
   success: {
     status: 200,
     success: true,
-    message: 'ACCESS GRANTED',
+    message: 'ACCESS GRANTED'
   },
   restricted: {
     status: 'Access denied',
     success: false,
-    message: 'Unauthorized access',
-  },
+    message: 'Unauthorized access'
+  }
 };
 
 describe('Testing Methods', function() {
@@ -31,7 +31,7 @@ describe('Testing Methods', function() {
       acl.config({
         baseUrl: 'api',
         filename: 'methods-glob-deny.json',
-        path: './tests/config',
+        path: './tests/config'
       });
       done();
     });
@@ -39,7 +39,7 @@ describe('Testing Methods', function() {
     it('Should deny access to resource /api/mangoes/42', function(done) {
       req = httpMocks.createRequest({
         method: 'POST',
-        url: '/api/mangoes/42',
+        url: '/api/mangoes/42'
       });
 
       req.decoded = {};
@@ -56,7 +56,7 @@ describe('Testing Methods', function() {
     it('Should deny access to resource/api/mangoes/42', function(done) {
       req = httpMocks.createRequest({
         method: 'PUT',
-        url: '/api/mangoes/42',
+        url: '/api/mangoes/42'
       });
       req.decoded = {};
       req.session = {};
@@ -72,7 +72,7 @@ describe('Testing Methods', function() {
     it('Should deny access to resource /api/mangoes/42', function(done) {
       req = httpMocks.createRequest({
         method: 'DElETE',
-        url: '/api/mangoes/42',
+        url: '/api/mangoes/42'
       });
 
       req.decoded = {};
@@ -91,7 +91,7 @@ describe('Testing Methods', function() {
       acl.config({
         baseUrl: 'api',
         filename: 'methods-glob-allow.json',
-        path: './tests/config',
+        path: './tests/config'
       });
       next = function() {
         res.send(response.success);
@@ -102,7 +102,7 @@ describe('Testing Methods', function() {
     it('Should allow traffic to resources /api/mangoes/42', function(done) {
       req = httpMocks.createRequest({
         method: 'POST',
-        url: '/api/mangoes/42',
+        url: '/api/mangoes/42'
       });
 
       req.decoded = {};
@@ -118,7 +118,7 @@ describe('Testing Methods', function() {
     it('Should allow traffic to resources /api/mangoes/42', function(done) {
       req = httpMocks.createRequest({
         method: 'PUT',
-        url: '/api/mangoes/42',
+        url: '/api/mangoes/42'
       });
 
       req.decoded = {};
@@ -134,7 +134,7 @@ describe('Testing Methods', function() {
     it('Should allow traffic to resources /api/user/42', function(done) {
       req = httpMocks.createRequest({
         method: 'DElETE',
-        url: '/api/mangoes/42',
+        url: '/api/mangoes/42'
       });
       req.decoded = {};
       req.session = {};

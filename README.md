@@ -122,7 +122,7 @@ In the example above we have defined an ACL with two policies with two roles, `u
 
 ## How to define effective ACL rules
 
-ACLs define the way requests will be handled by express acl, therefore its important to ensure that they are well designed to maximise efficiency. For more details follow this [link](https://github.com/andela-thomas/express-acl/wiki/How-to-write-effective-ACL-rules)
+ACLs define the way requests will be handled by express acl, therefore its important to ensure that they are well designed to maximize efficiency. For more details follow this [link](https://github.com/andela-thomas/express-acl/wiki/How-to-write-effective-ACL-rules)
 
 ## Authentication
 
@@ -167,7 +167,7 @@ This methods loads the configuration json file. When this method it looks for `n
 * **path**: Location of the ACL rule file
 * **yml**: when set to true means use yaml parser else JSON parser
 * **baseUrl**: The base url of your API e.g /developer/v1
-* **rules**: Allows you to set rules directly withour using config file.
+* **rules**: Allows you to set rules directly without using config file.
 * **defaultRole** : The default role to be assigned to users if they have no role defined.
 * **decodedObjectName**: The name of the object in the request where the role resides.
 * **searchPath**: The path in which to look for the role within the req object
@@ -184,7 +184,7 @@ const acl = require('express-acl');
 // else you can specify {baseurl: '/'} or ignore it entirely
 
 acl.config({
-  baseUrl: 'api',
+  baseUrl: 'api'
 });
 
 // path specified
@@ -192,21 +192,23 @@ acl.config({
 
 acl.config({
   filename: 'acl.json',
-  path: 'config',
+  path: 'config'
 });
 
 // When specifying path you can also rename the json file e.g
 // The above file can be acl.json or nacl.json or any_file_name.json
 
 acl.config({
-  rules: rulesArray,
+  rules: rulesArray
 });
 
 // When you use rules api, nacl will **not** to find the json/yaml file, so you can save your acl-rules with any Database;
 
-// The default role alllows you to specify which role users will assumne if they are not assigned any
+// When you use rules api, nacl will **not** to find the json/yaml file, so you can save your acl-rules with any Database;
+
+// The default role allows you to specify which role users will assume if they are not assigned any
 acl.config({
-  defaultRole: 'anonymous',
+  defaultRole: 'anonymous'
 });
 
 // By default this module will look for role in decoded object, if you would like to change the name of the object, you can specify this with decodedObjectName property.
@@ -214,13 +216,13 @@ acl.config({
 // As per the example below, this module will look for req.user.role as compared to default req.decoded.role.
 
 acl.config({
-  decodedObjectName: 'user',
+  decodedObjectName: 'user'
 });
 
 // You can also specify a deep path in which to look for the role, in case it's not inside the usual locations
 
 acl.config({
-  searchPath: 'user.Role.name', //will search for role in req.user.Role.name
+  searchPath: 'user.Role.name' //will search for role in req.user.Role.name
 });
 ```
 
@@ -233,12 +235,12 @@ const acl = require('express-acl');
 
 let configObject = {
   filename: 'acl.json',
-  path: 'config',
+  path: 'config'
 };
 
 let responseObject = {
   status: 'Access Denied',
-  message: 'You are not authorized to access this resource',
+  message: 'You are not authorized to access this resource'
 };
 
 acl.config(configObject, responseObject);
@@ -254,15 +256,15 @@ app.get(acl.authorize);
 
 ## unless[type:function, params: function or object]
 
-By default any route that has no defined policy against it is blocked, this means you cannot access this route untill you specify a policy. This method enables you to exclude unprotected routes. This method uses express-unless package to achive this functionality. For more details on its usage follow this link [express-unless](https://github.com/jfromaniello/express-unless/blob/master/README.md)
+By default any route that has no defined policy against it is blocked, this means you cannot access this route until you specify a policy. This method enables you to exclude unprotected routes. This method uses express-unless package to achieve this functionality. For more details on its usage follow this link [express-unless](https://github.com/jfromaniello/express-unless/blob/master/README.md)
 
 ```js
 //assuming we want to hide /auth/google from express acl
 
-app.use(acl.authorize.unless({path: ['/auth/google']}));
+app.use(acl.authorize.unless({ path: ['/auth/google'] }));
 ```
 
-Anytime that this route is visited, unless method will exlude it from being passed though our middleware.
+Anytime that this route is visited, unless method will exclude it from being passed though our middleware.
 
 **N/B** You don't have to install `express-unless` it has already been included into the project.
 
@@ -302,7 +304,7 @@ Call the config method
 ```js
 acl.config({
   //specify your own baseUrl
-  baseUrl: '/',
+  baseUrl: '/'
 });
 ```
 

@@ -51,7 +51,7 @@ YAML syntax
 
 ## Understanding ACL rules
 
-Its important to Understand each property that consitute an acl. Below is a table that has a Description of each property.
+Its important to Understand each property that constitute an acl. Below is a table that has a Description of each property.
 
 Property | Type | Description
     --- | --- | ---
@@ -97,7 +97,7 @@ You may ask, why did we apply deny action on DELETE method instead of allowing o
 
 Thus denying one method is faster than allowing three or four methods. When it comes to blogs we only need them to read therefore we allow GET methods which means the other methods are denied.
 
-For you to formulate good ACL rules, you need to understand the princple of negation. To allow is to deny and to deny is to allow, confusing right? how can you deny and allow at the same time?. Lets look at this example, if I have 4 methods POST, GET, PUT, DELETE and I deny POST. This is same as saying allow GET,PUT,DELETE and if I allow POST is same as saying deny GET,PUT,DELETE.
+For you to formulate good ACL rules, you need to understand the principle of negation. To allow is to deny and to deny is to allow, confusing right? how can you deny and allow at the same time?. Lets look at this example, if I have 4 methods POST, GET, PUT, DELETE and I deny POST. This is same as saying allow GET,PUT,DELETE and if I allow POST is same as saying deny GET,PUT,DELETE.
 
 Now that we have established that lets write our config file. Our nacl.json will look like this.
 

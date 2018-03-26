@@ -8,7 +8,7 @@ describe('Yaml testing', function() {
     rules = acl.config({
       path: 'tests/config',
       baseUrl: 'api',
-      filename: 'nacl.yml',
+      filename: 'nacl.yml'
     });
     done();
   });
@@ -18,8 +18,8 @@ describe('Yaml testing', function() {
       {
         resource: 'users/*',
         methods: ['GET', 'POST', 'DELETE'],
-        action: 'allow',
-      },
+        action: 'allow'
+      }
     ];
 
     assert(rules, true);

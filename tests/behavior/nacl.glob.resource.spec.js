@@ -7,13 +7,13 @@ let response = {
   success: {
     status: 200,
     success: true,
-    message: 'ACCESS GRANTED',
+    message: 'ACCESS GRANTED'
   },
   restricted: {
     status: 'Access denied',
     success: false,
-    message: 'Unauthorized access',
-  },
+    message: 'Unauthorized access'
+  }
 };
 
 describe('Testing for resource scenarios', function() {
@@ -23,7 +23,7 @@ describe('Testing for resource scenarios', function() {
       acl.config({
         baseUrl: 'api',
         filename: 'resource-glob-deny.json',
-        path: './tests/config',
+        path: './tests/config'
       });
 
       res = httpMocks.createResponse();
@@ -37,7 +37,7 @@ describe('Testing for resource scenarios', function() {
     it('Should deny access to resource /api/mangoes/42', function(done) {
       req = httpMocks.createRequest({
         method: 'POST',
-        url: '/api/mangoes/42',
+        url: '/api/mangoes/42'
       });
       req.decoded = {};
       req.session = {};
@@ -53,7 +53,7 @@ describe('Testing for resource scenarios', function() {
     it('Should deny access to resource /api/mangoes/42', function(done) {
       req = httpMocks.createRequest({
         method: 'PUT',
-        url: '/api/mangoes/42',
+        url: '/api/mangoes/42'
       });
 
       req.decoded = {};
@@ -70,7 +70,7 @@ describe('Testing for resource scenarios', function() {
     it('Should allow access to resource /api/user/42', function(done) {
       req = httpMocks.createRequest({
         method: 'DElETE',
-        url: '/api/mangoes/42',
+        url: '/api/mangoes/42'
       });
 
       req.decoded = {};
@@ -89,7 +89,7 @@ describe('Testing for resource scenarios', function() {
       acl.config({
         baseUrl: 'api',
         filename: 'resource-glob-allow.json',
-        path: './tests/config',
+        path: './tests/config'
       });
       res = httpMocks.createResponse();
       done();
@@ -98,7 +98,7 @@ describe('Testing for resource scenarios', function() {
     it('Should allow access to resource /api/mangoes/42', function(done) {
       req = httpMocks.createRequest({
         method: 'POST',
-        url: '/api/mangoes/42',
+        url: '/api/mangoes/42'
       });
 
       req.decoded = {};
@@ -115,7 +115,7 @@ describe('Testing for resource scenarios', function() {
     it('Should allow access to resource /api/mangoes/42', function(done) {
       req = httpMocks.createRequest({
         method: 'PUT',
-        url: '/api/mangoes/42',
+        url: '/api/mangoes/42'
       });
 
       req.decoded = {};
@@ -133,8 +133,8 @@ describe('Testing for resource scenarios', function() {
         method: 'DElETE',
         url: '/api/mangoes/42',
         params: {
-          id: 42,
-        },
+          id: 42
+        }
       });
 
       req.decoded = {};

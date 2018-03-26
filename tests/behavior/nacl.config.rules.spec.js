@@ -9,15 +9,15 @@ let rules = [
       {
         resource: 'users',
         methods: ['GET', 'POST', 'DELETE'],
-        action: 'allow',
-      },
-    ],
-  },
+        action: 'allow'
+      }
+    ]
+  }
 ];
 
 describe('Policies passed as Array to config functon', function() {
   it('Should should be used in place of config file', function() {
-    const policies = acl.config({rules});
+    const policies = acl.config({ rules });
     assert(policies.has('user'), true);
     assert(typeof policies, 'object');
     assert.deepEqual(policies.get('user'), rules[0].permissions);

@@ -2,7 +2,7 @@
 
 # Express Acl
 
-This is NodeJs runtime module that Implements ACL for expressJS Application. Its is designed to provide configuration approach to ACL implemantation as saving you the nightmare of writing countless middlewares. It suppports JSON and YAML as the configuration syntax.
+This is NodeJs runtime module that Implements ACL for expressJS Application. Its is designed to provide configuration approach to ACL implementation as saving you the nightmare of writing countless middlewares. It supports JSON and YAML as the configuration syntax.
 
 [Installation](/documentation/getting-started/#installation)
 

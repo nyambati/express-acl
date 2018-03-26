@@ -8,7 +8,7 @@ describe('Acl configuration file', function() {
     it('Should return a map of the ACL rules', function() {
       rules = acl.config({
         filename: 'config/config.json',
-        path: 'tests',
+        path: 'tests'
       });
 
       let permissions = rules.get('user');
@@ -36,7 +36,7 @@ describe('Acl configuration file', function() {
         '\u001b[33mWARNING: You have not set any policies, All traffic will be denied\u001b[39m';
       rules = acl.config({
         path: './tests/config',
-        filename: 'empty-policy.json',
+        filename: 'empty-policy.json'
       });
       assert(typeof rules, 'string');
       assert.deepEqual(rules, res);

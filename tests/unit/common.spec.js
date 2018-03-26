@@ -14,7 +14,7 @@ const {
   checkIfHasAccess,
   isAllowed,
   matchUrlToResource,
-  validatePolicies,
+  validatePolicies
 } = require('../../lib/common');
 
 describe('Unit test for ACL functionality', () => {
@@ -29,7 +29,7 @@ describe('Unit test for ACL functionality', () => {
       const defaultResponse = {
         status: 'Access denied',
         success: false,
-        message: 'Unauthorized access',
+        message: 'Unauthorized access'
       };
       assert.deepEqual(deny(), defaultResponse);
       done();
@@ -39,7 +39,7 @@ describe('Unit test for ACL functionality', () => {
       const expectedResponse = {
         status: 'Access denied',
         success: false,
-        message: 'This is a custom message',
+        message: 'This is a custom message'
       };
       assert.deepEqual(deny('This is a custom message'), expectedResponse);
       done();
@@ -49,7 +49,7 @@ describe('Unit test for ACL functionality', () => {
       const response = {
         status: 'Success',
         code: 401,
-        message: 'Acccess Denied',
+        message: 'Acccess Denied'
       };
 
       assert.deepEqual(deny(null, response), response);
@@ -95,7 +95,7 @@ describe('Unit test for ACL functionality', () => {
     it('Should throw an error if first argument is no string or Array', done => {
       try {
         assertIsGlobOrArray({}, 'Methods');
-      } catch ({message}) {
+      } catch ({ message }) {
         assert.equal(message, 'TypeError: Methods should be a array or string');
       }
       done();
@@ -104,7 +104,7 @@ describe('Unit test for ACL functionality', () => {
     it('Should throw an error if the methods supplied is string but not *', done => {
       try {
         assertIsGlobOrArray('?', 'Methods');
-      } catch ({message}) {
+      } catch ({ message }) {
         assert.equal(
           message,
           'DefinitionError: Unrecognised glob "?" , use "*" instead'
@@ -141,7 +141,7 @@ describe('Unit test for ACL functionality', () => {
     it('Should throw an error is file is missing', done => {
       try {
         readConfigFile();
-      } catch ({message}) {
+      } catch ({ message }) {
         assert.equal(
           message,
           'TypeError: Path must be a string. Received undefined'
@@ -170,14 +170,14 @@ describe('Unit test for ACL functionality', () => {
             {
               resource: 'users/*',
               methods: ['POST', 'GET', 'PUT'],
-              action: 'none',
-            },
-          ],
-        },
+              action: 'none'
+            }
+          ]
+        }
       ];
       try {
         mapPolicyToGroup(invalidPolicy);
-      } catch ({message}) {
+      } catch ({ message }) {
         assert.equal(
           message,
           'TypeError: action should be either "deny" or "allow"'
@@ -212,7 +212,7 @@ describe('Unit test for ACL functionality', () => {
 
       try {
         validatePolicies({});
-      } catch ({message}) {
+      } catch ({ message }) {
         assert(message, true);
         assert.equal(message, 'TypeError: Expected Array but got object');
       }
@@ -232,7 +232,7 @@ describe('Unit test for ACL functionality', () => {
       const req = http.createRequest();
       let role;
       req.decoded = {
-        role: 'user',
+        role: 'user'
       };
 
       role = findRoleFromRequest(req);
@@ -241,7 +241,7 @@ describe('Unit test for ACL functionality', () => {
 
       req.decoded = {};
       req.session = {
-        role: 'user',
+        role: 'user'
       };
 
       role = findRoleFromRequest(req);
@@ -262,8 +262,8 @@ describe('Unit test for ACL functionality', () => {
       const req = http.createRequest();
       req.user = {
         credentials: {
-          role: 'user',
-        },
+          role: 'user'
+        }
       };
 
       let role = findRoleFromRequest(req, null, null, 'user.credentials');
@@ -275,8 +275,8 @@ describe('Unit test for ACL functionality', () => {
       const req = http.createRequest();
       req.user = {
         credentials: {
-          role: 'user',
-        },
+          role: 'user'
+        }
       };
 
       let role = findRoleFromRequest(req, 'user.credentials.role');
@@ -302,16 +302,16 @@ describe('Unit test for ACL functionality', () => {
             {
               resource: 'public',
               methods: '*',
-              action: 'allow',
-            },
-          ],
-        },
+              action: 'allow'
+            }
+          ]
+        }
       ];
 
       let expectedPermissions = {
         resource: 'public',
         methods: '*',
-        action: 'allow',
+        action: 'allow'
       };
 
       let permissions = findPermissionForRoute(
@@ -332,9 +332,9 @@ describe('Unit test for ACL functionality', () => {
           {
             resource: 'public',
             methods: '*',
-            action: 'allow',
-          },
-        ],
+            action: 'allow'
+          }
+        ]
       };
 
       permissions = findPermissionForRoute('/users/king', 'GET', '', policy);
@@ -385,14 +385,14 @@ describe('Unit test for ACL functionality', () => {
       const res = http.createResponse();
       const next = () => {
         return {
-          message: 'ACCESS GRANTED',
+          message: 'ACCESS GRANTED'
         };
       };
 
       const permission = {
         resource: 'users/*',
         methods: ['POST', 'GET', 'PUT'],
-        action: 'allow',
+        action: 'allow'
       };
 
       assert.deepEqual(checkIfHasAccess('GET', res, next, permission), next());
@@ -401,7 +401,7 @@ describe('Unit test for ACL functionality', () => {
       assert.deepEqual(data, {
         status: 'Access denied',
         success: false,
-        message: 'Unauthorized access',
+        message: 'Unauthorized access'
       });
       done();
     });
@@ -412,7 +412,7 @@ describe('Unit test for ACL functionality', () => {
       const permission = {
         resource: 'users/*',
         methods: ['POST', 'GET', 'PUT'],
-        action: 'allow',
+        action: 'allow'
       };
 
       assert.equal(isAllowed('GET', permission), true);

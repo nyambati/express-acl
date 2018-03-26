@@ -9,13 +9,13 @@ describe('Authorize middleware', function() {
     success: {
       status: 200,
       success: true,
-      message: 'ACCESS GRANTED',
+      message: 'ACCESS GRANTED'
     },
     restricted: {
       status: 'Access denied',
       success: false,
-      message: 'Unauthorized access',
-    },
+      message: 'Unauthorized access'
+    }
   };
 
   beforeEach(function(done) {
@@ -23,13 +23,13 @@ describe('Authorize middleware', function() {
     acl.config({
       baseUrl: 'api',
       filename: 'nacl.json',
-      path: '.',
+      path: '.'
     });
     next = function() {
       return res.send({
         status: 200,
         success: true,
-        message: 'ACCESS GRANTED',
+        message: 'ACCESS GRANTED'
       });
     };
     done();
@@ -39,7 +39,7 @@ describe('Authorize middleware', function() {
     beforeEach(function(done) {
       req = httpMocks.createRequest({
         method: 'GET',
-        url: '/',
+        url: '/'
       });
       req.decoded = {};
       req.session = {};
@@ -59,7 +59,7 @@ describe('Authorize middleware', function() {
     beforeEach(function(done) {
       req = httpMocks.createRequest({
         method: 'GET',
-        url: '/api/users/42',
+        url: '/api/users/42'
       });
 
       req.decoded = {};
@@ -85,7 +85,7 @@ describe('Authorize middleware', function() {
       let expectedResponse = {
         status: 'Access denied',
         success: false,
-        message: 'REQUIRED: Policy for role guest is not defined',
+        message: 'REQUIRED: Policy for role guest is not defined'
       };
 
       data = JSON.parse(res._getData());
@@ -104,7 +104,7 @@ describe('Authorize middleware', function() {
       let expectedResponse = {
         status: 'Access denied',
         success: false,
-        message: 'REQUIRED: Policy for role guest is not defined',
+        message: 'REQUIRED: Policy for role guest is not defined'
       };
 
       data = JSON.parse(res._getData());
@@ -123,7 +123,7 @@ describe('Authorize middleware', function() {
     it('Should allow access to /api/user/42', function(done) {
       req = httpMocks.createRequest({
         method: 'POST',
-        url: '/api/users/42',
+        url: '/api/users/42'
       });
 
       req.decoded = {};
@@ -139,7 +139,7 @@ describe('Authorize middleware', function() {
     it('Should allow access to resource  /api/user/42', function(done) {
       req = httpMocks.createRequest({
         method: 'PUT',
-        url: '/api/users/42',
+        url: '/api/users/42'
       });
 
       req.decoded = {};
@@ -155,14 +155,14 @@ describe('Authorize middleware', function() {
     it('Should deny access to resource /api/user/42', function(done) {
       req = httpMocks.createRequest({
         method: 'DElETE',
-        url: '/api/users/42',
+        url: '/api/users/42'
       });
 
       req.decoded = {};
       req.session = {};
       req.decoded.role = 'user';
       acl.config({
-        baseUrl: 'api',
+        baseUrl: 'api'
       });
       acl.authorize(req, res, next);
       data = JSON.parse(res._getData());
@@ -179,7 +179,7 @@ describe('Authorize middleware', function() {
       acl.config({
         baseUrl: 'api',
         filename: 'deny-user-config.json',
-        path: './tests/config',
+        path: './tests/config'
       });
       done();
     });
@@ -187,7 +187,7 @@ describe('Authorize middleware', function() {
     it('Should deny access to resource /api/user/42', function(done) {
       req = httpMocks.createRequest({
         method: 'POST',
-        url: '/api/users/42',
+        url: '/api/users/42'
       });
 
       req.decoded = {};
@@ -205,7 +205,7 @@ describe('Authorize middleware', function() {
     it('Should deny access to resource /api/user/42', function(done) {
       req = httpMocks.createRequest({
         method: 'PUT',
-        url: '/api/users/42',
+        url: '/api/users/42'
       });
 
       req.decoded = {};
@@ -224,7 +224,7 @@ describe('Authorize middleware', function() {
     it('Should allow access to resource /api/user/42', function(done) {
       req = httpMocks.createRequest({
         method: 'DElETE',
-        url: '/api/users/42',
+        url: '/api/users/42'
       });
 
       req.decoded = {};
@@ -241,7 +241,7 @@ describe('Authorize middleware', function() {
 
   context('When not policy is defined', function() {
     beforeEach(function(done) {
-      acl.config({baseUrl: 'api'});
+      acl.config({ baseUrl: 'api' });
       res = httpMocks.createResponse();
       done();
     });
@@ -249,7 +249,7 @@ describe('Authorize middleware', function() {
     it('should deny if not policy match resource', function(done) {
       req = httpMocks.createRequest({
         method: 'POST',
-        url: '/api/cargo/42',
+        url: '/api/cargo/42'
       });
 
       req.decoded = {};

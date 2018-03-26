@@ -8,14 +8,14 @@ describe('Test Sub Routes configurration', () => {
     res = http.createResponse();
     next = () => {
       return {
-        message: 'ACCESS GRANTED',
+        message: 'ACCESS GRANTED'
       };
     };
 
     acl.config({
       path: 'tests/config',
       baseUrl: 'api',
-      filename: 'subroutes.json',
+      filename: 'subroutes.json'
     });
     done();
   });
@@ -24,11 +24,11 @@ describe('Test Sub Routes configurration', () => {
     it('Should allow traffic or deny traffic when passed url of api/users/45', done => {
       const req = http.createRequest({
         method: 'GET',
-        url: '/api/users/45',
+        url: '/api/users/45'
       });
 
       req.decoded = {
-        role: 'user',
+        role: 'user'
       };
 
       acl.authorize(req, res, next);
@@ -38,7 +38,7 @@ describe('Test Sub Routes configurration', () => {
       assert.deepEqual(data, {
         status: 'Access denied',
         success: false,
-        message: 'Unauthorized access',
+        message: 'Unauthorized access'
       });
 
       done();
@@ -46,11 +46,11 @@ describe('Test Sub Routes configurration', () => {
     it('Should allow traffic for api/users/public', done => {
       const req = http.createRequest({
         method: 'GET',
-        url: '/api/users/public',
+        url: '/api/users/public'
       });
 
       req.decoded = {
-        role: 'user',
+        role: 'user'
       };
 
       const data = acl.authorize(req, res, next);

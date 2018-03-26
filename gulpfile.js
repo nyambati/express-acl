@@ -3,7 +3,7 @@ const gulp = require('gulp');
 const plugins = require('gulp-load-plugins')();
 const paths = {
   tests: ['tests/**/**.spec.js'],
-  scripts: ['lib/**', 'tests/**', '!tests/config/**.yml'],
+  scripts: ['lib/**', 'tests/**', '!tests/config/**.yml']
 };
 
 /**
@@ -30,10 +30,10 @@ gulp.task('lint', () => {
 
 gulp.task('test', ['pre-test'], () => {
   return gulp
-    .src(paths.tests, {read: false})
+    .src(paths.tests, { read: false })
     .pipe(plugins.mocha())
     .pipe(plugins.istanbul.writeReports())
-    .pipe(plugins.istanbul.enforceThresholds({thresholds: {global: 90}}));
+    .pipe(plugins.istanbul.enforceThresholds({ thresholds: { global: 90 } }));
 });
 
 /**
