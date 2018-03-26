@@ -27,7 +27,7 @@ For more details check the [configuration options](/documentation/configuration)
 
 ## Adding Rules
 
-The config method loads the rules for the local file. By default this module will look for `nacl.json` file in the root folder of your project. This can be overidden by adding more options to the config method as we have added yml which will look for `nacl.yml` file instead.
+The config method loads the rules for the local file. By default this module will look for `nacl.json` file in the root folder of your project. This can be overridden by adding more options to the config method as we have added yml which will look for `nacl.yml` file instead.
 
 ```yaml
 
@@ -41,13 +41,13 @@ The config method loads the rules for the local file. By default this module wil
       action: allow
 ```
 
-This file instructs this module on how to manage access to your resources. The contets of this file will be covered in details in the [Acl rules](/documentation/acl-rules) section
+This file instructs this module on how to manage access to your resources. The contents of this file will be covered in details in the [Acl rules](/documentation/acl-rules) section
 
 ## Authentication
 
 Express Acl depends on the `role` of each authenticated user to pick the corresponding ACL policy for each defined user groups. Therefore, You should always place the acl middleware after the authenticate middleware.
 
-Below is an example of an Authenticatio middleware implementation using jsonwebtokens.
+Below is an example of an Authentication middleware implementation using jsonwebtokens.
 
 ```js
 
@@ -77,4 +77,4 @@ ROUTER.use(acl.authorize);
 
 ```
 
-Once this middware is called, express-acl will pick the role from the authenticated user,and apply corresponding polices dependng on he role and resource sbeing requested for.
+Once this middleware is called, express-acl will pick the role from the authenticated user, and apply corresponding polices depending on he role and resource accessing requested for.
