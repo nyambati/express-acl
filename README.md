@@ -92,9 +92,9 @@ First step is to create a file called `nacl.json` and place this in the root fol
   "group": "admin",
   "permissions": [{
     "resource": "*",
-    "methods": "*"
-  }],
-  "action": "allow"
+    "methods": "*",
+    "action": "allow"
+  }]
   }, {
   "group": "user",
   "permissions": [{
@@ -121,7 +121,7 @@ Property | Type | Description
   **action** | `string` | This property tell express-acl what action to perform on the permission given. Using the above example, the user policy specifies a deny action, meaning all traffic on route `/api/users` for methods `GET, PUT, POST` are denied, but the rest allowed. And for the admin, all traffic for all resource is allowed.
 
 ## How to define effective ACL rules
-ACLs define the way requests will be handled by express acl, therefore its important to ensure that they are well designed to maximise efficiency. For more details follow this [link](https://github.com/andela-thomas/express-acl/wiki/How-to-write-effective-ACL-rules)
+ACLs define the way requests will be handled by express acl, therefore its important to ensure that they are well designed to maximize efficiency. For more details follow this [link](https://github.com/andela-thomas/express-acl/wiki/How-to-write-effective-ACL-rules)
 
 ## Authentication
 express-acl depends on the role of each authenticated user to pick the corresponding ACL policy for each defined user groups. Therefore, You should always place the acl middleware after the authenticate middleware. Example using jsonwebtoken middleware
@@ -162,7 +162,7 @@ This methods loads the configuration json file. When this method it looks for `n
 - **path**: Location of the ACL rule file
 - **yml**: when set to true means use yaml parser else JSON parser
 - **baseUrl**: The base url of your API e.g /developer/v1
-- **rules**: Allows you to set rules directly withour using config file.
+- **rules**: Allows you to set rules directly without using config file.
 - **defaultRole** : The default role to be assigned to users if they have no role defined.
 - **decodedObjectName**: The name of the object in the request where the role resides.
 - **searchPath**: The path in which to look for the role within the req object
@@ -199,13 +199,13 @@ This methods loads the configuration json file. When this method it looks for `n
   });
 
   // When you use rules api, nacl will **not** to find the json/yaml file, so you can save your acl-rules with any Database;
-  
-// The default role alllows you to specify which role users will assumne if they are not assigned any
+
+// The default role allows you to specify which role users will assume if they are not assigned any
   acl.config({
     defaultRole: 'anonymous'
   });
 
-  
+
 // By default this module will look for role in decoded object, if you would like to change the name of the object, you can specify this with decodedObjectName property.
 
 // As per the example below, this module will look for req.user.role as compared to default req.decoded.role.
@@ -251,7 +251,7 @@ app.get(acl.authorize);
 
 ```
 ## unless[type:function, params: function or object]
-By default any route that has no defined policy against it is blocked, this means you cannot access this route untill you specify a policy. This method enables you to exclude unprotected routes. This method uses express-unless package to achive this functionality. For more details on its usage follow this link [express-unless](https://github.com/jfromaniello/express-unless/blob/master/README.md)
+By default any route that has no defined policy against it is blocked, this means you cannot access this route until you specify a policy. This method enables you to exclude unprotected routes. This method uses express-unless package to achieve this functionality. For more details on its usage follow this link [express-unless](https://github.com/jfromaniello/express-unless/blob/master/README.md)
 
 ```js
 //assuming we want to hide /auth/google from express acl
@@ -260,7 +260,7 @@ app.use(acl.authorize.unless({path:['/auth/google']}));
 
 ```
 
-Anytime that this route is visited, unless method will exlude it from being passed though our middleware.
+Anytime that this route is visited, unless method will exclude it from being passed though our middleware.
 
 **N/B** You don't have to install `express-unless` it has already been included into the project.
 
