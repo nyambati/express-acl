@@ -1,8 +1,8 @@
 {
   "name": "express-acl",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "Access control list manager for Expressjs",
-  "main": "index.js",
+  "main": "./lib",
   "directories": {
     "test": "tests"
   },
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/andela-thomas/express-access-control-list/"
+    "url": "https://github.com/nyambati/express-acl/"
   },
   "keywords": [
     "express-acl",
@@ -25,22 +25,18 @@
   "dependencies": {
     "express-unless": "^0.3.0",
     "js-yaml": "^3.6.0",
-    "lodash": "^4.11.2",
     "object-path": "^0.11.4"
   },
   "devDependencies": {
-    "chai-spies": "^0.7.1",
     "chai": "^3.5.0",
     "codacy-coverage": "^1.1.3",
     "coveralls": "^2.11.9",
     "gulp": "^3.9.1",
+    "gulp-eslint": "^4.0.2",
     "gulp-istanbul": "^0.10.4",
-    "gulp-jshint": "^2.0.1",
-    "gulp-load-plugins": "^1.2.2",
+    "gulp-load-plugins": "^1.5.0",
     "gulp-mocha": "^2.2.0",
     "istanbul": "^0.4.3",
-    "jshint": "^2.9.2",
-    "jshint-stylish": "^2.2.0",
     "mocha": "^2.4.5",
     "node-mocks-http": "^1.5.2"
   }

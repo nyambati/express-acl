@@ -1,0 +1,19 @@
+[
+  {
+    "group": "user",
+    "permissions": [
+      {
+        "resource": "users/",
+        "methods": ["POST", "GET", "PUT"],
+        "action": "allow",
+        "subRoutes": [
+          {
+            "resource": "public",
+            "methods": "*",
+            "action": "allow"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -2,7 +2,7 @@
 const gulp = require('gulp');
 const plugins = require('gulp-load-plugins')();
 const paths = {
-  tests: ['tests/**/**.js'],
+  tests: ['tests/**/**.spec.js'],
   scripts: ['lib/**', 'tests/**', '!tests/config/**.yml']
 };
 
@@ -10,40 +10,41 @@ const paths = {
  * - Gulp task for linting all js scripts
  */
 
-gulp.task('lint', function() {
-  return gulp.src(paths.scripts)
-    .pipe(plugins.jshint())
-    .pipe(plugins.jshint.reporter('jshint-stylish', { verbose: true }));
+gulp.task('lint', () => {
+  return (
+    gulp
+      .src(paths.tests)
+      .pipe(plugins.eslint())
+      // eslint.format() outputs the lint results to the console.
+      // Alternatively use eslint.formatEach() (see Docs).
+      .pipe(plugins.eslint.format())
+      // To have the process exit with an error code (1) on
+      // lint error, return the stream and pipe to failAfterError last.
+      .pipe(plugins.eslint.failAfterError())
+  );
 });
 /**
  * Gulp task to run tests
  *
  */
 
-gulp.task('test', ['pre-test'], function() {
-  return gulp.src(paths.tests, { read: false })
-    // The reporter can be changed to preferable one
+gulp.task('test', ['pre-test'], () => {
+  return gulp
+    .src(paths.tests, { read: false })
     .pipe(plugins.mocha())
-    // Creating the reports after tests ran
     .pipe(plugins.istanbul.writeReports())
-    // Enforce a coverage of at least 90%
-    .pipe(plugins.istanbul.enforceThresholds({
-      thresholds: { global: 90 }
-    }));
+    .pipe(plugins.istanbul.enforceThresholds({ thresholds: { global: 90 } }));
 });
 
 /**
  * Watch for changes and lint in all ours scripts and lints
  */
-gulp.task('watch', function() {
-  gulp.watch(paths.scripts, ['lint']);
-});
+gulp.task('watch', () => gulp.watch(paths.scripts, ['lint']));
 
-gulp.task('pre-test', function() {
-  return gulp.src(['lib/**/*.js', 'index.js'])
-    // Covering files
+gulp.task('pre-test', () => {
+  return gulp
+    .src(['lib/**/*.js', 'index.js'])
     .pipe(plugins.istanbul())
-    // Force `require` to return covered files
     .pipe(plugins.istanbul.hookRequire());
 });
 

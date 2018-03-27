@@ -1,8 +1,12 @@
-[{
-  "group": "user",
-  "permissions": [{
-    "resource": "*",
-    "methods": "*",
-    "action": "deny"
-  }]
-}]
+[
+  {
+    "group": "user",
+    "permissions": [
+      {
+        "resource": "*",
+        "methods": "*",
+        "action": "deny"
+      }
+    ]
+  }
+]

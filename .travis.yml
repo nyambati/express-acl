@@ -2,8 +2,8 @@ language: node_js
 sudo: yes
 
 node_js:
-  - '4.5.0'
-  - 'stable'
+  - '6'
+  - '8'
 install:
   - npm install -g gulp
   - npm install

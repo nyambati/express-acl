@@ -39,7 +39,5 @@ describe('Testing for ubprotected routes', function() {
       assert.deepEqual(data, success);
       done();
     });
-
   });
-
 });
