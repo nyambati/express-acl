@@ -46,13 +46,12 @@ describe('Testing Methods', function() {
       req.session = {};
       req.decoded.role = 'user';
       acl.authorize(req, res, next);
-      data = res._getData();
+      data = JSON.parse(res._getData());
       assert(data, true);
       assert(typeof data, 'object');
       assert.deepEqual(data, response.restricted);
       done();
     });
-
 
     it('Should deny access to resource/api/mangoes/42', function(done) {
       req = httpMocks.createRequest({
@@ -63,7 +62,7 @@ describe('Testing Methods', function() {
       req.session = {};
       req.session.role = 'user';
       acl.authorize(req, res, next);
-      data = res._getData();
+      data = JSON.parse(res._getData());
       assert(data, true);
       assert(typeof data, 'object');
       assert.deepEqual(data, response.restricted);
@@ -80,7 +79,7 @@ describe('Testing Methods', function() {
       req.session = {};
       req.decoded.role = 'user';
       acl.authorize(req, res, next);
-      data = res._getData();
+      data = JSON.parse(res._getData());
       assert(data, true);
       assert.deepEqual(data, response.restricted);
       done();
@@ -94,6 +93,9 @@ describe('Testing Methods', function() {
         filename: 'methods-glob-allow.json',
         path: './tests/config'
       });
+      next = function() {
+        res.send(response.success);
+      };
       done();
     });
 
@@ -108,12 +110,10 @@ describe('Testing Methods', function() {
       req.decoded.role = 'user';
       acl.authorize(req, res, next);
       data = res._getData();
-
       assert(data, true);
       assert.deepEqual(data, response.success);
       done();
     });
-
 
     it('Should allow traffic to resources /api/mangoes/42', function(done) {
       req = httpMocks.createRequest({
@@ -146,5 +146,4 @@ describe('Testing Methods', function() {
       done();
     });
   });
-
 });

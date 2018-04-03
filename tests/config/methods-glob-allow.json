@@ -1,8 +1,12 @@
-[{
-  "group": "user",
-  "permissions": [{
-    "resource": "mangoes",
-    "methods": "*",
-    "action": "allow"
-  }]
-}]
+[
+  {
+    "group": "user",
+    "permissions": [
+      {
+        "resource": "mangoes/*",
+        "methods": "*",
+        "action": "allow"
+      }
+    ]
+  }
+]

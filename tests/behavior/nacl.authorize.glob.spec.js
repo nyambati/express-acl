@@ -47,13 +47,12 @@ describe('Acl middleware for express', function() {
         req.session = {};
         req.decoded.role = 'user';
         acl.authorize(req, res, next);
-        data = res._getData();
+        data = JSON.parse(res._getData());
         assert(data, true);
         assert(typeof data, 'object');
         assert.deepEqual(data, response.restricted);
         done();
       });
-
 
       it('Should deny access to resource /api/user/42', function(done) {
         req = httpMocks.createRequest({
@@ -65,12 +64,11 @@ describe('Acl middleware for express', function() {
         req.session = {};
         req.decoded.role = 'user';
         acl.authorize(req, res, next);
-        data = res._getData();
+        data = JSON.parse(res._getData());
         assert(data, true);
         assert(typeof data, 'object');
         assert.deepEqual(data, response.restricted);
         done();
-
       });
 
       it('Should deny access to resource on /api/user/42', function(done) {
@@ -83,7 +81,7 @@ describe('Acl middleware for express', function() {
         req.session = {};
         req.decoded.role = 'user';
         acl.authorize(req, res, next);
-        data = res._getData();
+        data = JSON.parse(res._getData());
         assert(data, true);
         assert(typeof data, 'object');
         assert.deepEqual(data, response.restricted);
@@ -116,7 +114,6 @@ describe('Acl middleware for express', function() {
         assert.deepEqual(data, response.success);
         done();
       });
-
 
       it('Should deny access to resource /api/user/42', function(done) {
         req = httpMocks.createRequest({
