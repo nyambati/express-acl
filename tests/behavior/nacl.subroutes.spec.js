@@ -43,6 +43,7 @@ describe('Test Sub Routes configurration', () => {
 
       done();
     });
+
     it('Should allow traffic for api/users/public', done => {
       const req = http.createRequest({
         method: 'GET',
@@ -52,6 +53,19 @@ describe('Test Sub Routes configurration', () => {
       req.decoded = {
         role: 'user'
       };
+
+      const data = acl.authorize(req, res, next);
+      assert.deepEqual(data, next());
+      done();
+    });
+
+    it('Should allow traffic for api/users/public when query string is added', done => {
+      const req = http.createRequest({
+        method: 'GET',
+        url: '/api/users/public?string=true'
+      });
+
+      req.decoded = { role: 'user' };
 
       const data = acl.authorize(req, res, next);
       assert.deepEqual(data, next());
