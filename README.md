@@ -170,7 +170,7 @@ This methods loads the configuration json file. When this method it looks for `n
 * **rules**: Allows you to set rules directly without using config file.
 * **defaultRole** : The default role to be assigned to users if they have no role defined.
 * **decodedObjectName**: The name of the object in the request where the role resides.
-* **searchPath**: The path in which to look for the role within the req object
+* **roleSearchPath**: The path in which to look for the role within the req object
 
 ```js
 const acl = require('express-acl');
@@ -222,7 +222,7 @@ acl.config({
 // You can also specify a deep path in which to look for the role, in case it's not inside the usual locations
 
 acl.config({
-  searchPath: 'user.Role.name' //will search for role in req.user.Role.name
+  roleSearchPath: 'user.Role.name' //will search for role in req.user.Role.name
 });
 ```
 
