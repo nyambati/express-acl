@@ -7,32 +7,33 @@ The first step to making acl rules is by creating nacl.json or nacl.yml dependin
 JSON syntax
 
 ```json
-
-[{
-  "group": "admin",
-  "permissions": [{
-    "resource": "*",
-    "methods": "*"
-  }],
-  "action": "allow"
-  }, {
-  "group": "user",
-  "permissions": [{
-    "resource": "users",
-    "methods": [
-      "POST",
-      "GET",
-      "PUT"
+[
+  {
+    "group": "admin",
+    "permissions": [
+      {
+        "resource": "*",
+        "methods": "*"
+      }
     ],
-    "action": "deny"
-  }]
-}]
+    "action": "allow"
+  },
+  {
+    "group": "user",
+    "permissions": [
+      {
+        "resource": "users",
+        "methods": ["POST", "GET", "PUT"],
+        "action": "deny"
+      }
+    ]
+  }
+]
 ```
 
 YAML syntax
 
 ```yml
-
 - group: admin
   permissions:
     - resource: *
@@ -53,13 +54,14 @@ YAML syntax
 
 Its important to Understand each property that constitute an acl. Below is a table that has a Description of each property.
 
-Property | Type | Description
-    --- | --- | ---
-    **group** | `string` | This property defines the access group to which a user can belong to  e.g `user`, `guest`, `admin`, `trainer`. This may vary depending with the architecture of your application.
-    **permissions** | `Array` | This property contains an array of objects that define the resources exposed to a group and the methods allowed/denied
-    **resource** | `string` | This is the resource that we are either giving access to. e.g `blogs` for route `/api/blogs`, `users` for route `/api/users`. You can also specify a glob `*` for all resource/routes in your application(recommended for admin users only)
-    **methods** | `string or Array` | This are http methods that a user is allowed or denied from executing. `["POST", "GET", "PUT"]`. use glob `*` if you want to include all http methods.
-    **action** | `string` | This property tell express-acl what action to perform on the permission given. Using the above example, the user policy specifies a deny action, meaning all traffic on route `/api/users` for methods `GET, PUT, POST` are denied, but the rest allowed. And for the admin, all traffic for all resource is allowed.
+| Property        | Type              | Description                                                                                                                                                                                                                                                                                                           |
+| --------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **group**       | `string`          | This property defines the access group to which a user can belong to e.g `user`, `guest`, `admin`, `trainer`. This may vary depending with the architecture of your application.                                                                                                                                      |
+| **permissions** | `Array`           | This property contains an array of objects that define the resources exposed to a group and the methods allowed/denied                                                                                                                                                                                                |
+| **resource**    | `string`          | This is the route the permissions will be applied against. This property can be either `*` which applies to all routes, `api/users` which will apply permisstion to routes api/users or `api/users/*` which applies permission to all routes that prefix `api/users`                                                  |
+| **methods**     | `string or Array` | This are http methods that a user is allowed or denied from executing. `["POST", "GET", "PUT"]`. use glob `*` if you want to include all http methods.                                                                                                                                                                |
+| **action**      | `string`          | This property tell express-acl what action to perform on the permission given. Using the above example, the user policy specifies a deny action, meaning all traffic on route `/api/users` for methods `GET, PUT, POST` are denied, but the rest allowed. And for the admin, all traffic for all resource is allowed. |
+| **subRoutes**   | `Array`           | This are permissions that should be used on subroutes of a specified prefix. It is helpfull when certain routes under a prefix requires different access definitions.                                                                                                                                                 |
 
 ## How to write effective ACL Rules
 
@@ -70,7 +72,6 @@ Assuming you have a blog application, and you want to make blogs read only, deny
 **solution:**
 
 ```yaml
-
 admin:
   resource: all
   methods: all
@@ -86,7 +87,6 @@ user:
   methods:
     - GET
   action: allow
-
 ```
 
 **Explanation**
@@ -102,31 +102,31 @@ For you to formulate good ACL rules, you need to understand the principle of neg
 Now that we have established that lets write our config file. Our nacl.json will look like this.
 
 ```json
-
-[{
-   "group": "admin",
-   "permissions": [{
-     "resource": "*",
-     "methods": "*",
-     "action": "allow"
-   }]
- },
- {
-   "group": "user",
-   "permissions": [
-   {
-     "resource": "users",
-     "methods": [
-       "DELETE",
-     ],
-    "action":"deny"
-   },
-   {
-     "resource": "users",
-     "methods": [
-       "GET",
-     ],
-    "action": "allow"
-   }]
- }]
+[
+  {
+    "group": "admin",
+    "permissions": [
+      {
+        "resource": "*",
+        "methods": "*",
+        "action": "allow"
+      }
+    ]
+  },
+  {
+    "group": "user",
+    "permissions": [
+      {
+        "resource": "users",
+        "methods": ["DELETE"],
+        "action": "deny"
+      },
+      {
+        "resource": "users",
+        "methods": ["GET"],
+        "action": "allow"
+      }
+    ]
+  }
+]
 ```

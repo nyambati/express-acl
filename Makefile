@@ -8,9 +8,10 @@ test:
 
 # serve mkdocs during development
 mk_docs:
-	pip install mkdocs >/dev/null 2>&1
+	pip install mkdocs
+	pip install mkdocs-material
 
-serve: mk_docs
+serve:
 	mkdocs serve
 
 # Deploy documentatin to github

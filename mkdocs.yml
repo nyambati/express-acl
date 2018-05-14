@@ -1,7 +1,7 @@
 site_name: Express Acl
 repo_url: https://github.com/andela-thomas/express-acl
 site_description: This is documentation for express-acl project
-site_favicon: favicon.ico
+# site_favicon: favicon.ico
 strict: true
 # css  and javascript
 
