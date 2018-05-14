@@ -16,7 +16,7 @@ ACL is a set of rules that tell `express-acl` how to handle the requests made to
 
 ### Important
 
-Resources property has been changed from using string to routes, this change was made to support subrouting functionality, this means if your resource was `users` which gave access to all routes starting with users, it should be changed to `users/*`. The isterisk informs the package to match all the routes that starts with `users`. Resources also can include params i.e `/users/:id` this will match routes such as `users/45`, `users/12`, where 12 and 45 are considered `:id` section on the resource. More details can be found on the wiki
+Resources property has been changed from using string to routes, this change was made to support subrouting functionality, this means if your resource was `users` which gave access to all routes starting with users, it should be changed to `users/*`. The asterisk informs the package to match all the routes that starts with `users`. Resources also can include params i.e `/users/:id` this will match routes such as `users/45`, `users/12`, where 12 and 45 are considered `:id` section on the resource. More details can be found on the wiki
 
 **Example**
 
@@ -170,7 +170,7 @@ This methods loads the configuration json file. When this method it looks for `n
 * **rules**: Allows you to set rules directly without using config file.
 * **defaultRole** : The default role to be assigned to users if they have no role defined.
 * **decodedObjectName**: The name of the object in the request where the role resides.
-* **searchPath**: The path in which to look for the role within the req object
+* **roleSearchPath**: The path in which to look for the role within the req object
 
 ```js
 const acl = require('express-acl');
@@ -222,7 +222,7 @@ acl.config({
 // You can also specify a deep path in which to look for the role, in case it's not inside the usual locations
 
 acl.config({
-  searchPath: 'user.Role.name' //will search for role in req.user.Role.name
+  roleSearchPath: 'user.Role.name' //will search for role in req.user.Role.name
 });
 ```
 
