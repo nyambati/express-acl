@@ -16,7 +16,7 @@ ACL is a set of rules that tell `express-acl` how to handle the requests made to
 
 ### Important
 
-Resources property has been changed from using string to routes, this change was made to support subrouting functionality, this means if your resource was `users` which gave access to all routes starting with users, it should be changed to `users/*`. The isterisk informs the package to match all the routes that starts with `users`. Resources also can include params i.e `/users/:id` this will match routes such as `users/45`, `users/12`, where 12 and 45 are considered `:id` section on the resource. More details can be found on the wiki
+Resources property has been changed from using string to routes, this change was made to support subrouting functionality, this means if your resource was `users` which gave access to all routes starting with users, it should be changed to `users/*`. The asterisk informs the package to match all the routes that starts with `users`. Resources also can include params i.e `/users/:id` this will match routes such as `users/45`, `users/12`, where 12 and 45 are considered `:id` section on the resource. More details can be found on the wiki
 
 **Example**
 
