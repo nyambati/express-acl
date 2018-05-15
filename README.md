@@ -165,7 +165,6 @@ This methods loads the configuration json file. When this method it looks for `n
 
 * **filename**: Name of the ACL rule file e.g nacl.json
 * **path**: Location of the ACL rule file
-* **yml**: when set to true means use yaml parser else JSON parser
 * **baseUrl**: The base url of your API e.g /developer/v1
 * **rules**: Allows you to set rules directly without using config file.
 * **defaultRole** : The default role to be assigned to users if they have no role defined.
