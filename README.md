@@ -245,6 +245,26 @@ let responseObject = {
 acl.config(configObject, responseObject);
 ```
 
+Alternatively, you can pass a callback function in the config object. It will be called when a user is denied access to a resource. In this case, the responseObject will be ignored:
+
+```js
+const acl = require('express-acl');
+
+let configObject = {
+  filename: 'acl.json',
+  path: 'config',
+  denyCallback: (res) => {
+    return res.status(403).json({
+      status: 'Access Denied',
+      success: false,
+      message: 'You are not authorized to access this resource'
+    });
+  }
+};
+
+acl.config(configObject);
+```
+
 ## authorize [type: middleware]
 
 This is the middleware that manages your application requests based on the role and acl rules.
