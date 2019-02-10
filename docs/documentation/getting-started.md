@@ -41,11 +41,11 @@ The config method loads the rules for the local file. By default this module wil
           action: deny
 ```
 
-This file instructs this module on how to manage access to your resources. The contents of this file will be covered in details in the [Acl rules](/documentation/acl-rules) section
+This file instructs this module on how to manage access to your resources. The contents of this file will be covered in details in the [Acl rules](/documentation/rules) section
 
 ## Authentication
 
-Express Acl depends on the `role` of each authenticated user to pick the corresponding ACL policy for each defined user groups. Therefore, You should always place the acl middleware after the authenticate middleware.
+Express Acl depends on the `role` of each authenticated user to pick the corresponding ACL policy for each defined user groups. It assumes there is, by default, a `decoded` property available on `req`, containing an object with a the users `role`. Therefore, You should always place the acl middleware after the authenticate middleware.
 
 Below is an example of an Authentication middleware implementation using jsonwebtokens.
 
@@ -57,6 +57,8 @@ ROUTER.use(function(req, res, next) {
       if (err) {
         return res.send(err);
       } else {
+        // decoded is your jwtPaylod which should contain a property role
+        // of type string: => e.g { ..., role: 'guest' } 
         req.decoded = decoded;
         next();
       }
@@ -64,6 +66,8 @@ ROUTER.use(function(req, res, next) {
   }
 });
 ```
+
+> You can change the default locations Express ACL looks for the `role` property using the [configuration options `decodedObjectName` or `roleSearchPath`](/documentation/configuration/#search-path-and-decoded-object-name) 
 
 ## Authorize
 
