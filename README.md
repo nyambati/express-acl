@@ -335,6 +335,11 @@ app.use(acl.authorize);
 
 For more details checkout the [examples folder](https://github.com/andela-thomas/express-acl/tree/master/examples).
 
+# Partners
+
+### [📊SLAO: Node.js + Express monitoring](http://bit.ly/2UGHL31)
+Spot the key metrics of your REST API at one glance with a single simple dashboard, set up alerts in 2 clicks and get notified of every problem immediately
+
 # Contributions
 
 Pull requests are welcome. If you are adding a new feature or fixing an as-yet-untested use case, please consider writing unit tests to cover your change(s). For more information visit the contributions [page](https://github.com/andela-thomas/express-acl/wiki/contributions)
