@@ -226,9 +226,9 @@ acl.config({
 });
 
 // By default, this module will ignore the root route. 
-// If you want to change it to check the root route as well, set 'ignoreOriginalUrl' to false
+// If you want to change it to check the root route as well, set 'ignoreRootRoute' to false
 acl.config({
-  ignoreOriginalUrl: true // By default, this module will ignore the root route. 
+  ignoreRootRoute: true // By default, this module will ignore the root route. 
 })
 
 ```
