@@ -224,6 +224,13 @@ acl.config({
 acl.config({
   roleSearchPath: 'user.Role.name' //will search for role in req.user.Role.name
 });
+
+// By default, this module will ignore the root route. 
+// If you want to change it to check the root route as well, set 'ignoreOriginalUrl' to false
+acl.config({
+  ignoreOriginalUrl: true // By default, this module will ignore the root route. 
+})
+
 ```
 
 ## Response
