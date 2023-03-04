@@ -6,3 +6,4 @@ site
 .DS_Store
 env
 yarn-*
+.nyc_output/
