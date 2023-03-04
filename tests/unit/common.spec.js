@@ -128,7 +128,7 @@ describe('Unit test for ACL functionality', () => {
       assert(Array.isArray(config), true);
       assert.deepEqual(config, expectedFile);
       // Read yaml file
-      const expectedConfig = yaml.safeLoad(
+      const expectedConfig = yaml.load(
         fs.readFileSync('tests/config/nacl.yml')
       );
       const yamlConfig = readConfigFile('tests/config/nacl.yml');
