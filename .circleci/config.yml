@@ -1,0 +1,10 @@
+version: 2
+jobs:
+  build:
+    docker:
+      — image: circleci/node:19.4
+    working_directory: ~/express-acl
+    steps:
+      — checkout
+      - run: npm install
+      — run: npm test
