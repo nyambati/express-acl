@@ -1,18 +1,10 @@
-version: 2.1
-workflows:
-  version: 2
-  build:
-    jobs:
-      - build
-
+version: 2
 jobs:
   build:
+    docker:
+      — image: circleci/node:19.4
     working_directory: ~/express-acl
-    executor: node/default
     steps:
-      - checkout
-      - node/install-packages:
-          pkg-manager: npm
-      - run:
-          name: npm run tests
-          command: npm tests
+      — checkout
+      - run: npm install
+      — run: npm test
